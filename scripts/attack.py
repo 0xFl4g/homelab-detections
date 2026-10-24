@@ -57,6 +57,8 @@ def validate(amap, idx):
                 s = idx["techs"].get(sub)
                 if not s or s["dead"] or not sub.startswith(f"{te}."):
                     errs.append(f"{rid}: bad subtechnique {sub} for {te}")
+                elif ta not in s["tactics"]:
+                    errs.append(f"{rid}: {sub} is not under {ta}")
     return errs
 
 

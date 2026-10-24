@@ -1870,10 +1870,10 @@
     "pipeline": "logs-pfsense.log@custom",
     "count": 5,
     "doc": {
-      "message": "[1:1] info: __IP__ 856B5F64-2CC8-4BC5-BC2E-3E7429A43233-netseer-ipaddr-assoc.xz.fbcdn.net. A IN",
+      "message": "[1:1] info: __IP__ 00000000-0000-4000-8000-000000000000-netseer-ipaddr-assoc.xz.fbcdn.net. A IN",
       "dns": {
         "question": {
-          "name": "856B5F64-2CC8-4BC5-BC2E-3E7429A43233-netseer-ipaddr-assoc.xz.fbcdn.net",
+          "name": "00000000-0000-4000-8000-000000000000-netseer-ipaddr-assoc.xz.fbcdn.net",
           "type": "A"
         }
       },
@@ -1890,10 +1890,10 @@
     "pipeline": "logs-pfsense.log@custom",
     "count": 5,
     "doc": {
-      "message": "[1:1] info: __IP__ b79c66077e27a1c100292a6aa5da291cfa7da7ef982a7d0d2708be38d76b31f.us-east-1.prod.service.minerva.devices.a2z.com. A IN",
+      "message": "[1:1] info: __IP__ 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcde.us-east-1.prod.service.minerva.devices.a2z.com. A IN",
       "dns": {
         "question": {
-          "name": "b79c66077e27a1c100292a6aa5da291cfa7da7ef982a7d0d2708be38d76b31f.us-east-1.prod.service.minerva.devices.a2z.com",
+          "name": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcde.us-east-1.prod.service.minerva.devices.a2z.com",
           "type": "A"
         }
       },

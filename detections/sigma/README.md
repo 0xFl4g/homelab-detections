@@ -1,68 +1,58 @@
 # Sigma detection library — sol.example.com
 
-Portable detection rules in [Sigma 2.x](https://github.com/SigmaHQ/sigma) format.
-These mirror the **flat-match subset** of the homelab's Wazuh ruleset
-(`/var/ossec/etc/rules/local_rules.xml`) — single-event, single-field signature
-detections that round-trip cleanly between Sigma and any backend (Wazuh, Splunk,
-Elastic, Loki, OpenSearch, QRadar, Sentinel).
+Portable detection rules in [Sigma 2.x](https://github.com/SigmaHQ/sigma) format. The production engine is
+Elastic Security (rules-as-code on Unraid, `elastic/rules/` in the public export). Sigma is the portable form:
+written once and convertible to whatever SIEM is in front of me.
 
-## Why dual-format
+## Two kinds of rule here
 
-Wazuh is the runtime engine for production. Sigma is the portable form, written
-once and convertible to any SIEM the next employer happens to use. **Roughly 30
-of the homelab's 80 custom rules** are flat-match and round-trip cleanly. The
-other 50 use Wazuh-specific features (`<if_sid>` chains, `<frequency>` aggregations,
-`<prematch>` decoder gating) that Sigma can't express — those stay native and
-aren't represented here.
+- **`rules/lab/`: the source.** Written from the detection lab and converted to Elastic with
+  `./convert-elastic.sh` (below). What runs in Elastic is generated from these files.
+- **`rules/*.yml`: portable copies.** Hand-written in 2026-05, when Wazuh was the SIEM, for the flat-match
+  subset of the custom ruleset: single-event, single-field signatures that round-trip cleanly between
+  backends. Rules that need sequences, thresholds or correlation stay native and aren't represented. Wazuh
+  was replaced by Elastic on 2026-09-29; where the detection was ported, the Elastic rule is listed below.
 
-This is the **honest** approach: don't pretend the lossy auto-converter works,
-do hand-write the portable subset, document the tradeoff.
+Not pretending a lossy auto-converter works: hand-write the portable subset and document the tradeoff.
 
 ## Layout
 
-- `rules/` — one Sigma rule per file, named by ATT&CK technique
-- `lint.sh` — runs `sigma check` against every rule
-- `convert-opensearch.sh` — converts to OpenSearch Lucene queries (works against
-  the `wazuh-alerts-*` indices via Grafana datasource or Wazuh dashboard)
-- `convert-loki.sh` — converts to Loki LogQL (works against the existing Loki)
+- `rules/` — one Sigma rule per file; `rules/lab/` converts to Elastic
+- `pipelines/ecs_linux.yml` — field mapping for Linux lab rules
+- `lint.sh` — `sigma check` plus `sigma analyze` over `rules/`
+- `convert-elastic.sh`, `test-convert-elastic.sh` — Sigma → Elastic rule JSON and its self-test
+- `convert-opensearch.sh`, `convert-loki.sh` — legacy converters from the Wazuh/Loki era (both backends are
+  retired; kept as portability examples)
 
 ## Running locally
 
 ```sh
-uv tool install --with pysigma-backend-opensearch --with pysigma-backend-loki sigma-cli
-./lint.sh
-./convert-opensearch.sh > opensearch-queries.txt
+uv tool install sigma-cli --with pysigma-backend-elasticsearch
+sigma check --fail-on-issues rules/
+./test-convert-elastic.sh
 ```
 
-## Coverage map
+## Coverage map (portable copies)
 
-| Sigma rule | Mirrors Wazuh rule | MITRE |
-|---|---|---|
-| `crowdsec_ti_hit_srcip.yml` | 100040 / 100250 | T1071 |
-| `abusech_ti_hit_srcip.yml` | 100045 / 100251 | T1071 |
-| `netflow_outbound_c2.yml` | 100048 / 100056 | T1071 |
-| `cryptomining_beacon_port.yml` | 100049 | T1496 |
-| `suricata_active_exploit.yml` | 100001 | T1190 |
-| `dns_oversized_txt.yml` | 100306 | T1071.004, T1572 |
-| `dns_dga_servfail_burst.yml` | 100305 | T1568.002 |
-| `dns_anonymity_tld.yml` | 100307 | T1090.003 |
-| `web_brute_force_lan_external.yml` | 100126 | T1110 |
-| `opencanary_lan_probe.yml` | 100702 | T1046 |
-| `yara_malware_match.yml` | 100801 | T1059, T1204.002 |
-| `zeek_self_signed_cert.yml` | 100604 | T1573.002 |
-
-## Status
-
-This is a **parallel export**, not the runtime ruleset. Updates should be
-synchronised manually when adding new flat-match detections to `local_rules.xml`.
-The test loop is: write Wazuh rule → if flat-match, mirror to Sigma → run
-`./lint.sh` to validate → optionally `./convert-opensearch.sh` to confirm the
-generated query matches what Wazuh would alert on.
+| Sigma rule | Original Wazuh rule | Elastic rule today | MITRE |
+|---|---|---|---|
+| `crowdsec_ti_hit_srcip.yml` | 100040 / 100250 | `homelab-100250` | T1071 |
+| `abusech_ti_hit_srcip.yml` | 100045 / 100251 | `homelab-100251` | T1071 |
+| `netflow_outbound_c2.yml` | 100048 / 100056 | `homelab-100048` | T1071 |
+| `cryptomining_beacon_port.yml` | 100049 | `homelab-100049` | T1496 |
+| `suricata_active_exploit.yml` | 100001 | `homelab-100001` | T1190 |
+| `dns_oversized_txt.yml` | 100306 | `homelab-100306` | T1071.004, T1572 |
+| `dns_dga_servfail_burst.yml` | 100305 | `homelab-100305` | T1568.002 |
+| `dns_anonymity_tld.yml` | 100307 | `homelab-100307` | T1090.003 |
+| `web_brute_force_lan_external.yml` | 100126 | `homelab-100126` | T1110 |
+| `opencanary_lan_probe.yml` | 100702 | `homelab-100702` | T1046 |
+| `yara_malware_match.yml` | 100801 | `homelab-100801` | T1059, T1204.002 |
+| `zeek_self_signed_cert.yml` | 100604 | — (Zeek removed 2026-10-01) | T1573.002 |
 
 ## Lab rules → Elastic (2026-10-16)
 
 `rules/lab/` holds detections written from the detection lab (spec
-`docs/superpowers/specs/2026-10-16-detection-lab-design.md`). Unlike the parallel
+`a private design doc`). Unlike the parallel
 export above, these ARE the source: `./convert-elastic.sh` emits Elastic rule JSON
 (`rule_id homelab-lab-<file stem>`, tags `homelab`+`lab`, index `logs-*-lab`, any
 `autoblock`/`notify` tag stripped) and the result is pushed with

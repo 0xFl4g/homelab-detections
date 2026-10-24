@@ -76,6 +76,5 @@ Maps to MITRE ATT&CK: T1110.001 (Password Guessing), T1110.003 (Password Sprayin
 ## References
 
 - Sigma: `sigma/authentik-bruteforce.yml`
-- Memory: domain-and-tls — Authentik 4-tier forward-auth architecture
 - OPNsense: CrowdSec is the primary firewall-side bouncer; Wazuh active-response is a secondary layer
 - MITRE: [T1110.001](https://attack.mitre.org/techniques/T1110/001/), [T1110.003](https://attack.mitre.org/techniques/T1110/003/)

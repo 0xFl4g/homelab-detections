@@ -4,13 +4,15 @@ on:
   pull_request:
 permissions:
   contents: read
+env:
+  ATTACK_VERSION: "20.0"  # bump with detections/attack-map.json; attack-freshness.yml flags newer releases
 
 jobs:
   sigma:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v7.0.1
-      - uses: astral-sh/setup-uv@v10.3.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      - uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e  # v10.3.2
       - name: Install sigma-cli
         run: |
           uv tool install sigma-cli==3.1.0 --with pysigma==1.5.1 --with pysigma-backend-elasticsearch==2.1.1
@@ -23,19 +25,25 @@ jobs:
   rules:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v7.0.1
-      - name: Fetch the current MITRE ATT&CK release
-        run: curl -sfL -o /tmp/enterprise-attack.json https://raw.githubusercontent.com/mitre-attack/attack-stix-data/master/enterprise-attack/enterprise-attack.json
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      - name: Fetch the pinned MITRE ATT&CK release
+        run: curl -sfL -o /tmp/enterprise-attack.json "https://raw.githubusercontent.com/mitre-attack/attack-stix-data/master/enterprise-attack/enterprise-attack-${ATTACK_VERSION}.json"
       - name: Check Elastic rules and ATT&CK map
         run: python3 scripts/check-rules.py . /tmp/enterprise-attack.json
 
   hygiene:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v7.0.1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
       - name: Leak scan (public IPs, tailnet IPs, emails)
         run: bash scripts/scrub-check.sh .
       - name: gitleaks
+        env:
+          GITLEAKS_VERSION: "8.30.1"
+          GITLEAKS_SHA256: "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb"
         run: |
-          curl -sfL https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_linux_x64.tar.gz | tar xz gitleaks
-          ./gitleaks dir . --no-banner --redact --exit-code 1
+          tgz="gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          curl -sfL -o "$RUNNER_TEMP/$tgz" "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/$tgz"
+          echo "$GITLEAKS_SHA256  $RUNNER_TEMP/$tgz" | sha256sum -c -
+          tar xzf "$RUNNER_TEMP/$tgz" -C "$RUNNER_TEMP" gitleaks
+          "$RUNNER_TEMP/gitleaks" dir . --no-banner --redact --exit-code 1

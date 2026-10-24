@@ -5,8 +5,6 @@ description: |
   Multiple Authentik login failures for the same source IP within 5 minutes.
   Captures both classic password spray and targeted brute force across the
   4-tier forward-auth + native OIDC services.
-references:
-  - wiki/concepts/domain-and-tls.md (Authentik 4-tier setup)
 author: 0xFl4g
 date: 2026-05-13
 tags:

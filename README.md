@@ -34,7 +34,7 @@ alert on that network every day, and a canary proves each one still fires.
 - Issues are welcome. Pull requests can't be merged directly because the tree is regenerated on each export.
 - Licence: scripts MIT (`LICENSE`), rule content DRL 1.1 (`LICENSE-DRL`).
 
-**86 Elastic rules · 24 Sigma rules · 119 canary checks covering 86 rules · 3 runbooks · MITRE ATT&CK v20.0**
+**86 Elastic rules · 25 Sigma rules · 119 canary checks covering 86 rules · 3 runbooks · MITRE ATT&CK v20.0**
 
 ## ATT&CK coverage
 
@@ -50,7 +50,7 @@ alert on that network every day, and a canary proves each one still fires.
 | Execution | T1610 Deploy Container | [100004](elastic/rules/homelab-100004.json) | — |
 | Persistence | T1053.003 Cron | [100101](elastic/rules/homelab-100101.json) | — |
 | Persistence | T1098 Account Manipulation | [100020](elastic/rules/homelab-100020.json), [100085](elastic/rules/homelab-100085.json), [pikvm-credentials](elastic/rules/homelab-pikvm-credentials.json) | — |
-| Persistence | T1098.004 SSH Authorized Keys | [100023](elastic/rules/homelab-100023.json), [100043-rev](elastic/rules/homelab-100043-rev.json), [100043](elastic/rules/homelab-100043.json), [lab-t1098-004-authkeys](elastic/rules/homelab-lab-t1098-004-authkeys.json) | — |
+| Persistence | T1098.004 SSH Authorized Keys | [100023](elastic/rules/homelab-100023.json), [100043-rev](elastic/rules/homelab-100043-rev.json), [100043](elastic/rules/homelab-100043.json), [lab-t1098-004-authkeys](elastic/rules/homelab-lab-t1098-004-authkeys.json) | [t1098_004_ssh_authorized_keys](detections/sigma/portability/t1098_004_ssh_authorized_keys.yml) |
 | Persistence | T1136.001 Local Account | [100020](elastic/rules/homelab-100020.json), [100042-rev](elastic/rules/homelab-100042-rev.json), [100042](elastic/rules/homelab-100042.json) | — |
 | Persistence | T1543.002 Systemd Service | [100022](elastic/rules/homelab-100022.json), [100043-rev](elastic/rules/homelab-100043-rev.json), [100043](elastic/rules/homelab-100043.json) | — |
 | Persistence | T1543.005 Container Service | [100025](elastic/rules/homelab-100025.json) | — |

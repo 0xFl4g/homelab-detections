@@ -90,10 +90,5 @@ Linux kernel OOM-killer killed a process. Wazuh rule 5108 fires on the kernel lo
 - [ ] All leaky containers have appropriate `mem_limit`
 - [ ] Critical service that was killed is back up and verified healthy
 - [ ] unraid-compose-stacks updated if new mem_limit constraints added
-- [ ] If a recurring leak pattern, add to feedback_mem_limit_sizing
+- [ ] If a recurring leak pattern, add to an internal note
 
-## References
-
-- feedback_mem_limit_sizing — heavy-service mem_limit sizing 1.5-3x RSS
-- feedback_docker_restart_unhealthy — restart=unless-stopped fires on exit, not on unhealthy
-- Memory: hathor-headless-shell + hathor-microsoft-edge mem_limits added 2026-05-13

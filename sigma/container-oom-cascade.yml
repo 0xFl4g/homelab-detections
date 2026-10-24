@@ -8,8 +8,6 @@ description: |
   Pattern observed 2026-05-11: hathor-headless-shell + hathor-microsoft-edge
   (both unlimited) consumed memory; Prometheus (containerized) was OOM-killed
   at 11.7 GB RSS as the victim.
-references:
-  - feedback_docker_orphan_container.md (related: container memory accounting)
 author: 0xFl4g
 date: 2026-05-13
 tags:

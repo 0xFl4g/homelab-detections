@@ -80,8 +80,3 @@ tags: [concept, runbook]
 - [ ] If new pattern of false-positive (e.g., a new automated process editing config), suppress in Wazuh rule
 - [ ] If real incident, file follow-up tickets for cause investigation + secret rotation
 
-## References
-
-- opnsense — OPNsense base config, plugin list
-- feedback_opnsense_scp_config_hooks — direct scp to /conf/config.xml skips snapshot hooks; should never see manual scp changes
-- feedback_opnsense_auth_sync — config user edits need `configctl auth sync user`

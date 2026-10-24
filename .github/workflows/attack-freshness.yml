@@ -1,0 +1,23 @@
+name: attack-freshness
+on:
+  schedule:
+    - cron: "17 6 * * 1"  # Mondays
+  workflow_dispatch:
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      - name: Compare the pinned ATT&CK release with MITRE's latest
+        run: |
+          pinned=$(sed -nE 's/^  ATTACK_VERSION: "([0-9.]+)".*/\1/p' .github/workflows/ci.yml)
+          latest=$(curl -sfL https://raw.githubusercontent.com/mitre-attack/attack-stix-data/master/index.json \
+            | jq -r '.collections[] | select(.name == "Enterprise ATT&CK") | [.versions[].version | split(".") | map(tonumber)] | max | map(tostring) | join(".")')
+          echo "pinned=$pinned latest=$latest"
+          if [ "$pinned" != "$latest" ]; then
+            echo "::error::MITRE ATT&CK $latest is out (pinned $pinned): re-validate detections/attack-map.json and bump ATTACK_VERSION"
+            exit 1
+          fi
