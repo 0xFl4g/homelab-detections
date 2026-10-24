@@ -36,6 +36,12 @@ alert on that network every day, and a canary proves each one still fires.
 
 **86 Elastic rules · 25 Sigma rules · 119 canary checks covering 86 rules · 3 runbooks · MITRE ATT&CK v20.0**
 
+## Incident write-ups
+
+Blameless postmortems of real incidents in this lab.
+
+- [My SIEM was storing its own passwords: credentials in Docker exec command lines](writeups/2026-09-28-docker-exec-credential-leak.md) (2026-09-28)
+
 ## ATT&CK coverage
 
 | Tactic | Technique | Elastic rules | Sigma rules |
