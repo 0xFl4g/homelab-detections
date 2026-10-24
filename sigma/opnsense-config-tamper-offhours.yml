@@ -1,0 +1,32 @@
+title: OPNsense config.xml modified outside admin hours
+id: 8d4f2c1e-3b5a-4f7e-9c8d-2e1a5b6f7d8c
+status: experimental
+description: |
+  /conf/config.xml on OPNsense changed outside expected administration hours.
+  Refines Wazuh rule 100005 (which fires on every config edit, mostly benign)
+  by escalating only off-hours changes that warrant immediate review.
+  Routine config edits during the day are noise; nighttime edits are not.
+references:
+  - Wazuh rule id 100005 (Unraid manager local_rules.xml)
+author: 0xFl4g
+date: 2026-05-13
+tags:
+  - attack.defense_evasion.t1562.004  # Disable or Modify System Firewall
+  - attack.persistence.t1556          # Modify Authentication Process (firewall is access control)
+logsource:
+  product: wazuh
+  service: syscheck
+  category: integrity_monitoring
+detection:
+  selection_path:
+    path: '/conf/config.xml'
+    agent_name: 'OPNsense.local'
+  selection_offhours:
+    timestamp_hour:
+      - '<7'    # before 7 AM local
+      - '>=23'  # 11 PM or later local
+  condition: selection_path and selection_offhours
+falsepositives:
+  - Late-night legitimate admin work (consider IP correlation: was the WebUI session from a known trusted source?)
+  - Cron-triggered automated config rewrite (none currently scheduled — verify before suppressing)
+level: critical

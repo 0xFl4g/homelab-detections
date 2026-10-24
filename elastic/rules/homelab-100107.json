@@ -1,0 +1,53 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-100107",
+  "name": "Log clearing",
+  "description": "Port of Wazuh 100107 (journal vacuum, truncate to zero, rm -rf /var/log).",
+  "type": "query",
+  "index": [
+    "logs-system.syslog-*",
+    "logs-system.auth-*"
+  ],
+  "language": "kuery",
+  "query": "message:(\"vacuum-time\" or \"truncate -s 0\" or \"rm -rf /var/log\")",
+  "severity": "high",
+  "risk_score": 73,
+  "tags": [
+    "homelab",
+    "notify",
+    "wazuh:100107",
+    "defense_evasion"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0112",
+        "name": "Defense Impairment",
+        "reference": "https://attack.mitre.org/tactics/TA0112/"
+      },
+      "technique": [
+        {
+          "id": "T1685",
+          "name": "Disable or Modify Tools",
+          "reference": "https://attack.mitre.org/techniques/T1685/",
+          "subtechnique": [
+            {
+              "id": "T1685.006",
+              "name": "Clear Linux or Mac System Logs",
+              "reference": "https://attack.mitre.org/techniques/T1685/006/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

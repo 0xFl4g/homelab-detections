@@ -1,0 +1,69 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-100401",
+  "name": "Kernel modules changed",
+  "description": "Port of Wazuh 100401/100903: host-snapshot cmd:kmods change or osquery kernel_modules added (Unraid).",
+  "type": "query",
+  "index": [
+    "logs-host.snapshot-*",
+    "logs-osquery.result-*"
+  ],
+  "language": "kuery",
+  "query": "(event.action:modified and labels.snapshot_item:\"cmd:kmods\") or (osquery.name:kernel_modules and osquery.action:added and osquery.counter > 0)",
+  "severity": "critical",
+  "risk_score": 99,
+  "tags": [
+    "homelab",
+    "notify",
+    "wazuh:100401",
+    "wazuh:100903",
+    "rootkit"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0003",
+        "name": "Persistence",
+        "reference": "https://attack.mitre.org/tactics/TA0003/"
+      },
+      "technique": [
+        {
+          "id": "T1547",
+          "name": "Boot or Logon Autostart Execution",
+          "reference": "https://attack.mitre.org/techniques/T1547/",
+          "subtechnique": [
+            {
+              "id": "T1547.006",
+              "name": "Kernel Modules and Extensions",
+              "reference": "https://attack.mitre.org/techniques/T1547/006/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0005",
+        "name": "Stealth",
+        "reference": "https://attack.mitre.org/tactics/TA0005/"
+      },
+      "technique": [
+        {
+          "id": "T1014",
+          "name": "Rootkit",
+          "reference": "https://attack.mitre.org/techniques/T1014/"
+        }
+      ]
+    }
+  ]
+}

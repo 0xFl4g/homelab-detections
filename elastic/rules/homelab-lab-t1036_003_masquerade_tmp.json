@@ -1,0 +1,68 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "name": "SIGMA - System-process name masquerade executing from temp (Linux)",
+  "throttle": "no_actions",
+  "description": "A binary with a common daemon name executing from a world-writable path (T1036.003, e.g. cp /bin/sh /tmp/crond; /tmp/crond).",
+  "rule_id": "homelab-lab-t1036_003_masquerade_tmp",
+  "false_positives": [
+    "Rare - software run from a temp build directory"
+  ],
+  "immutable": false,
+  "output_index": "",
+  "max_signals": 100,
+  "risk_score": 73,
+  "risk_score_mapping": [],
+  "severity": "high",
+  "severity_mapping": [],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0005",
+        "name": "Stealth",
+        "reference": "https://attack.mitre.org/tactics/TA0005/"
+      },
+      "technique": [
+        {
+          "id": "T1036",
+          "name": "Masquerading",
+          "reference": "https://attack.mitre.org/techniques/T1036/",
+          "subtechnique": [
+            {
+              "id": "T1036.003",
+              "name": "Rename Legitimate Utilities",
+              "reference": "https://attack.mitre.org/techniques/T1036/003/"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "tags": [
+    "homelab",
+    "lab"
+  ],
+  "to": "now",
+  "references": [
+    "https://attack.mitre.org/techniques/T1036/003/"
+  ],
+  "exceptions_list": [],
+  "related_integrations": [],
+  "required_fields": [],
+  "setup": "",
+  "type": "eql",
+  "language": "eql",
+  "index": [
+    "logs-*-lab"
+  ],
+  "query": "process where event.type == \"start\" and ((process.executable like~ (\"/tmp/*\", \"/var/tmp/*\", \"/dev/shm/*\")) and (process.executable like~ (\"*/crond\", \"*/cron\", \"*/sshd\", \"*/systemd\", \"*/init\", \"*/rsyslogd\", \"*/nginx\", \"*/apache2\", \"*/kthreadd\", \"*/kworker\")))",
+  "filters": []
+}

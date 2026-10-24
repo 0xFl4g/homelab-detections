@@ -1,0 +1,63 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 2,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-ti-suricata-sni",
+  "name": "Suricata: TLS server name in threat-intel domain feed",
+  "description": "Outbound TLS handshake whose server name is an abuse.ch domain indicator in homelab-ti. Suricata inspects WAN only, so source.ip is the router's public address: find the LAN device through NetFlow (logs-netflow.flow) or DNS (logs-pfsense.log) for the same destination and time.",
+  "type": "threat_match",
+  "index": [
+    "logs-suricata.eve-*"
+  ],
+  "language": "lucene",
+  "query": "suricata.eve.event_type:tls AND tls.client.server_name:*",
+  "severity": "high",
+  "risk_score": 70,
+  "tags": [
+    "homelab",
+    "notify",
+    "threat_intel",
+    "tls"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0011",
+        "name": "Command and Control",
+        "reference": "https://attack.mitre.org/tactics/TA0011/"
+      },
+      "technique": [
+        {
+          "id": "T1071",
+          "name": "Application Layer Protocol",
+          "reference": "https://attack.mitre.org/techniques/T1071/"
+        }
+      ]
+    }
+  ],
+  "threat_index": [
+    "homelab-ti"
+  ],
+  "threat_query": "threat.feed.name:(abusech-domains or canary)",
+  "threat_language": "kuery",
+  "threat_mapping": [
+    {
+      "entries": [
+        {
+          "field": "tls.client.server_name",
+          "type": "mapping",
+          "value": "threat.indicator.url.domain"
+        }
+      ]
+    }
+  ],
+  "threat_indicator_path": "threat",
+  "timestamp_override": "event.ingested"
+}

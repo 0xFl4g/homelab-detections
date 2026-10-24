@@ -1,0 +1,19 @@
+title: Shell history credential access (Linux)
+id: 9e4a1c58-2d73-4b6f-8a01-5f2c7e9b3d14
+status: experimental
+description: Reading a shell history file, often to harvest credentials typed on the command line (T1552.003). Missed by prebuilt Linux rules in the lab coverage run.
+references: [https://attack.mitre.org/techniques/T1552/003/]
+author: 0xFl4g
+date: 2026-10-17
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  sel:
+    CommandLine|contains: ['.bash_history', '.zsh_history', '.mysql_history', '.sh_history', '.psql_history', '.rediscli_history']
+  filt:
+    Image|endswith: [/history]
+  condition: sel and not filt
+falsepositives: [A user legitimately inspecting their own shell history]
+level: low
+tags: [attack.credential-access, attack.t1552.003]

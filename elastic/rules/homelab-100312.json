@@ -1,0 +1,86 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-100312",
+  "name": "DNS: base32-encoded queries (iodine/dnscat2 tunnel)",
+  "description": "Port of Wazuh 100312: 3+ base32 labels per source.ip in the 6-min lookback. The Wazuh LAN downgrade (100315) is not ported — it made this rule unreachable.",
+  "type": "threshold",
+  "index": [
+    "logs-pfsense.log-*"
+  ],
+  "language": "kuery",
+  "query": "labels.dns_base32:true",
+  "threshold": {
+    "field": [
+      "source.ip"
+    ],
+    "value": 3
+  },
+  "severity": "high",
+  "risk_score": 73,
+  "tags": [
+    "homelab",
+    "notify",
+    "wazuh:100312",
+    "dns",
+    "exfiltration"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0011",
+        "name": "Command and Control",
+        "reference": "https://attack.mitre.org/tactics/TA0011/"
+      },
+      "technique": [
+        {
+          "id": "T1071",
+          "name": "Application Layer Protocol",
+          "reference": "https://attack.mitre.org/techniques/T1071/",
+          "subtechnique": [
+            {
+              "id": "T1071.004",
+              "name": "DNS",
+              "reference": "https://attack.mitre.org/techniques/T1071/004/"
+            }
+          ]
+        },
+        {
+          "id": "T1132",
+          "name": "Data Encoding",
+          "reference": "https://attack.mitre.org/techniques/T1132/",
+          "subtechnique": [
+            {
+              "id": "T1132.001",
+              "name": "Standard Encoding",
+              "reference": "https://attack.mitre.org/techniques/T1132/001/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0010",
+        "name": "Exfiltration",
+        "reference": "https://attack.mitre.org/tactics/TA0010/"
+      },
+      "technique": [
+        {
+          "id": "T1048",
+          "name": "Exfiltration Over Alternative Protocol",
+          "reference": "https://attack.mitre.org/techniques/T1048/"
+        }
+      ]
+    }
+  ]
+}

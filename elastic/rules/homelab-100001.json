@@ -1,0 +1,45 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-100001",
+  "name": "Suricata alert (non-scan) — possible active exploit",
+  "description": "Port of Wazuh 100001: Suricata alerts except ET SCAN / ET POLICY / Zmap / zgrab / masscan / network-scan category / Informational signatures.",
+  "type": "query",
+  "index": [
+    "logs-suricata.eve-*"
+  ],
+  "language": "lucene",
+  "query": "suricata.eve.event_type:alert AND NOT rule.name:(ET\\ SCAN* OR ET\\ POLICY* OR *Zmap* OR *zgrab* OR *masscan*) AND NOT rule.category:\"Detection of a Network Scan\" AND NOT suricata.eve.alert.metadata.signature_severity:Informational",
+  "severity": "high",
+  "risk_score": 73,
+  "tags": [
+    "homelab",
+    "notify",
+    "wazuh:100001",
+    "ids"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0001",
+        "name": "Initial Access",
+        "reference": "https://attack.mitre.org/tactics/TA0001/"
+      },
+      "technique": [
+        {
+          "id": "T1190",
+          "name": "Exploit Public-Facing Application",
+          "reference": "https://attack.mitre.org/techniques/T1190/"
+        }
+      ]
+    }
+  ]
+}

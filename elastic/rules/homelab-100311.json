@@ -1,0 +1,57 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 2,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-100311",
+  "name": "DNS: 5+ very-long-label queries",
+  "description": "Port of Wazuh 100311 (Kibana only): 5+ query lines with a 40+ char label per source.ip in the 6-min lookback. Excludes *.fbcdn.net (Facebook netseer UUID lookups) and *.a2z.com (Amazon device endpoints), benign long labels seen 2026-09-29.",
+  "type": "threshold",
+  "index": [
+    "logs-pfsense.log-*"
+  ],
+  "language": "kuery",
+  "query": "labels.dns_long_label:true and not dns.question.name:(*.fbcdn.net or *.a2z.com)",
+  "threshold": {
+    "field": [
+      "source.ip"
+    ],
+    "value": 5
+  },
+  "severity": "medium",
+  "risk_score": 47,
+  "tags": [
+    "homelab",
+    "wazuh:100311",
+    "dns"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0011",
+        "name": "Command and Control",
+        "reference": "https://attack.mitre.org/tactics/TA0011/"
+      },
+      "technique": [
+        {
+          "id": "T1071",
+          "name": "Application Layer Protocol",
+          "reference": "https://attack.mitre.org/techniques/T1071/",
+          "subtechnique": [
+            {
+              "id": "T1071.004",
+              "name": "DNS",
+              "reference": "https://attack.mitre.org/techniques/T1071/004/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

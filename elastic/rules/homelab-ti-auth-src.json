@@ -1,0 +1,63 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-ti-auth-src",
+  "name": "Threat-intel IP in Unraid auth log",
+  "description": "Port of Wazuh 100040/100045 for the host auth log: source.ip is a CrowdSec / abuse.ch indicator. Unraid host only (the OPNsense/PiKVM auth streams are spoofable).",
+  "type": "threat_match",
+  "index": [
+    "logs-system.auth-*"
+  ],
+  "language": "kuery",
+  "query": "host.name:unraid and source.ip:*",
+  "threat_index": [
+    "homelab-ti"
+  ],
+  "threat_query": "threat.feed.name:(crowdsec or abusech or canary)",
+  "threat_language": "kuery",
+  "threat_indicator_path": "threat",
+  "threat_mapping": [
+    {
+      "entries": [
+        {
+          "field": "source.ip",
+          "type": "mapping",
+          "value": "threat.indicator.ip"
+        }
+      ]
+    }
+  ],
+  "severity": "high",
+  "risk_score": 73,
+  "tags": [
+    "homelab",
+    "autoblock",
+    "wazuh:100040",
+    "wazuh:100045",
+    "threat_intel"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0006",
+        "name": "Credential Access",
+        "reference": "https://attack.mitre.org/tactics/TA0006/"
+      },
+      "technique": [
+        {
+          "id": "T1110",
+          "name": "Brute Force",
+          "reference": "https://attack.mitre.org/techniques/T1110/"
+        }
+      ]
+    }
+  ]
+}

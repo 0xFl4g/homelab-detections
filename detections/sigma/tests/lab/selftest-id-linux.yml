@@ -1,0 +1,20 @@
+title: Lab converter self-test - id run with a user flag (Linux)
+id: 0b9a7c3e-5d21-4f6a-8e4b-2c7d9a1f3e58
+status: test
+description: Fixture for test-convert-elastic.sh only. Checks the Linux ECS field mapping.
+author: 0xFl4g
+date: 2026-10-16
+tags:
+  - attack.discovery
+  - attack.t1033
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection:
+    Image|endswith: '/id'
+    CommandLine|contains: ' -u'
+  condition: selection
+falsepositives:
+  - Administrators checking their own identity
+level: low

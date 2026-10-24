@@ -1,0 +1,17 @@
+title: Network scanning tool execution (Linux)
+id: 3d8f1a62-9c47-4b05-8e21-6a2d7f3b9c18
+status: experimental
+description: Execution of an active network/port scanner (T1046).
+references: [https://attack.mitre.org/techniques/T1046/]
+author: 0xFl4g
+date: 2026-10-17
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  sel:
+    Image|endswith: [/nmap, /masscan, /zmap, /zenmap]
+  condition: sel
+falsepositives: [Administrator network inventory]
+level: medium
+tags: [attack.discovery, attack.t1046]

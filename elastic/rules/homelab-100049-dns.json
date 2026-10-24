@@ -1,0 +1,53 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-100049-dns",
+  "name": "DNS query for a cryptomining pool",
+  "description": "Companion to homelab-100049 (whose NetFlow source never emitted mining_pool): DNS query line for a curated mining-pool domain (apex or subdomain; no generic *pool* — pool.ntp.org must not match). Operator-approved 2026-09-29.",
+  "type": "query",
+  "index": [
+    "logs-pfsense.log-*"
+  ],
+  "language": "kuery",
+  "query": "not dns.response_code:* and dns.question.name:(nanopool.org or *.nanopool.org or 2miners.com or *.2miners.com or supportxmr.com or *.supportxmr.com or moneroocean.stream or *.moneroocean.stream or nicehash.com or *.nicehash.com or f2pool.com or *.f2pool.com or minexmr.com or *.minexmr.com or hashvault.pro or *.hashvault.pro or herominers.com or *.herominers.com or ethermine.org or *.ethermine.org or xmrpool.eu or *.xmrpool.eu or c3pool.com or *.c3pool.com or unmineable.com or *.unmineable.com or viabtc.com or *.viabtc.com or antpool.com or *.antpool.com or poolin.com or *.poolin.com or braiins.com or *.braiins.com or slushpool.com or *.slushpool.com or miningpoolhub.com or *.miningpoolhub.com or flexpool.io or *.flexpool.io or minergate.com or *.minergate.com or zpool.ca or *.zpool.ca or prohashing.com or *.prohashing.com or woolypooly.com or *.woolypooly.com or kryptex.network or *.kryptex.network or k1pool.com or *.k1pool.com or p2pool.io or *.p2pool.io or xmrig.com or *.xmrig.com or monerohash.com or *.monerohash.com or dwarfpool.com or *.dwarfpool.com)",
+  "severity": "critical",
+  "risk_score": 99,
+  "tags": [
+    "homelab",
+    "notify",
+    "wazuh:100049",
+    "cryptomining",
+    "dns"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0040",
+        "name": "Impact",
+        "reference": "https://attack.mitre.org/tactics/TA0040/"
+      },
+      "technique": [
+        {
+          "id": "T1496",
+          "name": "Resource Hijacking",
+          "reference": "https://attack.mitre.org/techniques/T1496/",
+          "subtechnique": [
+            {
+              "id": "T1496.001",
+              "name": "Compute Hijacking",
+              "reference": "https://attack.mitre.org/techniques/T1496/001/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

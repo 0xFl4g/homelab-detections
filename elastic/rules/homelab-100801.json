@@ -1,0 +1,53 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-100801",
+  "name": "YARA signature match",
+  "description": "Port of Wazuh 100801/100058: yara.sh logs each match with syslog tag yara-match.",
+  "type": "query",
+  "index": [
+    "logs-system.syslog-*"
+  ],
+  "language": "kuery",
+  "query": "process.name:\"yara-match\"",
+  "severity": "critical",
+  "risk_score": 99,
+  "tags": [
+    "homelab",
+    "notify",
+    "wazuh:100801",
+    "wazuh:100058",
+    "malware"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0002",
+        "name": "Execution",
+        "reference": "https://attack.mitre.org/tactics/TA0002/"
+      },
+      "technique": [
+        {
+          "id": "T1204",
+          "name": "User Execution",
+          "reference": "https://attack.mitre.org/techniques/T1204/",
+          "subtechnique": [
+            {
+              "id": "T1204.002",
+              "name": "Malicious File",
+              "reference": "https://attack.mitre.org/techniques/T1204/002/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

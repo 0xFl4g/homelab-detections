@@ -1,0 +1,80 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-lab-authconfig-tamper",
+  "name": "Auth config tamper: sudoers/PAM (Linux, auditd)",
+  "type": "eql",
+  "language": "eql",
+  "index": [
+    "logs-auditd_manager.auditd-lab"
+  ],
+  "risk_score": 60,
+  "severity": "high",
+  "tags": [
+    "homelab",
+    "lab",
+    "attack.persistence",
+    "attack.privilege-escalation",
+    "attack.t1548.003",
+    "attack.t1556.003"
+  ],
+  "description": "Write to /etc/sudoers(.d) or /etc/pam.d|/etc/pam.conf seen by the auditd sudoers_tamper/pam_tamper watches. Catches in-place edits Defend's Linux file events miss (echo-append to sudoers = T1548.003/5, sed PAM rule insert = T1556.003/1).",
+  "references": [
+    "https://attack.mitre.org/techniques/T1548/003/",
+    "https://attack.mitre.org/techniques/T1556/003/"
+  ],
+  "query": "file where host.os.type == \"linux\" and event.dataset == \"auditd_manager.auditd\" and (file.path like \"/etc/sudoers*\" or file.path like \"/etc/pam.d/*\" or file.path == \"/etc/pam.conf\")",
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0004",
+        "name": "Privilege Escalation",
+        "reference": "https://attack.mitre.org/tactics/TA0004/"
+      },
+      "technique": [
+        {
+          "id": "T1548",
+          "name": "Abuse Elevation Control Mechanism",
+          "reference": "https://attack.mitre.org/techniques/T1548/",
+          "subtechnique": [
+            {
+              "id": "T1548.003",
+              "name": "Sudo and Sudo Caching",
+              "reference": "https://attack.mitre.org/techniques/T1548/003/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0003",
+        "name": "Persistence",
+        "reference": "https://attack.mitre.org/tactics/TA0003/"
+      },
+      "technique": [
+        {
+          "id": "T1556",
+          "name": "Modify Authentication Process",
+          "reference": "https://attack.mitre.org/techniques/T1556/",
+          "subtechnique": [
+            {
+              "id": "T1556.003",
+              "name": "Pluggable Authentication Modules",
+              "reference": "https://attack.mitre.org/techniques/T1556/003/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

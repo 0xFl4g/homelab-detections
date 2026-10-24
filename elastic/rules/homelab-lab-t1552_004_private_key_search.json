@@ -1,0 +1,68 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "name": "SIGMA - Private key file search (Linux)",
+  "throttle": "no_actions",
+  "description": "find invoked to locate SSH/TLS private keys (T1552.004). Missed by prebuilt Linux rules in the lab coverage run.",
+  "rule_id": "homelab-lab-t1552_004_private_key_search",
+  "false_positives": [
+    "Backup or configuration-management tooling enumerating keys"
+  ],
+  "immutable": false,
+  "output_index": "",
+  "max_signals": 100,
+  "risk_score": 47,
+  "risk_score_mapping": [],
+  "severity": "medium",
+  "severity_mapping": [],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0006",
+        "name": "Credential Access",
+        "reference": "https://attack.mitre.org/tactics/TA0006/"
+      },
+      "technique": [
+        {
+          "id": "T1552",
+          "name": "Unsecured Credentials",
+          "reference": "https://attack.mitre.org/techniques/T1552/",
+          "subtechnique": [
+            {
+              "id": "T1552.004",
+              "name": "Private Keys",
+              "reference": "https://attack.mitre.org/techniques/T1552/004/"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "tags": [
+    "homelab",
+    "lab"
+  ],
+  "to": "now",
+  "references": [
+    "https://attack.mitre.org/techniques/T1552/004/"
+  ],
+  "exceptions_list": [],
+  "related_integrations": [],
+  "required_fields": [],
+  "setup": "",
+  "type": "eql",
+  "language": "eql",
+  "index": [
+    "logs-*-lab"
+  ],
+  "query": "process where event.type == \"start\" and (process.executable:\"*/find\" and (process.command_line like~ (\"*id_rsa*\", \"*id_dsa*\", \"*id_ecdsa*\", \"*id_ed25519*\", \"*.pem*\", \"*.ppk*\", \"*.pkcs12*\")))",
+  "filters": []
+}

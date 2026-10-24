@@ -1,0 +1,48 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-100057",
+  "name": "Known-malicious file hash on a monitored host",
+  "description": "Port of Wazuh 100057: file.hash.sha256 (osquery boot_config_hashes, host-snapshot) matches an abuse.ch hash indicator.",
+  "type": "threat_match",
+  "index": [
+    "logs-osquery.result-*",
+    "logs-host.snapshot-*"
+  ],
+  "language": "kuery",
+  "query": "file.hash.sha256:*",
+  "threat_index": [
+    "homelab-ti"
+  ],
+  "threat_query": "threat.feed.name:(abusech-hashes or canary)",
+  "threat_language": "kuery",
+  "threat_indicator_path": "threat",
+  "threat_mapping": [
+    {
+      "entries": [
+        {
+          "field": "file.hash.sha256",
+          "type": "mapping",
+          "value": "threat.indicator.file.hash.sha256"
+        }
+      ]
+    }
+  ],
+  "severity": "critical",
+  "risk_score": 99,
+  "tags": [
+    "homelab",
+    "notify",
+    "wazuh:100057",
+    "malware",
+    "threat_intel"
+  ],
+  "threat": []
+}

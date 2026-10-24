@@ -1,0 +1,25 @@
+title: Impair defenses - logging/audit/security tooling (Linux)
+id: 8f3a2c47-1b96-4e05-a7d2-9c4e6f1b8a35
+status: experimental
+description: Disabling auditd rules, SELinux, logging services, or the firewall (T1562/T1685/T1686 misses from the lab coverage run).
+references: [https://attack.mitre.org/techniques/T1562/001/]
+author: 0xFl4g
+date: 2026-10-17
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  audit:
+    CommandLine|contains: ['auditctl -D', 'auditctl -e 0']
+  selinux:
+    CommandLine|contains: ['setenforce 0']
+  svc:
+    CommandLine|contains: ['stop auditd', 'disable auditd', 'stop rsyslog', 'disable rsyslog', 'stop syslog', 'stop systemd-journald']
+  logconf:
+    CommandLine|contains: ['journald.conf', 'rsyslog.conf', '/etc/rsyslog.d']
+  ufw:
+    CommandLine|contains: ['ufw disable', 'ufw logging off']
+  condition: audit or selinux or svc or logconf or ufw
+falsepositives: [Administrator maintenance of logging or security services]
+level: high
+tags: [attack.defense-impairment, attack.t1685, attack.t1685.004, attack.t1686]

@@ -1,0 +1,51 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-100307",
+  "name": "DNS: anonymity / alt-root TLD query",
+  "description": "Port of Wazuh 100307 (Kibana only).",
+  "type": "query",
+  "index": [
+    "logs-pfsense.log-*"
+  ],
+  "language": "kuery",
+  "query": "dns.question.name:(*.onion or *.i2p or *.bit or *.loki) and dns.question.type:(A or AAAA) and not dns.response_code:*",
+  "severity": "medium",
+  "risk_score": 47,
+  "tags": [
+    "homelab",
+    "wazuh:100307",
+    "dns"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0011",
+        "name": "Command and Control",
+        "reference": "https://attack.mitre.org/tactics/TA0011/"
+      },
+      "technique": [
+        {
+          "id": "T1090",
+          "name": "Proxy",
+          "reference": "https://attack.mitre.org/techniques/T1090/",
+          "subtechnique": [
+            {
+              "id": "T1090.003",
+              "name": "Multi-hop Proxy",
+              "reference": "https://attack.mitre.org/techniques/T1090/003/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 2,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-100102",
+  "name": "SSH login from an external IP",
+  "description": "Port of Wazuh 100102 on all three hosts; RFC1918, loopback and 100.64.0.0/10 (Tailscale — 100% of Wazuh's 391 hits in 30 d) excluded. IPv6 ULA (incl. Tailscale fd7a:115c:a1e0::/48), link-local and loopback excluded (2c-2 review).",
+  "type": "query",
+  "index": [
+    "logs-system.auth-*"
+  ],
+  "language": "kuery",
+  "query": "event.action:ssh_login and event.outcome:success and not source.ip:(10.0.0.0/8 or 172.16.0.0/12 or 192.168.0.0/16 or 127.0.0.0/8 or 100.64.0.0/10 or \"fc00::/7\" or \"fe80::/10\" or \"::1/128\")",
+  "severity": "high",
+  "risk_score": 73,
+  "tags": [
+    "homelab",
+    "notify",
+    "wazuh:100102",
+    "initial_access"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0001",
+        "name": "Initial Access",
+        "reference": "https://attack.mitre.org/tactics/TA0001/"
+      },
+      "technique": [
+        {
+          "id": "T1133",
+          "name": "External Remote Services",
+          "reference": "https://attack.mitre.org/techniques/T1133/"
+        }
+      ]
+    },
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0008",
+        "name": "Lateral Movement",
+        "reference": "https://attack.mitre.org/tactics/TA0008/"
+      },
+      "technique": [
+        {
+          "id": "T1021",
+          "name": "Remote Services",
+          "reference": "https://attack.mitre.org/techniques/T1021/",
+          "subtechnique": [
+            {
+              "id": "T1021.004",
+              "name": "SSH",
+              "reference": "https://attack.mitre.org/techniques/T1021/004/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

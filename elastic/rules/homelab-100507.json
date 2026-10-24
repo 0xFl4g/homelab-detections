@@ -1,0 +1,35 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-100507",
+  "name": "Docker: container restart loop (5+ kills)",
+  "description": "Port of Wazuh 100507: 5+ kills (SIGHUP excluded) of one container in the 6-min lookback.",
+  "type": "threshold",
+  "index": [
+    "logs-docker.vector-*"
+  ],
+  "language": "kuery",
+  "query": "container.name:docker-events-tailer and event.action:kill and not labels.docker_signal:1",
+  "threshold": {
+    "field": [
+      "labels.docker_container"
+    ],
+    "value": 5
+  },
+  "severity": "high",
+  "risk_score": 73,
+  "tags": [
+    "homelab",
+    "notify",
+    "wazuh:100507",
+    "docker"
+  ],
+  "threat": []
+}

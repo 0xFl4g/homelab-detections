@@ -1,0 +1,52 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-100024",
+  "name": "Shell history shrank (anti-forensics)",
+  "description": "Port of Wazuh 100024: host-snapshot saw .bash_history/.history get smaller (growth is normal and ignored).",
+  "type": "query",
+  "index": [
+    "logs-host.snapshot-*"
+  ],
+  "language": "kuery",
+  "query": "event.action:shrunk",
+  "severity": "high",
+  "risk_score": 73,
+  "tags": [
+    "homelab",
+    "notify",
+    "wazuh:100024",
+    "defense_evasion"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0005",
+        "name": "Stealth",
+        "reference": "https://attack.mitre.org/tactics/TA0005/"
+      },
+      "technique": [
+        {
+          "id": "T1070",
+          "name": "Indicator Removal",
+          "reference": "https://attack.mitre.org/techniques/T1070/",
+          "subtechnique": [
+            {
+              "id": "T1070.003",
+              "name": "Clear Command History",
+              "reference": "https://attack.mitre.org/techniques/T1070/003/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

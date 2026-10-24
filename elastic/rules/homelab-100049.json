@@ -1,0 +1,52 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 2,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-16m",
+  "rule_id": "homelab-100049",
+  "name": "Cryptomining pool beacon (NetFlow)",
+  "description": "Port of Wazuh 100049: the netflow-threat correlator tagged the peer as a mining pool.",
+  "type": "query",
+  "index": [
+    "logs-netflow.threat-*"
+  ],
+  "language": "kuery",
+  "query": "labels.tag:mining_pool",
+  "severity": "critical",
+  "risk_score": 99,
+  "tags": [
+    "homelab",
+    "notify",
+    "wazuh:100049",
+    "cryptomining"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0040",
+        "name": "Impact",
+        "reference": "https://attack.mitre.org/tactics/TA0040/"
+      },
+      "technique": [
+        {
+          "id": "T1496",
+          "name": "Resource Hijacking",
+          "reference": "https://attack.mitre.org/techniques/T1496/",
+          "subtechnique": [
+            {
+              "id": "T1496.001",
+              "name": "Compute Hijacking",
+              "reference": "https://attack.mitre.org/techniques/T1496/001/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-100327",
+  "name": "PiKVM web authentication failure",
+  "description": "Port of Wazuh 100327 (Kibana only).",
+  "type": "query",
+  "index": [
+    "logs-system.syslog-*"
+  ],
+  "language": "kuery",
+  "query": "host.name:pikvm and http.response.status_code:(401 or 403)",
+  "severity": "medium",
+  "risk_score": 47,
+  "tags": [
+    "homelab",
+    "wazuh:100327",
+    "kvmd"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0006",
+        "name": "Credential Access",
+        "reference": "https://attack.mitre.org/tactics/TA0006/"
+      },
+      "technique": [
+        {
+          "id": "T1110",
+          "name": "Brute Force",
+          "reference": "https://attack.mitre.org/techniques/T1110/"
+        }
+      ]
+    }
+  ]
+}

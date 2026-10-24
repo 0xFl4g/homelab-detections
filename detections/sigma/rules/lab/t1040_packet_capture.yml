@@ -1,0 +1,28 @@
+title: Packet capture tool execution (Linux)
+id: c3f6e1a2-8b47-4d59-9a0e-5f2c7b8d1e63
+status: experimental
+description: Execution of a network packet-capture tool (T1040). Missed by the prebuilt Linux rules in the detection lab (2026-10-17 coverage run).
+references:
+  - https://attack.mitre.org/techniques/T1040/
+author: 0xFl4g
+date: 2026-10-17
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection:
+    Image|endswith:
+      - /tcpdump
+      - /tshark
+      - /dumpcap
+      - /tethereal
+      - /netsniff-ng
+      - /ngrep
+  condition: selection
+falsepositives:
+  - Network troubleshooting by administrators
+level: medium
+tags:
+  - attack.credential-access
+  - attack.t1040
+  - attack.discovery

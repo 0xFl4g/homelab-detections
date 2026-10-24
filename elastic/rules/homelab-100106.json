@@ -1,0 +1,46 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-100106",
+  "name": "Firewall rule flush / reset",
+  "description": "Port of Wazuh 100106 (message phrases; 'pfctl -F' also matches the equally dangerous 'pfctl -f').",
+  "type": "query",
+  "index": [
+    "logs-system.syslog-*",
+    "logs-system.auth-*"
+  ],
+  "language": "kuery",
+  "query": "message:(\"iptables -F\" or \"iptables --flush\" or \"pfctl -F\" or \"nft flush ruleset\" or \"ufw reset\")",
+  "severity": "critical",
+  "risk_score": 99,
+  "tags": [
+    "homelab",
+    "notify",
+    "wazuh:100106",
+    "defense_evasion"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0112",
+        "name": "Defense Impairment",
+        "reference": "https://attack.mitre.org/tactics/TA0112/"
+      },
+      "technique": [
+        {
+          "id": "T1686",
+          "name": "Disable or Modify System Firewall",
+          "reference": "https://attack.mitre.org/techniques/T1686/"
+        }
+      ]
+    }
+  ]
+}

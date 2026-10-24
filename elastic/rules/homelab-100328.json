@@ -1,0 +1,59 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-100328",
+  "name": "PiKVM web brute force: 5+ auth failures",
+  "description": "Port of Wazuh 100328 (5 in 60 s there; 5 per source.ip in the 6-min lookback here). PiKVM stream is never autoblock.",
+  "type": "threshold",
+  "index": [
+    "logs-system.syslog-*"
+  ],
+  "language": "kuery",
+  "query": "host.name:pikvm and http.response.status_code:(401 or 403)",
+  "threshold": {
+    "field": [
+      "source.ip"
+    ],
+    "value": 5
+  },
+  "severity": "high",
+  "risk_score": 73,
+  "tags": [
+    "homelab",
+    "notify",
+    "wazuh:100328",
+    "kvmd",
+    "brute_force"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0006",
+        "name": "Credential Access",
+        "reference": "https://attack.mitre.org/tactics/TA0006/"
+      },
+      "technique": [
+        {
+          "id": "T1110",
+          "name": "Brute Force",
+          "reference": "https://attack.mitre.org/techniques/T1110/",
+          "subtechnique": [
+            {
+              "id": "T1110.001",
+              "name": "Password Guessing",
+              "reference": "https://attack.mitre.org/techniques/T1110/001/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

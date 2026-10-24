@@ -1,0 +1,45 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-100005",
+  "name": "OPNsense config changed (not by the auto-block responder)",
+  "description": "Port of Wazuh 100005 via the OPNsense audit log: any 'changed configuration' except user wazuh-api on /api/firewall/alias_util/*/AUTO_BLOCK (the Elastic responder).",
+  "type": "query",
+  "index": [
+    "logs-opnsense.audit-*"
+  ],
+  "language": "kuery",
+  "query": "event.action:\"config-change\" and not (user.name:\"wazuh-api\" and url.path:/api/firewall/alias_util/*/AUTO_BLOCK)",
+  "severity": "high",
+  "risk_score": 73,
+  "tags": [
+    "homelab",
+    "notify",
+    "wazuh:100005",
+    "tamper"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0112",
+        "name": "Defense Impairment",
+        "reference": "https://attack.mitre.org/tactics/TA0112/"
+      },
+      "technique": [
+        {
+          "id": "T1686",
+          "name": "Disable or Modify System Firewall",
+          "reference": "https://attack.mitre.org/techniques/T1686/"
+        }
+      ]
+    }
+  ]
+}

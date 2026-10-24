@@ -1,0 +1,32 @@
+title: Oversized DNS TXT query — possible DNS tunnel exfiltration
+id: e5f3a4b6-4d8c-4f0a-b2c3-3d4e5f6a7b8c
+status: stable
+description: |
+  DNS query with a TXT record type and an unusually long query name (>200 chars).
+  Common pattern for iodine / dnscat2 / DNS-tunneling exfil. Mirror of Wazuh
+  rule 100306.
+references:
+  - https://attack.mitre.org/techniques/T1071/004/
+  - https://attack.mitre.org/techniques/T1572/
+  - https://github.com/iagox86/dnscat2
+author: 0xFl4g
+date: 2026/05/01
+tags:
+  - attack.command-and-control
+  - attack.t1071.004
+  - attack.t1572
+  - attack.exfiltration
+  - attack.t1048.003
+logsource:
+  category: dns
+detection:
+  selection:
+    record_type: TXT
+  filter_long_query:
+    query|re: '^.{200,}$'
+  condition: selection and filter_long_query
+falsepositives:
+  - DKIM/SPF/DMARC TXT lookups on long-domain mailing-list providers (filter
+    out *._domainkey.* and *.dmarc.* if noisy)
+  - Some certbot DNS-01 challenges (transient)
+level: high

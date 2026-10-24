@@ -1,0 +1,44 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-100321",
+  "name": "PiKVM ATX power button used",
+  "description": "Port of Wazuh 100321 (Kibana only).",
+  "type": "query",
+  "index": [
+    "logs-system.syslog-*"
+  ],
+  "language": "kuery",
+  "query": "host.name:pikvm and event.action:\"atx-click\"",
+  "severity": "medium",
+  "risk_score": 47,
+  "tags": [
+    "homelab",
+    "wazuh:100321",
+    "kvmd"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0040",
+        "name": "Impact",
+        "reference": "https://attack.mitre.org/tactics/TA0040/"
+      },
+      "technique": [
+        {
+          "id": "T1529",
+          "name": "System Shutdown/Reboot",
+          "reference": "https://attack.mitre.org/techniques/T1529/"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-100005-unaudited",
+  "name": "OPNsense config.xml changed without an audit-log entry",
+  "description": "Port of Wazuh 100005 for edits that bypass the WebUI/API (shell, scp, Python ET): host-snapshot.sh saw /conf/config.xml change while the audit log gained no 'changed configuration' line since its previous run (5-min cadence).",
+  "type": "query",
+  "index": [
+    "logs-host.snapshot-*"
+  ],
+  "language": "kuery",
+  "query": "event.action:unaudited",
+  "severity": "high",
+  "risk_score": 73,
+  "tags": [
+    "homelab",
+    "notify",
+    "wazuh:100005",
+    "tamper"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0112",
+        "name": "Defense Impairment",
+        "reference": "https://attack.mitre.org/tactics/TA0112/"
+      },
+      "technique": [
+        {
+          "id": "T1686",
+          "name": "Disable or Modify System Firewall",
+          "reference": "https://attack.mitre.org/techniques/T1686/"
+        }
+      ]
+    }
+  ]
+}

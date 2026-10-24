@@ -1,0 +1,51 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 2,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-11m",
+  "rule_id": "homelab-100100",
+  "name": "Mass file change on /boot/config (possible ransomware)",
+  "description": "Port of Wazuh 100100: 50+ added osquery hash rows per host in the 11-min lookback (a modification is a removed+added pair, so only added rows count — 2c-2 review).",
+  "type": "threshold",
+  "index": [
+    "logs-osquery.result-*"
+  ],
+  "language": "kuery",
+  "query": "osquery.name:(boot_config_hashes or boot_config_hashes_ext) and osquery.action:added and osquery.counter > 0",
+  "threshold": {
+    "field": [
+      "host.name"
+    ],
+    "value": 50
+  },
+  "severity": "critical",
+  "risk_score": 99,
+  "tags": [
+    "homelab",
+    "notify",
+    "wazuh:100100",
+    "impact"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0040",
+        "name": "Impact",
+        "reference": "https://attack.mitre.org/tactics/TA0040/"
+      },
+      "technique": [
+        {
+          "id": "T1486",
+          "name": "Data Encrypted for Impact",
+          "reference": "https://attack.mitre.org/techniques/T1486/"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-100059",
+  "name": "DNS query for an abuse.ch-listed domain",
+  "description": "Port of Wazuh 100059: query-line dns.question.name equals a threat.indicator.url.domain (feed abusech-domains) in homelab-ti.",
+  "type": "threat_match",
+  "index": [
+    "logs-pfsense.log-*"
+  ],
+  "language": "kuery",
+  "query": "dns.question.name:* and not dns.response_code:*",
+  "threat_index": [
+    "homelab-ti"
+  ],
+  "threat_query": "threat.feed.name:(abusech-domains or canary)",
+  "threat_language": "kuery",
+  "threat_indicator_path": "threat",
+  "threat_mapping": [
+    {
+      "entries": [
+        {
+          "field": "dns.question.name",
+          "type": "mapping",
+          "value": "threat.indicator.url.domain"
+        }
+      ]
+    }
+  ],
+  "severity": "high",
+  "risk_score": 73,
+  "tags": [
+    "homelab",
+    "notify",
+    "wazuh:100059",
+    "dns",
+    "threat_intel"
+  ],
+  "threat": []
+}

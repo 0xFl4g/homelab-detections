@@ -1,0 +1,31 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-lab-t1098-004-authkeys",
+  "name": "SSH authorized_keys write (Linux, auditd)",
+  "type": "eql",
+  "language": "eql",
+  "index": [
+    "logs-auditd_manager.auditd-lab"
+  ],
+  "risk_score": 47,
+  "severity": "medium",
+  "tags": [
+    "homelab",
+    "lab",
+    "attack.persistence",
+    "attack.t1098.004"
+  ],
+  "description": "A write to an authorized_keys file, seen by the auditd ssh_authkeys watch. Elastic Defend on Linux emits file creation/deletion/rename but not modification, so an in-place rewrite (T1098.004) is invisible to Defend and to the prebuilt 'SSH Authorized Keys File Activity' rule (it keys on event.type:change). This rule relies on the auditd write-watch instead. Verified 2026-10-17 on lab-ubu01.",
+  "references": [
+    "https://attack.mitre.org/techniques/T1098/004/"
+  ],
+  "query": "file where host.os.type == \"linux\" and event.dataset == \"auditd_manager.auditd\" and (file.path like \"*/authorized_keys\" or file.path like \"*/authorized_keys2\")"
+}

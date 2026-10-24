@@ -1,0 +1,35 @@
+title: Outbound flow from internal host to known-malicious IP
+id: c7d5e3f4-2b6a-4f8e-9d0b-1e2f3a4b5c6d
+status: stable
+description: |
+  An internal-LAN host initiated an outbound NetFlow connection to an IP in
+  CrowdSec or abuse.ch threat intel — strong C2 / data-exfil signal because
+  the target IP is known-bad. Mirror of Wazuh rule 100048 / 100056.
+references:
+  - https://attack.mitre.org/techniques/T1071/
+  - https://attack.mitre.org/techniques/T1041/
+author: 0xFl4g
+date: 2026/05/01
+tags:
+  - attack.exfiltration
+  - attack.command-and-control
+  - attack.t1041
+  - attack.t1071
+logsource:
+  category: network
+  product: netflow
+detection:
+  selection_outbound:
+    src|startswith:
+      - '10.20.20.'
+      - '10.20.25.'
+      - '10.10.'
+      - '192.168.'
+  selection_ti_hit:
+    tag|contains:
+      - 'crowdsec'
+      - 'abusech'
+  condition: selection_outbound and selection_ti_hit
+falsepositives:
+  - Stale TI feed entry on legitimate cloud infrastructure
+level: critical

@@ -1,0 +1,44 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-100085",
+  "name": "Authentik admin action",
+  "description": "Port of Wazuh 100085 (Kibana only).",
+  "type": "query",
+  "index": [
+    "logs-docker.vector-*"
+  ],
+  "language": "kuery",
+  "query": "container.name:authentik-server and event.action:(model_created or model_updated or model_deleted)",
+  "severity": "medium",
+  "risk_score": 47,
+  "tags": [
+    "homelab",
+    "wazuh:100085",
+    "configuration_change"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0003",
+        "name": "Persistence",
+        "reference": "https://attack.mitre.org/tactics/TA0003/"
+      },
+      "technique": [
+        {
+          "id": "T1098",
+          "name": "Account Manipulation",
+          "reference": "https://attack.mitre.org/techniques/T1098/"
+        }
+      ]
+    }
+  ]
+}

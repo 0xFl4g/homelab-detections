@@ -1,0 +1,65 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-35m",
+  "rule_id": "homelab-100043",
+  "name": "Attack chain: service change then SSH key change (30 min)",
+  "description": "Port of Wazuh 100043.",
+  "type": "eql",
+  "index": [
+    "logs-host.snapshot-*",
+    "logs-osquery.result-*"
+  ],
+  "language": "eql",
+  "query": "sequence by host.name with maxspan=30m [any where event.action == \"modified\" and labels.snapshot_item == \"cmd:units\"] [any where (event.action == \"modified\" and (labels.snapshot_item in (\"/root/.ssh/authorized_keys\", \"/etc/ssh/sshd_config\", \"/usr/local/etc/ssh/sshd_config\") or labels.snapshot_item : \"/etc/ssh/sshd_config.d/*\")) or (osquery.name == \"authorized_keys\" and osquery.counter > 0)]",
+  "severity": "critical",
+  "risk_score": 99,
+  "tags": [
+    "homelab",
+    "notify",
+    "wazuh:100043",
+    "persistence"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0003",
+        "name": "Persistence",
+        "reference": "https://attack.mitre.org/tactics/TA0003/"
+      },
+      "technique": [
+        {
+          "id": "T1543",
+          "name": "Create or Modify System Process",
+          "reference": "https://attack.mitre.org/techniques/T1543/",
+          "subtechnique": [
+            {
+              "id": "T1543.002",
+              "name": "Systemd Service",
+              "reference": "https://attack.mitre.org/techniques/T1543/002/"
+            }
+          ]
+        },
+        {
+          "id": "T1098",
+          "name": "Account Manipulation",
+          "reference": "https://attack.mitre.org/techniques/T1098/",
+          "subtechnique": [
+            {
+              "id": "T1098.004",
+              "name": "SSH Authorized Keys",
+              "reference": "https://attack.mitre.org/techniques/T1098/004/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

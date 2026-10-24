@@ -1,0 +1,44 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-100323",
+  "name": "PiKVM mass-storage image parameters changed",
+  "description": "Port of Wazuh 100323 (Kibana only).",
+  "type": "query",
+  "index": [
+    "logs-system.syslog-*"
+  ],
+  "language": "kuery",
+  "query": "host.name:pikvm and http.request.method:POST and url.original:/msd/set_params* and http.response.status_code:200",
+  "severity": "medium",
+  "risk_score": 47,
+  "tags": [
+    "homelab",
+    "wazuh:100323",
+    "kvmd"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0001",
+        "name": "Initial Access",
+        "reference": "https://attack.mitre.org/tactics/TA0001/"
+      },
+      "technique": [
+        {
+          "id": "T1200",
+          "name": "Hardware Additions",
+          "reference": "https://attack.mitre.org/techniques/T1200/"
+        }
+      ]
+    }
+  ]
+}

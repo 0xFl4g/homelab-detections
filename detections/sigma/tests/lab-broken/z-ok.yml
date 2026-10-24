@@ -1,0 +1,20 @@
+title: Lab converter self-test - whoami executed
+id: 6f1d2a52-3c0e-4b8e-9d1a-0c3e5a7b9f10
+status: test
+description: Fixture for test-convert-elastic.sh only. Never copied to rules/lab.
+author: 0xFl4g
+date: 2026-10-16
+tags:
+  - attack.discovery
+  - attack.t1033
+  - homelab.autoblock
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith: '\whoami.exe'
+  condition: selection
+falsepositives:
+  - Administrators checking their own identity
+level: low

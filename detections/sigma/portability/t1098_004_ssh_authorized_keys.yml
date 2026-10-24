@@ -1,0 +1,28 @@
+title: SSH authorized_keys write (Linux)
+id: 7d2b1a44-9e30-4c2f-b6a1-0f5c8e2d41aa
+status: experimental
+description: |
+  A write to an authorized_keys file on Linux (T1098.004 SSH key persistence).
+  Portability note: Elastic Defend on Linux does not emit file-modification events, so the
+  runtime detection uses an auditd write-watch (see detections/native/homelab-lab-t1098-004-authkeys.json);
+  convert-elastic.sh does not auto-convert this file (it maps process_creation, not auditd file events).
+references:
+  - https://attack.mitre.org/techniques/T1098/004/
+author: 0xFl4g
+date: 2026-10-17
+logsource:
+  product: linux
+  service: auditd
+detection:
+  selection:
+    type: PATH
+    name|endswith:
+      - /authorized_keys
+      - /authorized_keys2
+  condition: selection
+falsepositives:
+  - ssh-copy-id, configuration management (ansible/puppet), cloud-init first-boot key provisioning
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1098.004

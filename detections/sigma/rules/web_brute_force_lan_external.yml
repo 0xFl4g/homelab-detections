@@ -1,0 +1,54 @@
+title: Web brute force / scan from external source
+id: a3b2c4d8-6f0a-4b2c-d4e5-5f6a7b8c9d0e
+status: stable
+description: |
+  5+ HTTP 4xx responses in 5 minutes from a single source IP — pattern of
+  credential-stuffing or vulnerability scanning against a public web service.
+  Mirror of Wazuh rule 100126.
+references:
+  - https://attack.mitre.org/techniques/T1110/
+  - https://attack.mitre.org/techniques/T1190/
+author: 0xFl4g
+date: 2026/05/01
+tags:
+  - attack.credential-access
+  - attack.t1110
+  - attack.initial-access
+  - attack.t1190
+logsource:
+  category: webserver
+detection:
+  selection:
+    status:
+      - 401
+      - 403
+      - 404
+      - 429
+  filter_internal:
+    srcip|startswith:
+      - '10.'
+      - '192.168.'
+      - '172.16.'
+      - '172.17.'
+      - '172.18.'
+      - '172.19.'
+      - '172.20.'
+      - '172.21.'
+      - '172.22.'
+      - '172.23.'
+      - '172.24.'
+      - '172.25.'
+      - '172.26.'
+      - '172.27.'
+      - '172.28.'
+      - '172.29.'
+      - '172.30.'
+      - '172.31.'
+  condition: selection and not filter_internal
+# Note: aggregation (5+ in 5m by srcip) is enforced in Wazuh native
+# rule 100126 via <frequency>5</frequency><timeframe>300</timeframe>.
+# pySigma 2.x deprecated pipe syntax; use Sigma correlations for ports.
+falsepositives:
+  - Aggressive crawlers (filter known good user-agents in production)
+  - Misconfigured legitimate clients
+level: medium

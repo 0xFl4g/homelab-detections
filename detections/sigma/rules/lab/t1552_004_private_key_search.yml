@@ -1,0 +1,19 @@
+title: Private key file search (Linux)
+id: 2a9f4c71-6e38-4b1a-9c05-7d3e8f1b2a40
+status: experimental
+description: find invoked to locate SSH/TLS private keys (T1552.004). Missed by prebuilt Linux rules in the lab coverage run.
+references: [https://attack.mitre.org/techniques/T1552/004/]
+author: 0xFl4g
+date: 2026-10-17
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  finder:
+    Image|endswith: /find
+  keys:
+    CommandLine|contains: [id_rsa, id_dsa, id_ecdsa, id_ed25519, .pem, .ppk, .pkcs12]
+  condition: finder and keys
+falsepositives: [Backup or configuration-management tooling enumerating keys]
+level: medium
+tags: [attack.credential-access, attack.t1552.004]

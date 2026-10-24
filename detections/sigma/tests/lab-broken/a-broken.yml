@@ -1,0 +1,14 @@
+title: Lab converter self-test - broken condition
+id: 3c5e7a91-2b4d-4f86-9a0c-1e3d5b7f9a24
+status: test
+description: Fixture for test-convert-elastic.sh only. Condition names an undefined selection.
+author: 0xFl4g
+date: 2026-10-16
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith: '\whoami.exe'
+  condition: selection and missing_selection
+level: low

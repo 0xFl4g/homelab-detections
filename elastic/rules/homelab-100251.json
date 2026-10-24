@@ -1,0 +1,46 @@
+{
+  "rule_id": "homelab-100251",
+  "name": "Request from abuse.ch-known C2/botnet IP (enriched container log)",
+  "description": "Port of Wazuh 100251, 100045. Vector threat-intel tag labels.ti_abusech set.",
+  "type": "query",
+  "index": [
+    "logs-docker.vector-*"
+  ],
+  "language": "kuery",
+  "query": "labels.ti_abusech:* and not labels.ti_abusech:\"\"",
+  "from": "now-6m",
+  "interval": "5m",
+  "severity": "high",
+  "risk_score": 73,
+  "tags": [
+    "homelab",
+    "wazuh:100251",
+    "wazuh:100045",
+    "threat_intel",
+    "autoblock"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0011",
+        "name": "Command and Control",
+        "reference": "https://attack.mitre.org/tactics/TA0011/"
+      },
+      "technique": [
+        {
+          "id": "T1071",
+          "name": "Application Layer Protocol",
+          "reference": "https://attack.mitre.org/techniques/T1071/"
+        }
+      ]
+    }
+  ],
+  "enabled": true,
+  "actions": [],
+  "version": 2,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal"
+}

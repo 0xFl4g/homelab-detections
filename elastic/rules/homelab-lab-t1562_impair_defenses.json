@@ -1,0 +1,73 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "name": "SIGMA - Impair defenses - logging/audit/security tooling (Linux)",
+  "throttle": "no_actions",
+  "description": "Disabling auditd rules, SELinux, logging services, or the firewall (T1562/T1685/T1686 misses from the lab coverage run).",
+  "rule_id": "homelab-lab-t1562_impair_defenses",
+  "false_positives": [
+    "Administrator maintenance of logging or security services"
+  ],
+  "immutable": false,
+  "output_index": "",
+  "max_signals": 100,
+  "risk_score": 73,
+  "risk_score_mapping": [],
+  "severity": "high",
+  "severity_mapping": [],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0112",
+        "name": "Defense Impairment",
+        "reference": "https://attack.mitre.org/tactics/TA0112/"
+      },
+      "technique": [
+        {
+          "id": "T1685",
+          "name": "Disable or Modify Tools",
+          "reference": "https://attack.mitre.org/techniques/T1685/",
+          "subtechnique": [
+            {
+              "id": "T1685.004",
+              "name": "Disable or Modify Linux Audit System Log",
+              "reference": "https://attack.mitre.org/techniques/T1685/004/"
+            }
+          ]
+        },
+        {
+          "id": "T1686",
+          "name": "Disable or Modify System Firewall",
+          "reference": "https://attack.mitre.org/techniques/T1686/"
+        }
+      ]
+    }
+  ],
+  "tags": [
+    "homelab",
+    "lab"
+  ],
+  "to": "now",
+  "references": [
+    "https://attack.mitre.org/techniques/T1562/001/"
+  ],
+  "exceptions_list": [],
+  "related_integrations": [],
+  "required_fields": [],
+  "setup": "",
+  "type": "eql",
+  "language": "eql",
+  "index": [
+    "logs-*-lab"
+  ],
+  "query": "process where event.type == \"start\" and ((process.command_line like~ (\"*auditctl -D*\", \"*auditctl -e 0*\")) or process.command_line:\"*setenforce 0*\" or (process.command_line like~ (\"*stop auditd*\", \"*disable auditd*\", \"*stop rsyslog*\", \"*disable rsyslog*\", \"*stop syslog*\", \"*stop systemd-journald*\")) or (process.command_line like~ (\"*journald.conf*\", \"*rsyslog.conf*\", \"*/etc/rsyslog.d*\")) or (process.command_line like~ (\"*ufw disable*\", \"*ufw logging off*\")))",
+  "filters": []
+}

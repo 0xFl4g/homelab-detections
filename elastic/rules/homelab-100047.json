@@ -1,0 +1,47 @@
+{
+  "rule_id": "homelab-100047",
+  "name": "NetFlow: inbound flow from known-malicious IP",
+  "description": "Port of Wazuh 100047 incl. its suppressions: 100062 (0-byte/0-packet no-session scans demoted below auto-block; covers 100510 Meta 31.13/16) and 100508 (NetBird dport 33443).",
+  "type": "query",
+  "index": [
+    "logs-netflow.threat-*"
+  ],
+  "language": "kuery",
+  "query": "labels.direction:inbound and not (network.bytes:0 and network.packets:0) and not destination.port:33443",
+  "from": "now-16m",
+  "interval": "5m",
+  "severity": "high",
+  "risk_score": 73,
+  "tags": [
+    "homelab",
+    "wazuh:100047",
+    "netflow",
+    "threat_intel",
+    "inbound",
+    "autoblock"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0011",
+        "name": "Command and Control",
+        "reference": "https://attack.mitre.org/tactics/TA0011/"
+      },
+      "technique": [
+        {
+          "id": "T1071",
+          "name": "Application Layer Protocol",
+          "reference": "https://attack.mitre.org/techniques/T1071/"
+        }
+      ]
+    }
+  ],
+  "enabled": true,
+  "actions": [],
+  "version": 6,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal"
+}

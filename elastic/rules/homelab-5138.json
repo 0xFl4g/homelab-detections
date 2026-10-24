@@ -1,0 +1,28 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-5138",
+  "name": "SATA link / disk error",
+  "description": "Port of Wazuh built-in 5138 (Kibana only): kernel ATA exception / failed command / link reset.",
+  "type": "query",
+  "index": [
+    "logs-system.syslog-*"
+  ],
+  "language": "kuery",
+  "query": "message:(\"exception Emask\" or \"failed command\" or \"hard resetting link\")",
+  "severity": "medium",
+  "risk_score": 47,
+  "tags": [
+    "homelab",
+    "wazuh:5138",
+    "hardware"
+  ],
+  "threat": []
+}

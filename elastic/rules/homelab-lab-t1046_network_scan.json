@@ -1,0 +1,61 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "name": "SIGMA - Network scanning tool execution (Linux)",
+  "throttle": "no_actions",
+  "description": "Execution of an active network/port scanner (T1046).",
+  "rule_id": "homelab-lab-t1046_network_scan",
+  "false_positives": [
+    "Administrator network inventory"
+  ],
+  "immutable": false,
+  "output_index": "",
+  "max_signals": 100,
+  "risk_score": 47,
+  "risk_score_mapping": [],
+  "severity": "medium",
+  "severity_mapping": [],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0007",
+        "name": "Discovery",
+        "reference": "https://attack.mitre.org/tactics/TA0007/"
+      },
+      "technique": [
+        {
+          "id": "T1046",
+          "name": "Network Service Discovery",
+          "reference": "https://attack.mitre.org/techniques/T1046/"
+        }
+      ]
+    }
+  ],
+  "tags": [
+    "homelab",
+    "lab"
+  ],
+  "to": "now",
+  "references": [
+    "https://attack.mitre.org/techniques/T1046/"
+  ],
+  "exceptions_list": [],
+  "related_integrations": [],
+  "required_fields": [],
+  "setup": "",
+  "type": "eql",
+  "language": "eql",
+  "index": [
+    "logs-*-lab"
+  ],
+  "query": "process where event.type == \"start\" and (process.executable like~ (\"*/nmap\", \"*/masscan\", \"*/zmap\", \"*/zenmap\"))",
+  "filters": []
+}

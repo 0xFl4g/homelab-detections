@@ -1,0 +1,58 @@
+{
+  "rule_id": "homelab-100041",
+  "name": "SSH brute force: 5+ failed logins in 10m",
+  "description": "Port of Wazuh 100041. event.action:ssh_login and event.outcome:failure — 5+ per source.ip in 10m. Unraid host only: OPNsense/PiKVM sshd arrive over spoofable UDP syslog (2c-1) and must never autoblock.",
+  "type": "threshold",
+  "index": [
+    "logs-system.auth-*"
+  ],
+  "language": "kuery",
+  "query": "event.action:ssh_login and event.outcome:failure and host.name:\"unraid\"",
+  "from": "now-11m",
+  "interval": "5m",
+  "severity": "high",
+  "risk_score": 73,
+  "tags": [
+    "homelab",
+    "wazuh:100041",
+    "brute_force",
+    "autoblock"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0006",
+        "name": "Credential Access",
+        "reference": "https://attack.mitre.org/tactics/TA0006/"
+      },
+      "technique": [
+        {
+          "id": "T1110",
+          "name": "Brute Force",
+          "reference": "https://attack.mitre.org/techniques/T1110/",
+          "subtechnique": [
+            {
+              "id": "T1110.001",
+              "name": "Password Guessing",
+              "reference": "https://attack.mitre.org/techniques/T1110/001/"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "enabled": true,
+  "actions": [],
+  "version": 3,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "threshold": {
+    "field": [
+      "source.ip"
+    ],
+    "value": 5
+  }
+}

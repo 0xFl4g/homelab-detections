@@ -1,0 +1,39 @@
+title: DNS query for anonymity-network or alternative-root TLD
+id: f4a3b5c7-5e9d-4a1b-c3d4-4e5f6a7b8c9d
+status: stable
+description: |
+  Client queried a TLD associated with anonymity networks (.onion, .i2p),
+  alternative-root namespaces (.bit, .loki, .crypto, .nft), or DNS-over-HTTPS
+  bootstrap (.eth). Strong indicator of Tor / I2P / blockchain-DNS use, often
+  paired with cryptocurrency-related malware C2. Mirror of Wazuh rule 100307.
+references:
+  - https://attack.mitre.org/techniques/T1090/003/
+  - https://en.wikipedia.org/wiki/.onion
+author: 0xFl4g
+date: 2026/05/01
+tags:
+  - attack.command-and-control
+  - attack.t1090.003
+  - attack.t1568.001
+logsource:
+  category: dns
+detection:
+  selection:
+    query|endswith:
+      - '.onion'
+      - '.onion.'
+      - '.i2p'
+      - '.i2p.'
+      - '.bit'
+      - '.bit.'
+      - '.loki'
+      - '.loki.'
+      - '.crypto'
+      - '.crypto.'
+      - '.nft'
+      - '.nft.'
+  condition: selection
+falsepositives:
+  - Legitimate user of Tor / I2P / Handshake / blockchain-DNS — flag for
+    confirmation rather than auto-block
+level: medium

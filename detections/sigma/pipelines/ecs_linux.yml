@@ -1,0 +1,20 @@
+# pySigma processing pipeline: Sigma Linux field names -> ECS (Elastic Defend / auditd_manager).
+# pysigma-backend-elasticsearch ships no Linux mapping; used by convert-elastic.sh for product: linux.
+name: homelab ECS Linux
+priority: 20
+transformations:
+  - id: homelab_ecs_linux_fields
+    type: field_name_mapping
+    mapping:
+      Image: process.executable
+      CommandLine: process.command_line
+      CurrentDirectory: process.working_directory
+      ProcessId: process.pid
+      ParentImage: process.parent.executable
+      ParentCommandLine: process.parent.command_line
+      ParentProcessId: process.parent.pid
+      User: user.name
+      TargetFilename: file.path
+    rule_conditions:
+      - type: logsource
+        product: linux

@@ -1,0 +1,58 @@
+{
+  "rule_id": "homelab-100201",
+  "name": "qBittorrent brute force: 5+ failed WebUI attempts in 10m",
+  "description": "Port of Wazuh 100201. labels.traefik_router:\"qbittorrent@docker\" and http.response.status_code >= 400 and http.response.status_code < 500 \u2014 5+ per source.ip in 10m.",
+  "type": "threshold",
+  "index": [
+    "logs-docker.vector-*"
+  ],
+  "language": "kuery",
+  "query": "labels.traefik_router:\"qbittorrent@docker\" and http.response.status_code >= 400 and http.response.status_code < 500 and not source.ip:(\"10.0.0.0/8\" or \"172.16.0.0/12\" or \"192.168.0.0/16\" or \"127.0.0.0/8\")",
+  "from": "now-11m",
+  "interval": "5m",
+  "severity": "high",
+  "risk_score": 73,
+  "tags": [
+    "homelab",
+    "wazuh:100201",
+    "brute_force",
+    "autoblock"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0006",
+        "name": "Credential Access",
+        "reference": "https://attack.mitre.org/tactics/TA0006/"
+      },
+      "technique": [
+        {
+          "id": "T1110",
+          "name": "Brute Force",
+          "reference": "https://attack.mitre.org/techniques/T1110/",
+          "subtechnique": [
+            {
+              "id": "T1110.001",
+              "name": "Password Guessing",
+              "reference": "https://attack.mitre.org/techniques/T1110/001/"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "enabled": true,
+  "actions": [],
+  "version": 3,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "threshold": {
+    "field": [
+      "source.ip"
+    ],
+    "value": 5
+  }
+}

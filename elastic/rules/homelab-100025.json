@@ -1,0 +1,52 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 2,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-100025",
+  "name": "Compose secret/config changed on Unraid",
+  "description": "Port of Wazuh 100025: osquery boot_config_hashes diff on a stack's .env or docker-compose.y(a)ml. Counts only added rows: osquery reports a modification as a removed+added pair (2c-2 review).",
+  "type": "query",
+  "index": [
+    "logs-osquery.result-*"
+  ],
+  "language": "kuery",
+  "query": "osquery.name:boot_config_hashes and osquery.action:added and osquery.counter > 0 and file.path:(/boot/config/compose/*/.env or /boot/config/compose/*/docker-compose.yml or /boot/config/compose/*/docker-compose.yaml)",
+  "severity": "high",
+  "risk_score": 73,
+  "tags": [
+    "homelab",
+    "notify",
+    "wazuh:100025",
+    "configuration_change"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0003",
+        "name": "Persistence",
+        "reference": "https://attack.mitre.org/tactics/TA0003/"
+      },
+      "technique": [
+        {
+          "id": "T1543",
+          "name": "Create or Modify System Process",
+          "reference": "https://attack.mitre.org/techniques/T1543/",
+          "subtechnique": [
+            {
+              "id": "T1543.005",
+              "name": "Container Service",
+              "reference": "https://attack.mitre.org/techniques/T1543/005/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

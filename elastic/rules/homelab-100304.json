@@ -1,0 +1,59 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-100304",
+  "name": "DNS: client hit DNSBL 200+ times",
+  "description": "Port of Wazuh 100304 (frequency 200 / 5 min; description said 50). DNSBL answer = NOERROR, 0.000000 s, uncached, A/AAAA; *.sol.example.com local-zone answers excluded.",
+  "type": "threshold",
+  "index": [
+    "logs-pfsense.log-*"
+  ],
+  "language": "kuery",
+  "query": "labels.dns_answered_locally:true and not dns.question.name:*.sol.example.com",
+  "threshold": {
+    "field": [
+      "source.ip"
+    ],
+    "value": 200
+  },
+  "severity": "high",
+  "risk_score": 73,
+  "tags": [
+    "homelab",
+    "notify",
+    "wazuh:100304",
+    "dns",
+    "c2_beacon"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0011",
+        "name": "Command and Control",
+        "reference": "https://attack.mitre.org/tactics/TA0011/"
+      },
+      "technique": [
+        {
+          "id": "T1071",
+          "name": "Application Layer Protocol",
+          "reference": "https://attack.mitre.org/techniques/T1071/",
+          "subtechnique": [
+            {
+              "id": "T1071.004",
+              "name": "DNS",
+              "reference": "https://attack.mitre.org/techniques/T1071/004/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

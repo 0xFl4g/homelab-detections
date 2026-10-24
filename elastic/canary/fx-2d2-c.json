@@ -1,0 +1,7 @@
+[
+ {"rule_id":"homelab-100021","name":"100021-new-sudoers-dropin","stream":"logs-host.snapshot-default","count":1,"doc":{"event":{"action":"added"},"labels":{"snapshot_item":"/etc/sudoers.d/canary"},"host":{"name":"canary-__IP__"},"message":"canary"}},
+ {"rule_id":"homelab-100023","name":"100023-new-sshd-dropin","stream":"logs-host.snapshot-default","count":1,"doc":{"event":{"action":"added"},"labels":{"snapshot_item":"/etc/ssh/sshd_config.d/canary.conf"},"host":{"name":"canary-__IP__"},"message":"canary"}},
+ {"rule_id":"homelab-pikvm-credentials","name":"pikvm-new-override-dropin","stream":"logs-host.snapshot-default","count":1,"doc":{"event":{"action":"added"},"labels":{"snapshot_item":"/etc/kvmd/override.d/canary.yaml"},"host":{"name":"canary-__IP__"},"message":"canary"}},
+ {"rule_id":"homelab-100020","name":"100020-new-account-file","stream":"logs-host.snapshot-default","count":1,"doc":{"event":{"action":"added"},"labels":{"snapshot_item":"/etc/shadow"},"host":{"name":"canary-__IP__"},"message":"canary"}},
+ {"rule_id":"homelab-100021","name":"100021-removed-sudoers-not-this-rule","expect":"none","stream":"logs-host.snapshot-default","count":1,"doc":{"event":{"action":"removed"},"labels":{"snapshot_item":"/etc/sudoers.d/canary"},"host":{"name":"canary-__IP__"},"message":"canary"}}
+]

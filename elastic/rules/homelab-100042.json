@@ -1,0 +1,75 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-20m",
+  "rule_id": "homelab-100042",
+  "name": "Attack chain: sudoers change then account change (15 min)",
+  "description": "Port of Wazuh 100042.",
+  "type": "eql",
+  "index": [
+    "logs-host.snapshot-*",
+    "logs-osquery.result-*"
+  ],
+  "language": "eql",
+  "query": "sequence by host.name with maxspan=15m [any where event.action == \"modified\" and (labels.snapshot_item : \"/etc/sudoers*\" or labels.snapshot_item : \"/usr/local/etc/sudoers*\")] [any where (event.action == \"modified\" and labels.snapshot_item in (\"/etc/passwd\", \"/etc/master.passwd\", \"/etc/group\")) or (osquery.name == \"users\" and osquery.counter > 0)]",
+  "severity": "critical",
+  "risk_score": 99,
+  "tags": [
+    "homelab",
+    "notify",
+    "wazuh:100042",
+    "privilege_escalation"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0003",
+        "name": "Persistence",
+        "reference": "https://attack.mitre.org/tactics/TA0003/"
+      },
+      "technique": [
+        {
+          "id": "T1136",
+          "name": "Create Account",
+          "reference": "https://attack.mitre.org/techniques/T1136/",
+          "subtechnique": [
+            {
+              "id": "T1136.001",
+              "name": "Local Account",
+              "reference": "https://attack.mitre.org/techniques/T1136/001/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0004",
+        "name": "Privilege Escalation",
+        "reference": "https://attack.mitre.org/tactics/TA0004/"
+      },
+      "technique": [
+        {
+          "id": "T1548",
+          "name": "Abuse Elevation Control Mechanism",
+          "reference": "https://attack.mitre.org/techniques/T1548/",
+          "subtechnique": [
+            {
+              "id": "T1548.003",
+              "name": "Sudo and Sudo Caching",
+              "reference": "https://attack.mitre.org/techniques/T1548/003/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

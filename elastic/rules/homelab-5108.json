@@ -1,0 +1,29 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 2,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-5108",
+  "name": "Kernel OOM killer invoked",
+  "description": "Port of Wazuh 5108: kernel out-of-memory kill on Unraid or PiKVM. One alert per OOM: only the kill line matches (the invoked oom-killer line is the same event).",
+  "type": "query",
+  "language": "kuery",
+  "index": [
+    "logs-system.syslog-*"
+  ],
+  "query": "process.name:kernel and message:\"Out of memory\"",
+  "severity": "high",
+  "risk_score": 73,
+  "tags": [
+    "homelab",
+    "notify",
+    "wazuh:5108",
+    "availability"
+  ],
+  "threat": []
+}

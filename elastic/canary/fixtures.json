@@ -1,0 +1,4841 @@
+[
+  {
+    "rule_id": "homelab-100041",
+    "stream": "logs-system.auth-default",
+    "count": 6,
+    "doc": {
+      "input": {
+        "type": "log"
+      },
+      "event": {
+        "timezone": "Europe/London"
+      },
+      "message": "__SYSLOGTS__ Tower sshd-session[4242]: Failed password for invalid user canary from __IP__ port 40000 ssh2",
+      "host": {
+        "name": "unraid"
+      }
+    }
+  },
+  {
+    "rule_id": "homelab-100082",
+    "stream": "logs-docker.vector-default",
+    "count": 6,
+    "doc": {
+      "container": {
+        "name": "authentik-server"
+      },
+      "event": {
+        "action": "login_failed"
+      },
+      "source": {
+        "ip": "__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100126",
+    "stream": "logs-docker.vector-default",
+    "count": 6,
+    "doc": {
+      "container": {
+        "name": "traefik"
+      },
+      "source": {
+        "ip": "__IP__"
+      },
+      "http": {
+        "response": {
+          "status_code": 404
+        }
+      },
+      "url": {
+        "original": "/canary"
+      },
+      "labels": {
+        "traefik_router": "canary@docker"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100132",
+    "stream": "logs-docker.vector-default",
+    "count": 6,
+    "doc": {
+      "container": {
+        "name": "traefik"
+      },
+      "source": {
+        "ip": "__IP__"
+      },
+      "http": {
+        "response": {
+          "status_code": 401
+        }
+      },
+      "url": {
+        "original": "/user/login"
+      },
+      "labels": {
+        "traefik_router": "forgejo@docker"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100201",
+    "stream": "logs-docker.vector-default",
+    "count": 6,
+    "doc": {
+      "container": {
+        "name": "traefik"
+      },
+      "source": {
+        "ip": "__IP__"
+      },
+      "http": {
+        "response": {
+          "status_code": 403
+        }
+      },
+      "url": {
+        "original": "/api/v2/auth/login"
+      },
+      "labels": {
+        "traefik_router": "qbittorrent@docker"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100211",
+    "stream": "logs-docker.vector-default",
+    "count": 6,
+    "doc": {
+      "container": {
+        "name": "traefik"
+      },
+      "source": {
+        "ip": "__IP__"
+      },
+      "http": {
+        "response": {
+          "status_code": 403
+        }
+      },
+      "url": {
+        "original": "/sabnzbd/api"
+      },
+      "labels": {
+        "traefik_router": "sabnzbd@docker"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100221",
+    "stream": "logs-docker.vector-default",
+    "count": 6,
+    "doc": {
+      "container": {
+        "name": "traefik"
+      },
+      "source": {
+        "ip": "__IP__"
+      },
+      "http": {
+        "response": {
+          "status_code": 401
+        }
+      },
+      "url": {
+        "original": "/api/auth/login"
+      },
+      "labels": {
+        "traefik_router": "immich@docker"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100231",
+    "stream": "logs-docker.vector-default",
+    "count": 11,
+    "doc": {
+      "container": {
+        "name": "immich-public-proxy"
+      },
+      "source": {
+        "ip": "__IP__"
+      },
+      "http": {
+        "response": {
+          "status_code": 404
+        }
+      },
+      "url": {
+        "original": "/share/canary"
+      },
+      "labels": {
+        "traefik_router": "immich-public-proxy@docker"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100250",
+    "stream": "logs-docker.vector-default",
+    "count": 1,
+    "doc": {
+      "container": {
+        "name": "traefik"
+      },
+      "source": {
+        "ip": "__IP__"
+      },
+      "labels": {
+        "ti_crowdsec": "canary",
+        "ti_abusech": ""
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100251",
+    "stream": "logs-docker.vector-default",
+    "count": 1,
+    "doc": {
+      "container": {
+        "name": "traefik"
+      },
+      "source": {
+        "ip": "__IP__"
+      },
+      "labels": {
+        "ti_crowdsec": "",
+        "ti_abusech": "canary"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-ti-suricata-src",
+    "stream": "logs-suricata.eve-default",
+    "count": 1,
+    "fixed_ip": "192.0.2.250",
+    "doc": {
+      "message": "{\"timestamp\": \"__ISOTS__\", \"event_type\": \"alert\", \"src_ip\": \"192.0.2.250\", \"src_port\": 4444, \"dest_ip\": \"10.20.20.5\", \"dest_port\": 443, \"proto\": \"TCP\", \"alert\": {\"action\": \"allowed\", \"signature_id\": 9999100, \"rev\": 1, \"signature\": \"HOMELAB CANARY src\", \"category\": \"Test\", \"severity\": 2}}"
+    }
+  },
+  {
+    "rule_id": "homelab-ti-suricata-dst",
+    "stream": "logs-suricata.eve-default",
+    "count": 1,
+    "fixed_ip": "192.0.2.250",
+    "doc": {
+      "message": "{\"timestamp\": \"__ISOTS__\", \"event_type\": \"alert\", \"src_ip\": \"10.20.20.5\", \"src_port\": 4444, \"dest_ip\": \"192.0.2.250\", \"dest_port\": 443, \"proto\": \"TCP\", \"alert\": {\"action\": \"allowed\", \"signature_id\": 9999101, \"rev\": 1, \"signature\": \"HOMELAB CANARY dst\", \"category\": \"Test\", \"severity\": 2}}"
+    }
+  },
+  {
+    "rule_id": "homelab-100047",
+    "stream": "logs-netflow.threat-default",
+    "count": 1,
+    "doc": {
+      "source": {
+        "ip": "__IP__"
+      },
+      "labels": {
+        "direction": "inbound",
+        "tag": "canary"
+      },
+      "message": "canary",
+      "destination": {
+        "port": 443
+      },
+      "network": {
+        "bytes": 1500,
+        "packets": 10
+      }
+    }
+  },
+  {
+    "rule_id": "homelab-100048",
+    "stream": "logs-netflow.threat-default",
+    "count": 1,
+    "doc": {
+      "source": {
+        "ip": "__IP__"
+      },
+      "labels": {
+        "direction": "outbound",
+        "tag": "canary"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100047",
+    "expect": "none",
+    "name": "100047-no-session-0-0",
+    "stream": "logs-netflow.threat-default",
+    "count": 1,
+    "doc": {
+      "source": {
+        "ip": "__IP__"
+      },
+      "destination": {
+        "port": 443
+      },
+      "network": {
+        "bytes": 0,
+        "packets": 0
+      },
+      "labels": {
+        "direction": "inbound",
+        "tag": "canary"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100047",
+    "expect": "none",
+    "name": "100047-netbird-33443",
+    "stream": "logs-netflow.threat-default",
+    "count": 1,
+    "doc": {
+      "source": {
+        "ip": "__IP__"
+      },
+      "destination": {
+        "port": 33443
+      },
+      "network": {
+        "bytes": 800,
+        "packets": 6
+      },
+      "labels": {
+        "direction": "inbound",
+        "tag": "canary"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100041",
+    "expect": "none",
+    "name": "100041-pikvm-stream-no-autoblock",
+    "stream": "logs-system.auth-default",
+    "count": 6,
+    "doc": {
+      "host": {
+        "name": "pikvm"
+      },
+      "input": {
+        "type": "log"
+      },
+      "event": {
+        "timezone": "Europe/London"
+      },
+      "message": "__SYSLOGTS__ pikvm sshd-session[4242]: Failed password for invalid user canary from __IP__ port 40000 ssh2"
+    }
+  },
+  {
+    "rule_id": "homelab-100005",
+    "name": "100005-config-change",
+    "stream": "logs-opnsense.audit-default",
+    "count": 1,
+    "doc": {
+      "event": {
+        "action": "config-change"
+      },
+      "user": {
+        "name": "root"
+      },
+      "source": {
+        "ip": "__IP__"
+      },
+      "url": {
+        "path": "/api/firewall/filter/set"
+      },
+      "host": {
+        "name": "opnsense"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100005",
+    "expect": "none",
+    "name": "100005-responder-block-ignored",
+    "stream": "logs-opnsense.audit-default",
+    "count": 1,
+    "doc": {
+      "event": {
+        "action": "config-change"
+      },
+      "user": {
+        "name": "wazuh-api"
+      },
+      "source": {
+        "ip": "__IP__"
+      },
+      "url": {
+        "path": "/api/firewall/alias_util/add/AUTO_BLOCK"
+      },
+      "host": {
+        "name": "opnsense"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100005-unaudited",
+    "name": "100005-unaudited",
+    "stream": "logs-host.snapshot-default",
+    "count": 1,
+    "doc": {
+      "event": {
+        "action": "unaudited"
+      },
+      "labels": {
+        "snapshot_item": "/conf/config.xml"
+      },
+      "file": {
+        "path": "/conf/config.xml",
+        "hash": {
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "size": 1
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100702",
+    "name": "100702-opencanary-hit",
+    "stream": "logs-opencanary.log-default",
+    "count": 1,
+    "doc": {
+      "source": {
+        "ip": "__IP__",
+        "port": 51000
+      },
+      "destination": {
+        "ip": "10.20.20.99",
+        "port": 22
+      },
+      "opencanary": {
+        "logtype": 4002,
+        "node_id": "canary-tower-internal"
+      },
+      "host": {
+        "name": "unraid"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100702",
+    "expect": "none",
+    "name": "100702-startup-ignored",
+    "stream": "logs-opencanary.log-default",
+    "count": 1,
+    "doc": {
+      "source": {
+        "ip": "__IP__"
+      },
+      "opencanary": {
+        "logtype": 1001,
+        "node_id": "canary-tower-internal"
+      },
+      "host": {
+        "name": "unraid"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100801",
+    "name": "100801-yara",
+    "stream": "logs-system.syslog-default",
+    "count": 1,
+    "doc": {
+      "input": {
+        "type": "log"
+      },
+      "event": {
+        "timezone": "Europe/London"
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "__SYSLOGTS__ Tower yara-match: rule=\"HOMELAB_CANARY\" file=\"/tmp/canary\""
+    }
+  },
+  {
+    "rule_id": "homelab-100321",
+    "name": "100321-atx",
+    "stream": "logs-system.syslog-default",
+    "count": 1,
+    "doc": {
+      "input": {
+        "type": "log"
+      },
+      "event": {
+        "timezone": "Europe/London",
+        "action": "atx-click"
+      },
+      "labels": {
+        "atx_button": "power"
+      },
+      "source": {
+        "ip": "__IP__"
+      },
+      "host": {
+        "name": "pikvm"
+      },
+      "message": "__SYSLOGTS__ pikvm kvmd[674]: kvmd.plugins.atx.gpio INFO --- Clicked ATX button 'power'"
+    }
+  },
+  {
+    "rule_id": "homelab-100322",
+    "name": "100322-msd-connect",
+    "stream": "logs-system.syslog-default",
+    "count": 1,
+    "doc": {
+      "input": {
+        "type": "log"
+      },
+      "event": {
+        "timezone": "Europe/London"
+      },
+      "source": {
+        "ip": "__IP__"
+      },
+      "user": {
+        "name": "admin"
+      },
+      "http": {
+        "request": {
+          "method": "POST"
+        },
+        "response": {
+          "status_code": 200
+        }
+      },
+      "url": {
+        "original": "/msd/set_connected?connected=1"
+      },
+      "host": {
+        "name": "pikvm"
+      },
+      "message": "__SYSLOGTS__ pikvm kvmd[674]: aiohttp.access INFO --- canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100323",
+    "name": "100323-msd-params",
+    "stream": "logs-system.syslog-default",
+    "count": 1,
+    "doc": {
+      "input": {
+        "type": "log"
+      },
+      "event": {
+        "timezone": "Europe/London"
+      },
+      "source": {
+        "ip": "__IP__"
+      },
+      "user": {
+        "name": "admin"
+      },
+      "http": {
+        "request": {
+          "method": "POST"
+        },
+        "response": {
+          "status_code": 200
+        }
+      },
+      "url": {
+        "original": "/msd/set_params?image=x.iso"
+      },
+      "host": {
+        "name": "pikvm"
+      },
+      "message": "__SYSLOGTS__ pikvm kvmd[674]: aiohttp.access INFO --- canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100324",
+    "name": "100324-msd-write",
+    "stream": "logs-system.syslog-default",
+    "count": 1,
+    "doc": {
+      "input": {
+        "type": "log"
+      },
+      "event": {
+        "timezone": "Europe/London"
+      },
+      "source": {
+        "ip": "__IP__"
+      },
+      "user": {
+        "name": "admin"
+      },
+      "http": {
+        "request": {
+          "method": "POST"
+        },
+        "response": {
+          "status_code": 200
+        }
+      },
+      "url": {
+        "original": "/msd/write?image=x.iso"
+      },
+      "host": {
+        "name": "pikvm"
+      },
+      "message": "__SYSLOGTS__ pikvm kvmd[674]: aiohttp.access INFO --- canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100327",
+    "name": "100327-kvmd-auth-fail",
+    "stream": "logs-system.syslog-default",
+    "count": 1,
+    "doc": {
+      "input": {
+        "type": "log"
+      },
+      "event": {
+        "timezone": "Europe/London"
+      },
+      "source": {
+        "ip": "__IP__"
+      },
+      "user": {
+        "name": "-"
+      },
+      "http": {
+        "request": {
+          "method": "POST"
+        },
+        "response": {
+          "status_code": 403
+        }
+      },
+      "url": {
+        "original": "/auth/login"
+      },
+      "host": {
+        "name": "pikvm"
+      },
+      "message": "__SYSLOGTS__ pikvm kvmd[674]: aiohttp.access INFO --- canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100328",
+    "name": "100328-kvmd-brute",
+    "stream": "logs-system.syslog-default",
+    "count": 6,
+    "doc": {
+      "input": {
+        "type": "log"
+      },
+      "event": {
+        "timezone": "Europe/London"
+      },
+      "source": {
+        "ip": "__IP__"
+      },
+      "user": {
+        "name": "-"
+      },
+      "http": {
+        "request": {
+          "method": "POST"
+        },
+        "response": {
+          "status_code": 401
+        }
+      },
+      "url": {
+        "original": "/auth/login"
+      },
+      "host": {
+        "name": "pikvm"
+      },
+      "message": "__SYSLOGTS__ pikvm kvmd[674]: aiohttp.access INFO --- canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100001",
+    "name": "100001-exploit",
+    "stream": "logs-suricata.eve-default",
+    "count": 1,
+    "doc": {
+      "message": "{\"timestamp\": \"__ISOTS__\", \"event_type\": \"alert\", \"src_ip\": \"__IP__\", \"src_port\": 4444, \"dest_ip\": \"10.20.20.5\", \"dest_port\": 443, \"proto\": \"TCP\", \"alert\": {\"action\": \"allowed\", \"signature_id\": 9999101, \"rev\": 1, \"signature\": \"HOMELAB CANARY exploit\", \"category\": \"Attempted Administrator Privilege Gain\", \"severity\": 1}}"
+    }
+  },
+  {
+    "rule_id": "homelab-100001",
+    "expect": "none",
+    "name": "100001-scan-ignored",
+    "stream": "logs-suricata.eve-default",
+    "count": 1,
+    "doc": {
+      "message": "{\"timestamp\": \"__ISOTS__\", \"event_type\": \"alert\", \"src_ip\": \"__IP__\", \"src_port\": 4444, \"dest_ip\": \"10.20.20.5\", \"dest_port\": 443, \"proto\": \"TCP\", \"alert\": {\"action\": \"allowed\", \"signature_id\": 9999102, \"rev\": 1, \"signature\": \"ET SCAN HOMELAB CANARY\", \"category\": \"Detection of a Network Scan\", \"severity\": 3}}"
+    }
+  },
+  {
+    "rule_id": "homelab-100049",
+    "name": "100049-mining-pool",
+    "stream": "logs-netflow.threat-default",
+    "count": 1,
+    "doc": {
+      "source": {
+        "ip": "__IP__"
+      },
+      "labels": {
+        "direction": "outbound",
+        "tag": "mining_pool"
+      },
+      "destination": {
+        "port": 3333
+      },
+      "network": {
+        "bytes": 1500,
+        "packets": 10
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100020",
+    "name": "100020-passwd",
+    "stream": "logs-host.snapshot-default",
+    "count": 1,
+    "doc": {
+      "event": {
+        "action": "modified"
+      },
+      "labels": {
+        "snapshot_item": "/etc/passwd"
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100021",
+    "name": "100021-sudoers",
+    "stream": "logs-host.snapshot-default",
+    "count": 1,
+    "doc": {
+      "event": {
+        "action": "modified"
+      },
+      "labels": {
+        "snapshot_item": "/etc/sudoers.d/99_kvmd"
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100022",
+    "name": "100022-units",
+    "stream": "logs-host.snapshot-default",
+    "count": 1,
+    "doc": {
+      "event": {
+        "action": "modified"
+      },
+      "labels": {
+        "snapshot_item": "cmd:units"
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100023",
+    "name": "100023-osquery-keys",
+    "stream": "logs-osquery.result-default",
+    "count": 1,
+    "doc": {
+      "osquery": {
+        "name": "authorized_keys",
+        "action": "added",
+        "counter": 5,
+        "columns": {
+          "username": "root",
+          "key_file": "/root/.ssh/authorized_keys"
+        }
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-pikvm-credentials",
+    "name": "pikvm-htpasswd",
+    "stream": "logs-host.snapshot-default",
+    "count": 1,
+    "doc": {
+      "event": {
+        "action": "modified"
+      },
+      "labels": {
+        "snapshot_item": "/etc/kvmd/htpasswd"
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100024",
+    "name": "100024-history-shrunk",
+    "stream": "logs-host.snapshot-default",
+    "count": 1,
+    "doc": {
+      "event": {
+        "action": "shrunk"
+      },
+      "labels": {
+        "snapshot_item": "/root/.bash_history"
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100025",
+    "name": "100025-compose-env",
+    "stream": "logs-osquery.result-default",
+    "count": 1,
+    "doc": {
+      "osquery": {
+        "name": "boot_config_hashes",
+        "action": "added",
+        "counter": 7,
+        "columns": {
+          "path": "/boot/config/compose/canary/.env",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      },
+      "file": {
+        "path": "/boot/config/compose/canary/.env",
+        "hash": {
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100025",
+    "expect": "none",
+    "name": "100025-readme-ignored",
+    "stream": "logs-osquery.result-default",
+    "count": 1,
+    "doc": {
+      "osquery": {
+        "name": "boot_config_hashes",
+        "action": "added",
+        "counter": 7,
+        "columns": {
+          "path": "/boot/config/compose/canary/README.md"
+        }
+      },
+      "file": {
+        "path": "/boot/config/compose/canary/README.md",
+        "hash": {
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100101",
+    "name": "100101-crontab",
+    "stream": "logs-host.snapshot-default",
+    "count": 1,
+    "doc": {
+      "event": {
+        "action": "modified"
+      },
+      "labels": {
+        "snapshot_item": "/var/cron/tabs/nobody"
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100400",
+    "name": "100400-suid",
+    "stream": "logs-host.snapshot-default",
+    "count": 1,
+    "doc": {
+      "event": {
+        "action": "modified"
+      },
+      "labels": {
+        "snapshot_item": "cmd:suid"
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100401",
+    "name": "100401-kmod",
+    "stream": "logs-osquery.result-default",
+    "count": 1,
+    "doc": {
+      "osquery": {
+        "name": "kernel_modules",
+        "action": "added",
+        "counter": 3,
+        "columns": {
+          "name": "canary_mod",
+          "size": "4096"
+        }
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100901",
+    "name": "100901-listen",
+    "stream": "logs-osquery.result-default",
+    "count": 1,
+    "doc": {
+      "osquery": {
+        "name": "listening_ports",
+        "action": "added",
+        "counter": 3,
+        "columns": {
+          "address": "10.20.20.5",
+          "port": "4444",
+          "protocol": "6",
+          "pid": "1"
+        }
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100100",
+    "name": "100100-mass-change",
+    "stream": "logs-osquery.result-default",
+    "count": 50,
+    "doc": {
+      "osquery": {
+        "name": "boot_config_hashes",
+        "action": "added",
+        "counter": 9,
+        "columns": {
+          "path": "/boot/config/compose/canary/f"
+        }
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100004",
+    "name": "100004-privileged",
+    "stream": "logs-osquery.result-default",
+    "count": 1,
+    "doc": {
+      "osquery": {
+        "name": "docker_privileged",
+        "action": "added",
+        "counter": 2,
+        "columns": {
+          "name": "/canary",
+          "image": "canary:latest",
+          "privileged": "1",
+          "host_pid": "0"
+        }
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100042",
+    "name": "100042-sudoers-then-account",
+    "stream": "logs-host.snapshot-default",
+    "count": 1,
+    "docs": [
+      {
+        "event": {
+          "action": "modified"
+        },
+        "labels": {
+          "snapshot_item": "/etc/sudoers"
+        },
+        "host": {
+          "name": "canary-__IP__"
+        },
+        "message": "canary 1"
+      },
+      {
+        "event": {
+          "action": "modified"
+        },
+        "labels": {
+          "snapshot_item": "/etc/passwd"
+        },
+        "host": {
+          "name": "canary-__IP__"
+        },
+        "message": "canary 2"
+      }
+    ]
+  },
+  {
+    "rule_id": "homelab-100043",
+    "name": "100043-units-then-keys",
+    "stream": "logs-host.snapshot-default",
+    "count": 1,
+    "docs": [
+      {
+        "event": {
+          "action": "modified"
+        },
+        "labels": {
+          "snapshot_item": "cmd:units"
+        },
+        "host": {
+          "name": "canary-__IP__"
+        },
+        "message": "canary 1"
+      },
+      {
+        "event": {
+          "action": "modified"
+        },
+        "labels": {
+          "snapshot_item": "/root/.ssh/authorized_keys"
+        },
+        "host": {
+          "name": "canary-__IP__"
+        },
+        "message": "canary 2"
+      }
+    ]
+  },
+  {
+    "rule_id": "homelab-100505",
+    "name": "100505-kill-burst",
+    "stream": "logs-docker.vector-default",
+    "count": 10,
+    "doc": {
+      "container": {
+        "name": "docker-events-tailer"
+      },
+      "event": {
+        "action": "kill"
+      },
+      "labels": {
+        "docker_container": "canary-__IP__",
+        "docker_signal": "15"
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100505",
+    "expect": "none",
+    "name": "100505-sighup-ignored",
+    "stream": "logs-docker.vector-default",
+    "count": 10,
+    "doc": {
+      "container": {
+        "name": "docker-events-tailer"
+      },
+      "event": {
+        "action": "kill"
+      },
+      "labels": {
+        "docker_container": "canary-__IP__",
+        "docker_signal": "1"
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100509",
+    "name": "100509-die-burst",
+    "stream": "logs-docker.vector-default",
+    "count": 10,
+    "doc": {
+      "container": {
+        "name": "docker-events-tailer"
+      },
+      "event": {
+        "action": "die"
+      },
+      "labels": {
+        "docker_container": "canary-__IP__",
+        "docker_exit_code": "137"
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100507",
+    "name": "100507-restart-loop",
+    "stream": "logs-docker.vector-default",
+    "count": 5,
+    "doc": {
+      "container": {
+        "name": "docker-events-tailer"
+      },
+      "event": {
+        "action": "kill"
+      },
+      "labels": {
+        "docker_container": "canary-__IP__",
+        "docker_signal": "9"
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100910",
+    "name": "100910-crash-loop",
+    "stream": "logs-docker.vector-default",
+    "count": 5,
+    "doc": {
+      "container": {
+        "name": "docker-events-tailer"
+      },
+      "event": {
+        "action": "die"
+      },
+      "labels": {
+        "docker_container": "canary-__IP__",
+        "docker_exit_code": "1"
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100103",
+    "name": "100103-miner",
+    "stream": "logs-system.syslog-default",
+    "count": 1,
+    "doc": {
+      "input": {
+        "type": "log"
+      },
+      "event": {
+        "timezone": "Europe/London"
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "__SYSLOGTS__ Tower canary: started xmrig --donate-level 1"
+    }
+  },
+  {
+    "rule_id": "homelab-100104",
+    "name": "100104-snapshot-delete",
+    "stream": "logs-system.syslog-default",
+    "count": 1,
+    "doc": {
+      "input": {
+        "type": "log"
+      },
+      "event": {
+        "timezone": "Europe/London"
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "__SYSLOGTS__ Tower canary: zfs destroy pool/data@snapshot-canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100106",
+    "name": "100106-fw-flush",
+    "stream": "logs-system.syslog-default",
+    "count": 1,
+    "doc": {
+      "input": {
+        "type": "log"
+      },
+      "event": {
+        "timezone": "Europe/London"
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "__SYSLOGTS__ Tower canary: iptables -F INPUT"
+    }
+  },
+  {
+    "rule_id": "homelab-100107",
+    "name": "100107-log-clear",
+    "stream": "logs-system.syslog-default",
+    "count": 1,
+    "doc": {
+      "input": {
+        "type": "log"
+      },
+      "event": {
+        "timezone": "Europe/London"
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "__SYSLOGTS__ Tower canary: journalctl --rotate --vacuum-time=1s"
+    }
+  },
+  {
+    "rule_id": "homelab-ti-auth-src",
+    "name": "ti-auth-src",
+    "stream": "logs-system.auth-default",
+    "count": 1,
+    "fixed_ip": "192.0.2.250",
+    "doc": {
+      "input": {
+        "type": "log"
+      },
+      "event": {
+        "timezone": "Europe/London"
+      },
+      "host": {
+        "name": "unraid"
+      },
+      "message": "__SYSLOGTS__ Tower sshd-session[4242]: Failed password for invalid user canary from 192.0.2.250 port 40000 ssh2"
+    }
+  },
+  {
+    "rule_id": "homelab-100057",
+    "name": "100057-bad-hash",
+    "stream": "logs-osquery.result-default",
+    "count": 1,
+    "doc": {
+      "osquery": {
+        "name": "boot_config_hashes",
+        "action": "added",
+        "counter": 4,
+        "columns": {
+          "path": "/boot/config/canary.bin"
+        }
+      },
+      "file": {
+        "path": "/boot/config/canary.bin",
+        "hash": {
+          "sha256": "1c53c6d8a6caf6ce710d492678e51c5bb25f081691a8faba3b00a674bd401783"
+        }
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100102",
+    "name": "100102-external-ssh",
+    "stream": "logs-system.auth-default",
+    "count": 1,
+    "doc": {
+      "input": {
+        "type": "log"
+      },
+      "event": {
+        "timezone": "Europe/London"
+      },
+      "host": {
+        "name": "unraid"
+      },
+      "message": "__SYSLOGTS__ Tower sshd-session[4243]: Accepted publickey for root from __IP__ port 40000 ssh2: ED25519 SHA256:canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100102",
+    "expect": "none",
+    "name": "100102-tailscale-ignored",
+    "stream": "logs-system.auth-default",
+    "count": 1,
+    "fixed_ip": "100.64.0.10",
+    "doc": {
+      "input": {
+        "type": "log"
+      },
+      "event": {
+        "timezone": "Europe/London"
+      },
+      "host": {
+        "name": "unraid"
+      },
+      "message": "__SYSLOGTS__ Tower sshd-session[4244]: Accepted publickey for root from 100.64.0.10 port 40000 ssh2: ED25519 SHA256:canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100085",
+    "name": "100085-authentik-admin",
+    "stream": "logs-docker.vector-default",
+    "count": 1,
+    "doc": {
+      "container": {
+        "name": "authentik-server"
+      },
+      "event": {
+        "action": "model_updated"
+      },
+      "source": {
+        "ip": "__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100136",
+    "name": "100136-forgejo-admin",
+    "stream": "logs-docker.vector-default",
+    "count": 1,
+    "doc": {
+      "container": {
+        "name": "traefik"
+      },
+      "labels": {
+        "traefik_router": "forgejo@docker"
+      },
+      "url": {
+        "original": "/-/admin/users"
+      },
+      "http": {
+        "response": {
+          "status_code": 200
+        }
+      },
+      "source": {
+        "ip": "__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-5138",
+    "name": "5138-sata",
+    "stream": "logs-system.syslog-default",
+    "count": 1,
+    "doc": {
+      "input": {
+        "type": "log"
+      },
+      "event": {
+        "timezone": "Europe/London"
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "__SYSLOGTS__ Tower kernel: ata3.00: exception Emask 0x0 SAct 0x0 SErr 0x0 action 0x6 frozen"
+    }
+  },
+  {
+    "rule_id": "homelab-100020",
+    "name": "100020-shadow",
+    "stream": "logs-host.snapshot-default",
+    "count": 1,
+    "doc": {
+      "event": {
+        "action": "modified"
+      },
+      "labels": {
+        "snapshot_item": "/etc/shadow"
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100025",
+    "expect": "none",
+    "name": "100025-removed-row-ignored",
+    "stream": "logs-osquery.result-default",
+    "count": 1,
+    "doc": {
+      "osquery": {
+        "name": "boot_config_hashes",
+        "action": "removed",
+        "counter": 7,
+        "columns": {
+          "path": "/boot/config/compose/canary/.env"
+        }
+      },
+      "file": {
+        "path": "/boot/config/compose/canary/.env",
+        "hash": {
+          "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+        }
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100042-rev",
+    "name": "100042-account-then-sudoers",
+    "stream": "logs-host.snapshot-default",
+    "count": 1,
+    "docs": [
+      {
+        "event": {
+          "action": "modified"
+        },
+        "labels": {
+          "snapshot_item": "/etc/passwd"
+        },
+        "host": {
+          "name": "canary-__IP__"
+        },
+        "message": "canary 1"
+      },
+      {
+        "event": {
+          "action": "modified"
+        },
+        "labels": {
+          "snapshot_item": "/etc/sudoers"
+        },
+        "host": {
+          "name": "canary-__IP__"
+        },
+        "message": "canary 2"
+      }
+    ]
+  },
+  {
+    "rule_id": "homelab-100043-rev",
+    "name": "100043-keys-then-units",
+    "stream": "logs-host.snapshot-default",
+    "count": 1,
+    "docs": [
+      {
+        "event": {
+          "action": "modified"
+        },
+        "labels": {
+          "snapshot_item": "/root/.ssh/authorized_keys"
+        },
+        "host": {
+          "name": "canary-__IP__"
+        },
+        "message": "canary 1"
+      },
+      {
+        "event": {
+          "action": "modified"
+        },
+        "labels": {
+          "snapshot_item": "cmd:units"
+        },
+        "host": {
+          "name": "canary-__IP__"
+        },
+        "message": "canary 2"
+      }
+    ]
+  },
+  {
+    "rule_id": "homelab-100100",
+    "expect": "none",
+    "name": "100100-30-edits-ignored",
+    "stream": "logs-osquery.result-default",
+    "count": 30,
+    "docs": [
+      {
+        "osquery": {
+          "name": "boot_config_hashes",
+          "action": "removed",
+          "counter": 9,
+          "columns": {
+            "path": "/boot/config/compose/canary/f"
+          }
+        },
+        "host": {
+          "name": "canary-__IP__"
+        },
+        "message": "canary"
+      },
+      {
+        "osquery": {
+          "name": "boot_config_hashes",
+          "action": "added",
+          "counter": 9,
+          "columns": {
+            "path": "/boot/config/compose/canary/f"
+          }
+        },
+        "host": {
+          "name": "canary-__IP__"
+        },
+        "message": "canary"
+      }
+    ]
+  },
+  {
+    "rule_id": "homelab-100105",
+    "expect": "none",
+    "name": "100105-edits-not-deletions",
+    "stream": "logs-osquery.result-default",
+    "count": 50,
+    "doc": {
+      "osquery": {
+        "name": "boot_config_hashes",
+        "action": "removed",
+        "counter": 9,
+        "columns": {
+          "path": "/boot/config/compose/canary/f"
+        }
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100105",
+    "name": "100105-mass-delete",
+    "stream": "logs-osquery.result-default",
+    "count": 50,
+    "doc": {
+      "osquery": {
+        "name": "boot_config_paths",
+        "action": "removed",
+        "counter": 9,
+        "columns": {
+          "path": "/boot/config/compose/canary/f"
+        }
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100102",
+    "expect": "none",
+    "name": "100102-tailscale-ipv6-ignored",
+    "stream": "logs-system.auth-default",
+    "count": 1,
+    "fixed_ip": "fd7a:115c:a1e0::5",
+    "doc": {
+      "input": {
+        "type": "log"
+      },
+      "event": {
+        "timezone": "Europe/London"
+      },
+      "host": {
+        "name": "unraid"
+      },
+      "message": "__SYSLOGTS__ Tower sshd-session[4245]: Accepted publickey for root from fd7a:115c:a1e0::5 port 40000 ssh2: ED25519 SHA256:canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100101",
+    "name": "100101-unraid-cron",
+    "stream": "logs-osquery.result-default",
+    "count": 1,
+    "doc": {
+      "osquery": {
+        "name": "boot_config_hashes",
+        "action": "added",
+        "counter": 7,
+        "columns": {
+          "path": "/boot/config/plugins/dynamix/canary.cron"
+        }
+      },
+      "file": {
+        "path": "/boot/config/plugins/dynamix/canary.cron",
+        "hash": {
+          "sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+        }
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100049-dns",
+    "name": "100049-dns-pool",
+    "stream": "logs-pfsense.log-default",
+    "pipeline": "logs-pfsense.log@custom",
+    "count": 1,
+    "doc": {
+      "message": "[1:1] info: __IP__ canary.supportxmr.com. A IN",
+      "dns": {
+        "question": {
+          "name": "canary.supportxmr.com",
+          "type": "A"
+        }
+      },
+      "source": {
+        "ip": "__IP__"
+      }
+    }
+  },
+  {
+    "rule_id": "homelab-100049-dns",
+    "expect": "none",
+    "name": "100049-dns-ntp-pool-ignored",
+    "stream": "logs-pfsense.log-default",
+    "pipeline": "logs-pfsense.log@custom",
+    "count": 1,
+    "doc": {
+      "message": "[1:1] info: __IP__ 2.pool.ntp.org. A IN",
+      "dns": {
+        "question": {
+          "name": "2.pool.ntp.org",
+          "type": "A"
+        }
+      },
+      "source": {
+        "ip": "__IP__"
+      }
+    }
+  },
+  {
+    "rule_id": "homelab-100059",
+    "name": "100059-ti-domain",
+    "stream": "logs-pfsense.log-default",
+    "pipeline": "logs-pfsense.log@custom",
+    "count": 1,
+    "doc": {
+      "message": "[1:1] info: __IP__ canary-dns.example.com. A IN",
+      "dns": {
+        "question": {
+          "name": "canary-dns.example.com",
+          "type": "A"
+        }
+      },
+      "source": {
+        "ip": "__IP__"
+      }
+    }
+  },
+  {
+    "rule_id": "homelab-100303",
+    "name": "100303-refused",
+    "stream": "logs-pfsense.log-default",
+    "pipeline": "logs-pfsense.log@custom",
+    "count": 1,
+    "doc": {
+      "message": "[1:1] info: __IP__ refused-canary.example. A IN REFUSED 0.000000 0 40",
+      "dns": {
+        "question": {
+          "name": "refused-canary.example",
+          "type": "A"
+        }
+      },
+      "source": {
+        "ip": "__IP__"
+      }
+    }
+  },
+  {
+    "rule_id": "homelab-100304",
+    "name": "100304-dnsbl-burst",
+    "stream": "logs-pfsense.log-default",
+    "pipeline": "logs-pfsense.log@custom",
+    "count": 200,
+    "doc": {
+      "message": "[1:1] info: __IP__ blocked-canary.example. A IN NOERROR 0.000000 0 45",
+      "dns": {
+        "question": {
+          "name": "blocked-canary.example",
+          "type": "A"
+        }
+      },
+      "source": {
+        "ip": "__IP__"
+      }
+    }
+  },
+  {
+    "rule_id": "homelab-100305",
+    "name": "100305-servfail-burst",
+    "stream": "logs-pfsense.log-default",
+    "pipeline": "logs-pfsense.log@custom",
+    "count": 20,
+    "doc": {
+      "message": "[1:1] info: __IP__ servfail-canary.example. A IN SERVFAIL 0.000000 1 40",
+      "dns": {
+        "question": {
+          "name": "servfail-canary.example",
+          "type": "A"
+        }
+      },
+      "source": {
+        "ip": "__IP__"
+      }
+    }
+  },
+  {
+    "rule_id": "homelab-100305",
+    "expect": "none",
+    "name": "100305-local-ignored",
+    "stream": "logs-pfsense.log-default",
+    "pipeline": "logs-pfsense.log@custom",
+    "count": 20,
+    "doc": {
+      "message": "[1:1] info: __IP__ canary.local. A IN SERVFAIL 0.000000 1 40",
+      "dns": {
+        "question": {
+          "name": "canary.local",
+          "type": "A"
+        }
+      },
+      "source": {
+        "ip": "__IP__"
+      }
+    }
+  },
+  {
+    "rule_id": "homelab-100306",
+    "name": "100306-oversized-txt",
+    "stream": "logs-pfsense.log-default",
+    "pipeline": "logs-pfsense.log@custom",
+    "count": 1,
+    "doc": {
+      "message": "[1:1] info: __IP__ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.t.example. TXT IN",
+      "dns": {
+        "question": {
+          "name": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.t.example",
+          "type": "TXT"
+        }
+      },
+      "source": {
+        "ip": "__IP__"
+      }
+    }
+  },
+  {
+    "rule_id": "homelab-100307",
+    "name": "100307-onion",
+    "stream": "logs-pfsense.log-default",
+    "pipeline": "logs-pfsense.log@custom",
+    "count": 1,
+    "doc": {
+      "message": "[1:1] info: __IP__ canary.onion. A IN",
+      "dns": {
+        "question": {
+          "name": "canary.onion",
+          "type": "A"
+        }
+      },
+      "source": {
+        "ip": "__IP__"
+      }
+    }
+  },
+  {
+    "rule_id": "homelab-100311",
+    "name": "100311-long-labels",
+    "stream": "logs-pfsense.log-default",
+    "pipeline": "logs-pfsense.log@custom",
+    "count": 5,
+    "doc": {
+      "message": "[1:1] info: __IP__ cccccccccccccccccccccccccccccccccccccccccccc.t.example. A IN",
+      "dns": {
+        "question": {
+          "name": "cccccccccccccccccccccccccccccccccccccccccccc.t.example",
+          "type": "A"
+        }
+      },
+      "source": {
+        "ip": "__IP__"
+      }
+    }
+  },
+  {
+    "rule_id": "homelab-100312",
+    "name": "100312-base32",
+    "stream": "logs-pfsense.log-default",
+    "pipeline": "logs-pfsense.log@custom",
+    "count": 3,
+    "doc": {
+      "message": "[1:1] info: __IP__ MFRGGZDFMZTWQ2LKNNWG23TPOBYXE43U.t.example. TXT IN",
+      "dns": {
+        "question": {
+          "name": "MFRGGZDFMZTWQ2LKNNWG23TPOBYXE43U.t.example",
+          "type": "TXT"
+        }
+      },
+      "source": {
+        "ip": "__IP__"
+      }
+    }
+  },
+  {
+    "rule_id": "homelab-100313",
+    "name": "100313-base64",
+    "stream": "logs-pfsense.log-default",
+    "pipeline": "logs-pfsense.log@custom",
+    "count": 3,
+    "doc": {
+      "message": "[1:1] info: __IP__ aGVsbG8gV29ybGQgdGhpcyBpcyBiYXNlNjQ.t.example. TXT IN",
+      "dns": {
+        "question": {
+          "name": "aGVsbG8gV29ybGQgdGhpcyBpcyBiYXNlNjQ.t.example",
+          "type": "TXT"
+        }
+      },
+      "source": {
+        "ip": "__IP__"
+      }
+    }
+  },
+  {
+    "rule_id": "homelab-100311",
+    "name": "100311-fbcdn-ignored",
+    "expect": "none",
+    "stream": "logs-pfsense.log-default",
+    "pipeline": "logs-pfsense.log@custom",
+    "count": 5,
+    "doc": {
+      "message": "[1:1] info: __IP__ 856B5F64-2CC8-4BC5-BC2E-3E7429A43233-netseer-ipaddr-assoc.xz.fbcdn.net. A IN",
+      "dns": {
+        "question": {
+          "name": "856B5F64-2CC8-4BC5-BC2E-3E7429A43233-netseer-ipaddr-assoc.xz.fbcdn.net",
+          "type": "A"
+        }
+      },
+      "source": {
+        "ip": "__IP__"
+      }
+    }
+  },
+  {
+    "rule_id": "homelab-100311",
+    "name": "100311-a2z-ignored",
+    "expect": "none",
+    "stream": "logs-pfsense.log-default",
+    "pipeline": "logs-pfsense.log@custom",
+    "count": 5,
+    "doc": {
+      "message": "[1:1] info: __IP__ b79c66077e27a1c100292a6aa5da291cfa7da7ef982a7d0d2708be38d76b31f.us-east-1.prod.service.minerva.devices.a2z.com. A IN",
+      "dns": {
+        "question": {
+          "name": "b79c66077e27a1c100292a6aa5da291cfa7da7ef982a7d0d2708be38d76b31f.us-east-1.prod.service.minerva.devices.a2z.com",
+          "type": "A"
+        }
+      },
+      "source": {
+        "ip": "__IP__"
+      }
+    }
+  },
+  {
+    "rule_id": "homelab-5108",
+    "name": "5108-app-oom-text-ignored",
+    "expect": "none",
+    "stream": "logs-system.syslog-default",
+    "count": 1,
+    "doc": {
+      "input": {
+        "type": "log"
+      },
+      "event": {
+        "timezone": "Europe/London"
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "__SYSLOGTS__ Tower canaryapp[123]: warning: Out of memory budget, trimming cache"
+    }
+  },
+  {
+    "rule_id": "homelab-5404",
+    "name": "5404-sudo-success-ignored",
+    "expect": "none",
+    "stream": "logs-system.auth-default",
+    "count": 1,
+    "doc": {
+      "input": {
+        "type": "log"
+      },
+      "event": {
+        "timezone": "Europe/London"
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "__SYSLOGTS__ Tower sudo:    analyst : TTY=pts/0 ; PWD=/root ; USER=root ; COMMAND=/usr/bin/id"
+    }
+  },
+  {
+    "rule_id": "homelab-100026",
+    "name": "100026-hidden-file",
+    "stream": "logs-osquery.result-default",
+    "count": 1,
+    "doc": {
+      "osquery": {
+        "name": "boot_config_paths",
+        "action": "added",
+        "counter": 9,
+        "columns": {
+          "path": "/boot/config/compose/canary/.hidden"
+        }
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100026",
+    "name": "100026-visible-file-ignored",
+    "expect": "none",
+    "stream": "logs-osquery.result-default",
+    "count": 1,
+    "doc": {
+      "osquery": {
+        "name": "boot_config_paths",
+        "action": "added",
+        "counter": 9,
+        "columns": {
+          "path": "/boot/config/compose/canary/visible.yml"
+        }
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-553",
+    "name": "553-snapshot-removed",
+    "stream": "logs-host.snapshot-default",
+    "count": 1,
+    "doc": {
+      "event": {
+        "action": "removed"
+      },
+      "labels": {
+        "snapshot_item": "/etc/cron.d/canary"
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-553",
+    "name": "553-osquery-single-delete",
+    "stream": "logs-osquery.result-default",
+    "count": 1,
+    "doc": {
+      "osquery": {
+        "name": "boot_config_paths",
+        "action": "removed",
+        "counter": 9,
+        "columns": {
+          "path": "/boot/config/compose/canary/f"
+        }
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-553",
+    "name": "553-hash-edit-ignored",
+    "expect": "none",
+    "stream": "logs-osquery.result-default",
+    "count": 1,
+    "doc": {
+      "osquery": {
+        "name": "boot_config_hashes",
+        "action": "removed",
+        "counter": 9,
+        "columns": {
+          "path": "/boot/config/compose/canary/f"
+        }
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100101",
+    "name": "100101-new-cron-file",
+    "stream": "logs-host.snapshot-default",
+    "count": 1,
+    "doc": {
+      "event": {
+        "action": "added"
+      },
+      "labels": {
+        "snapshot_item": "/etc/cron.d/canary"
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100021",
+    "name": "100021-new-sudoers-dropin",
+    "stream": "logs-host.snapshot-default",
+    "count": 1,
+    "doc": {
+      "event": {
+        "action": "added"
+      },
+      "labels": {
+        "snapshot_item": "/etc/sudoers.d/canary"
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100023",
+    "name": "100023-new-sshd-dropin",
+    "stream": "logs-host.snapshot-default",
+    "count": 1,
+    "doc": {
+      "event": {
+        "action": "added"
+      },
+      "labels": {
+        "snapshot_item": "/etc/ssh/sshd_config.d/canary.conf"
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-pikvm-credentials",
+    "name": "pikvm-new-override-dropin",
+    "stream": "logs-host.snapshot-default",
+    "count": 1,
+    "doc": {
+      "event": {
+        "action": "added"
+      },
+      "labels": {
+        "snapshot_item": "/etc/kvmd/override.d/canary.yaml"
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100020",
+    "name": "100020-new-account-file",
+    "stream": "logs-host.snapshot-default",
+    "count": 1,
+    "doc": {
+      "event": {
+        "action": "added"
+      },
+      "labels": {
+        "snapshot_item": "/etc/shadow"
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-100021",
+    "name": "100021-removed-sudoers-not-this-rule",
+    "expect": "none",
+    "stream": "logs-host.snapshot-default",
+    "count": 1,
+    "doc": {
+      "event": {
+        "action": "removed"
+      },
+      "labels": {
+        "snapshot_item": "/etc/sudoers.d/canary"
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "rule_id": "homelab-5108",
+    "name": "5108-kernel-oom",
+    "stream": "logs-system.syslog-default",
+    "count": 1,
+    "doc": {
+      "input": {
+        "type": "log"
+      },
+      "event": {
+        "timezone": "Europe/London"
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "__SYSLOGTS__ Tower kernel: Out of memory: Killed process 4242 (canary) total-vm:1000kB, anon-rss:500kB, file-rss:0kB, shmem-rss:0kB, UID:0 pgtables:40kB oom_score_adj:0"
+    }
+  },
+  {
+    "rule_id": "homelab-5404",
+    "name": "5404-sudo-3-failures",
+    "stream": "logs-system.auth-default",
+    "count": 1,
+    "doc": {
+      "input": {
+        "type": "log"
+      },
+      "event": {
+        "timezone": "Europe/London"
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "__SYSLOGTS__ Tower sudo:    analyst : 3 incorrect password attempts ; TTY=pts/0 ; PWD=/root ; USER=root ; COMMAND=/usr/bin/id"
+    }
+  },
+  {
+    "rule_id": "homelab-5404",
+    "name": "5404-sudo-2-failures-ignored",
+    "expect": "none",
+    "stream": "logs-system.auth-default",
+    "count": 1,
+    "doc": {
+      "input": {
+        "type": "log"
+      },
+      "event": {
+        "timezone": "Europe/London"
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "__SYSLOGTS__ Tower sudo:    analyst : 2 incorrect password attempts ; TTY=pts/0 ; PWD=/root ; USER=root ; COMMAND=/usr/bin/id"
+    }
+  },
+  {
+    "rule_id": "homelab-5108",
+    "name": "5108-oom-killer-invoked-line-ignored",
+    "expect": "none",
+    "stream": "logs-system.syslog-default",
+    "count": 1,
+    "doc": {
+      "input": {
+        "type": "log"
+      },
+      "event": {
+        "timezone": "Europe/London"
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "message": "__SYSLOGTS__ Tower kernel: canary invoked oom-killer: gfp_mask=0xcc0(GFP_KERNEL), order=0, oom_score_adj=0"
+    }
+  },
+  {
+    "name": "net-new-device",
+    "rule_id": "homelab-net-new-device",
+    "stream": "logs-network.inventory-default",
+    "count": 1,
+    "doc": {
+      "client": {
+        "mac": "__MAC__",
+        "ip": "__IP__"
+      },
+      "host": {
+        "name": "canary-__IP__"
+      },
+      "observer": {
+        "ingress": {
+          "interface": {
+            "name": "bridge0"
+          }
+        }
+      },
+      "message": "canary"
+    }
+  },
+  {
+    "name": "ti-suricata-sni",
+    "rule_id": "homelab-ti-suricata-sni",
+    "stream": "logs-suricata.eve-default",
+    "count": 1,
+    "doc": {
+      "message": "{\"timestamp\": \"__ISOTS__\", \"event_type\": \"tls\", \"src_ip\": \"__IP__\", \"src_port\": 40000, \"dest_ip\": \"192.0.2.251\", \"dest_port\": 443, \"proto\": \"TCP\", \"tls\": {\"sni\": \"canary-dns.example.com\", \"version\": \"TLS 1.3\"}}"
+    }
+  },
+  {
+    "name": "ti-suricata-sni-late",
+    "rule_id": "homelab-ti-suricata-sni",
+    "stream": "logs-suricata.eve-default",
+    "count": 1,
+    "doc": {
+      "message": "{\"timestamp\": \"2026-10-05T12:00:00.000000+0000\", \"event_type\": \"tls\", \"src_ip\": \"__IP__\", \"src_port\": 40001, \"dest_ip\": \"192.0.2.251\", \"dest_port\": 443, \"proto\": \"TCP\", \"tls\": {\"sni\": \"canary-dns.example.com\", \"version\": \"TLS 1.3\"}}"
+    }
+  },
+  {
+    "rule_id": "homelab-lab-t1098-004-authkeys",
+    "name": "t1098-004-authkeys",
+    "stream": "logs-auditd_manager.auditd-lab",
+    "count": 1,
+    "docs": [
+      {
+        "auditd": {
+          "data": {
+            "a0": "ffffffffffffff9c",
+            "a1": "5a084b29aa80",
+            "a2": "241",
+            "a3": "1b6",
+            "arch": "x86_64",
+            "exit": "3",
+            "syscall": "openat",
+            "tty": "(none)"
+          },
+          "message_type": "syscall",
+          "paths": [
+            {
+              "item": "0",
+              "nametype": "NORMAL",
+              "ogid": "1000",
+              "cap_fi": "0",
+              "cap_fp": "0",
+              "cap_frootid": "0",
+              "inode": "250886",
+              "mode": "0100600",
+              "cap_fver": "0",
+              "dev": "fd:01",
+              "ouid": "1000",
+              "rdev": "00:00",
+              "cap_fe": "0",
+              "name": "/home/lab/.ssh/authorized_keys"
+            }
+          ],
+          "result": "success",
+          "session": "39",
+          "summary": {
+            "actor": {
+              "primary": "lab",
+              "secondary": "lab"
+            },
+            "how": "/usr/bin/dash",
+            "object": {
+              "primary": "/home/lab/.ssh/authorized_keys",
+              "type": "file"
+            }
+          },
+          "user": {
+            "audit": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "filesystem": {
+              "group": {
+                "id": "1000",
+                "name": "lab"
+              },
+              "id": "1000",
+              "name": "lab"
+            },
+            "saved": {
+              "group": {
+                "id": "1000",
+                "name": "lab"
+              },
+              "id": "1000",
+              "name": "lab"
+            },
+            "selinux": {
+              "user": "unconfined"
+            }
+          }
+        },
+        "event": {
+          "action": "opened-file",
+          "agent_id_status": "verified",
+          "category": [
+            "file"
+          ],
+          "dataset": "auditd_manager.auditd",
+          "kind": "event",
+          "module": "auditd",
+          "outcome": "success",
+          "sequence": 633,
+          "type": [
+            "info"
+          ]
+        },
+        "file": {
+          "device": "00:00",
+          "gid": "1000",
+          "group": "lab",
+          "inode": "250886",
+          "mode": "0600",
+          "owner": "lab",
+          "path": "/home/lab/.ssh/authorized_keys",
+          "uid": "1000"
+        },
+        "host": {
+          "architecture": "x86_64",
+          "containerized": false,
+          "os": {
+            "codename": "resolute",
+            "family": "debian",
+            "kernel": "7.0.0-34-generic",
+            "name": "Ubuntu",
+            "platform": "ubuntu",
+            "type": "linux",
+            "version": "26.04.1 LTS (Resolute Raccoon)"
+          },
+          "name": "canary-__IP__"
+        },
+        "process": {
+          "executable": "/usr/bin/dash",
+          "name": "sh",
+          "parent": {
+            "pid": 3981
+          },
+          "pid": 4008,
+          "title": "sh -c if [ -f ~/.ssh/authorized_keys ]; then ssh_authorized_keys=$(cat ~/.ssh/authorized_keys); echo \"$ssh_authorized_keys\" > ~/",
+          "working_directory": "/tmp"
+        },
+        "service": {
+          "type": "auditd"
+        },
+        "tags": [
+          "ssh_authkeys",
+          "auditd_manager-auditd"
+        ],
+        "user": {
+          "group": {
+            "id": "1000",
+            "name": "lab"
+          },
+          "id": "1000",
+          "name": "lab"
+        }
+      }
+    ]
+  },
+  {
+    "rule_id": "homelab-lab-t1040_packet_capture",
+    "name": "t1040-packet-capture",
+    "stream": "logs-endpoint.events.process-lab",
+    "count": 1,
+    "docs": [
+      {
+        "elastic": {
+          "agent": {
+            "id": "6fe7530d-47ff-438d-8372-ea7cf0b8c0a3"
+          }
+        },
+        "event": {
+          "action": [
+            "fork",
+            "exec",
+            "end"
+          ],
+          "agent_id_status": "verified",
+          "category": [
+            "process"
+          ],
+          "dataset": "endpoint.events.process",
+          "id": "OhDAdSpD2RHYF+gx++++/HKb",
+          "kind": "event",
+          "module": "endpoint",
+          "outcome": "unknown",
+          "sequence": 253611,
+          "type": [
+            "start",
+            "start",
+            "end"
+          ]
+        },
+        "group": {
+          "Ext": {
+            "real": {
+              "id": "0",
+              "name": "root"
+            }
+          },
+          "id": "0",
+          "name": "root"
+        },
+        "host": {
+          "os": {
+            "type": "linux"
+          },
+          "name": "canary-__IP__"
+        },
+        "message": "Endpoint process event",
+        "process": {
+          "Ext": {
+            "ancestry": [
+              "z8+kIzVPdRDHmu5xhkLlHQ",
+              "fpeBE/m1jLB53RmfEUyMcQ",
+              "FCZKuGODs/95pi4KjvmlUg",
+              "T4uPFs4Q4ROxmc8hK+JfEg",
+              "hNntdG8CVLzXUZ1Ea4K64w"
+            ]
+          },
+          "args": [
+            "tcpdump",
+            "-c",
+            "5",
+            "-nnni",
+            "ens33"
+          ],
+          "args_count": 5,
+          "command_line": "tcpdump -c 5 -nnni ens33",
+          "entity_id": "f0CusjmaOuUr54JQpsKa3w",
+          "executable": "/usr/bin/tcpdump",
+          "exit_code": 1,
+          "hash": {
+            "sha256": "b19250abc948f03f637ecf8845114ee03132ad0ce12526c180388b2ae6680fd3"
+          },
+          "name": "tcpdump",
+          "parent": {
+            "args": [
+              "bash",
+              "-c",
+              "tcpdump -c 5 -nnni ens33; tshark -c 5 -i ens33"
+            ],
+            "args_count": 3,
+            "command_line": "bash -c tcpdump -c 5 -nnni ens33; tshark -c 5 -i ens33",
+            "entity_id": "z8+kIzVPdRDHmu5xhkLlHQ",
+            "executable": "/usr/bin/bash",
+            "name": "bash",
+            "pid": 39215
+          },
+          "pid": 39217,
+          "working_directory": "/tmp"
+        },
+        "user": {
+          "Ext": {
+            "real": {
+              "id": "0",
+              "name": "root"
+            }
+          },
+          "id": "0",
+          "name": "root"
+        }
+      }
+    ]
+  },
+  {
+    "rule_id": "homelab-lab-t1552_004_private_key_search",
+    "name": "t1552-004-private-key-search",
+    "stream": "logs-endpoint.events.process-lab",
+    "count": 1,
+    "docs": [
+      {
+        "elastic": {
+          "agent": {
+            "id": "6fe7530d-47ff-438d-8372-ea7cf0b8c0a3"
+          }
+        },
+        "event": {
+          "action": [
+            "fork",
+            "exec",
+            "end"
+          ],
+          "agent_id_status": "verified",
+          "category": [
+            "process"
+          ],
+          "dataset": "endpoint.events.process",
+          "id": "OhDx2Jw5kyCxiG78+++++5ww",
+          "kind": "event",
+          "module": "endpoint",
+          "outcome": "unknown",
+          "sequence": 27618,
+          "type": [
+            "start",
+            "start",
+            "end"
+          ]
+        },
+        "group": {
+          "Ext": {
+            "real": {
+              "id": "1000",
+              "name": "lab"
+            }
+          },
+          "id": "1000",
+          "name": "lab"
+        },
+        "host": {
+          "os": {
+            "type": "linux"
+          },
+          "name": "canary-__IP__"
+        },
+        "message": "Endpoint process event",
+        "process": {
+          "Ext": {
+            "ancestry": [
+              "lhtZShi4C3HcSJYeumdQUw",
+              "fiFciUBgU3lPBEiGoJT09A",
+              "VhYHimFjWofH3qHXLe/xdg",
+              "VWOqH2AzAtBoF3jzrtRGWQ",
+              "0RDIUYNO7oVud61/v5oWFA"
+            ]
+          },
+          "args": [
+            "find",
+            "/",
+            "-name",
+            "*.pem",
+            "-type",
+            "f",
+            "-exec",
+            "sh",
+            "-c",
+            "echo \"=== $1 ===\" >> /tmp/creds.txt; cat \"$1\" >> /tmp/creds.txt",
+            "_",
+            "{}",
+            ";"
+          ],
+          "args_count": 13,
+          "command_line": "find / -name *.pem -type f -exec sh -c echo \"=== $1 ===\" >> /tmp/creds.txt; cat \"$1\" >> /tmp/creds.txt _ {} ;",
+          "end": "2026-10-17T23:04:52.443Z",
+          "entity_id": "WhZ6sdg1ZU0T5qHkEXMnLQ",
+          "entry_leader": {
+            "args": [
+              "/usr/lib/openssh/sshd-session",
+              "-D",
+              "-R",
+              "-N",
+              "2"
+            ],
+            "args_count": 5,
+            "entity_id": "1743duR3HWAu6cVJsfZiFg",
+            "entry_meta": {
+              "source": {
+                "ip": "10.20.20.5"
+              },
+              "type": "sshd"
+            },
+            "executable": "/usr/lib/openssh/sshd-session",
+            "group": {
+              "id": "0",
+              "name": "root"
+            },
+            "interactive": false,
+            "name": "sshd-session",
+            "parent": {
+              "entity_id": "39TT0U4k9TDRZmZQPhHdYQ",
+              "pid": 921,
+              "start": "2026-10-17T22:56:12.880Z"
+            },
+            "pid": 4407,
+            "real_group": {
+              "id": "0",
+              "name": "root"
+            },
+            "real_user": {
+              "id": "0",
+              "name": "root"
+            },
+            "same_as_process": false,
+            "start": "2026-10-17T23:02:51.190Z",
+            "user": {
+              "id": "0",
+              "name": "root"
+            },
+            "working_directory": "/"
+          },
+          "executable": "/usr/bin/find",
+          "exit_code": 1,
+          "group": {
+            "id": "1000",
+            "name": "lab"
+          },
+          "group_leader": {
+            "args": [
+              "timeout",
+              "60",
+              "pwsh",
+              "-NoProfile",
+              "-Command",
+              "Import-Module '/opt/AtomicRedTeam/invoke-atomicredteam/Invoke-AtomicRedTeam.psd1'; Invoke-AtomicTest T1552.004 -TestNumbers 17 -PathToAtomicsFolder '/opt/AtomicRedTeam/atomics' -TimeoutSeconds 20"
+            ],
+            "args_count": 6,
+            "entity_id": "VhYHimFjWofH3qHXLe/xdg",
+            "executable": "/usr/lib/cargo/bin/coreutils/timeout",
+            "group": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "interactive": false,
+            "name": "timeout",
+            "pid": 6929,
+            "real_group": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "real_user": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "same_as_process": false,
+            "start": "2026-10-17T23:04:48.770Z",
+            "supplemental_groups": [
+              {
+                "name": "sudo",
+                "id": 27
+              }
+            ],
+            "user": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "working_directory": "/home/lab"
+          },
+          "hash": {
+            "sha256": "efe4843f166525b02f328f0c456a884d6a597f32d2c78cd615b6be0b64279bcf"
+          },
+          "interactive": false,
+          "name": "find",
+          "parent": {
+            "args": [
+              "sh",
+              "-c",
+              "for file_extension in *.key *.pem *.p12 *.pfx; do find / -name \"$file_extension\" -type f -exec sh -c 'echo \"=== $1 ===\" >> /tmp/creds.txt; cat \"$1\" >> /tmp/creds.txt' _ {} \\; 2>/dev/null; done"
+            ],
+            "args_count": 3,
+            "command_line": "sh -c for file_extension in *.key *.pem *.p12 *.pfx; do find / -name \"$file_extension\" -type f -exec sh -c 'echo \"=== $1 ===\" >> /tmp/creds.txt; cat \"$1\" >> /tmp/creds.txt' _ {} \\; 2>/dev/null; done",
+            "entity_id": "lhtZShi4C3HcSJYeumdQUw",
+            "executable": "/usr/bin/dash",
+            "group": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "interactive": false,
+            "name": "dash",
+            "pid": 6955,
+            "real_group": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "real_user": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "start": "2026-10-17T23:04:50.010Z",
+            "supplemental_groups": [
+              {
+                "name": "sudo",
+                "id": 27
+              }
+            ],
+            "user": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "working_directory": "/tmp"
+          },
+          "pid": 6960,
+          "previous": [
+            {
+              "args": [
+                "sh",
+                "-c",
+                "for file_extension in *.key *.pem *.p12 *.pfx; do find / -name \"$file_extension\" -type f -exec sh -c 'echo \"=== $1 ===\" >> /tmp/creds.txt; cat \"$1\" >> /tmp/creds.txt' _ {} \\; 2>/dev/null; done"
+              ],
+              "args_count": 3,
+              "executable": "/usr/bin/dash"
+            }
+          ],
+          "real_group": {
+            "id": "1000",
+            "name": "lab"
+          },
+          "real_user": {
+            "id": "1000",
+            "name": "lab"
+          },
+          "session_leader": {
+            "args": [
+              "bash",
+              "-c",
+              ": > /opt/labout/results.tsv; echo \"RERUN_START=$(date -u +%FT%TZ)\"; bash /var/tmp/batch-run.sh /var/tmp/t1552-batch.tsv 2>&1 | tail -1; echo \"RERUN_END=$(date -u +%FT%TZ)\""
+            ],
+            "args_count": 3,
+            "entity_id": "0RDIUYNO7oVud61/v5oWFA",
+            "executable": "/usr/bin/bash",
+            "group": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "interactive": false,
+            "name": "bash",
+            "pid": 4488,
+            "real_group": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "real_user": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "same_as_process": false,
+            "start": "2026-10-17T23:02:52.330Z",
+            "supplemental_groups": [
+              {
+                "name": "sudo",
+                "id": 27
+              }
+            ],
+            "user": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "working_directory": "/home/lab"
+          },
+          "start": "2026-10-17T23:04:52.070Z",
+          "supplemental_groups": [
+            {
+              "name": "sudo",
+              "id": 27
+            }
+          ],
+          "user": {
+            "id": "1000",
+            "name": "lab"
+          },
+          "working_directory": "/tmp"
+        },
+        "user": {
+          "Ext": {
+            "real": {
+              "id": "1000",
+              "name": "lab"
+            }
+          },
+          "id": "1000",
+          "name": "lab"
+        }
+      }
+    ]
+  },
+  {
+    "rule_id": "homelab-lab-t1552_001_credential_file_search",
+    "name": "t1552-001-credential-file-search",
+    "stream": "logs-endpoint.events.process-lab",
+    "count": 1,
+    "docs": [
+      {
+        "elastic": {
+          "agent": {
+            "id": "6fe7530d-47ff-438d-8372-ea7cf0b8c0a3"
+          }
+        },
+        "event": {
+          "action": [
+            "fork",
+            "exec",
+            "end"
+          ],
+          "agent_id_status": "verified",
+          "category": [
+            "process"
+          ],
+          "dataset": "endpoint.events.process",
+          "id": "OhDx2Jw5kyCxiG78+++++4bT",
+          "kind": "event",
+          "module": "endpoint",
+          "outcome": "unknown",
+          "sequence": 23014,
+          "type": [
+            "start",
+            "start",
+            "end"
+          ]
+        },
+        "group": {
+          "Ext": {
+            "real": {
+              "id": "1000",
+              "name": "lab"
+            }
+          },
+          "id": "1000",
+          "name": "lab"
+        },
+        "host": {
+          "os": {
+            "type": "linux"
+          },
+          "name": "canary-__IP__"
+        },
+        "message": "Endpoint process event",
+        "process": {
+          "Ext": {
+            "ancestry": [
+              "tKAX+rsUX2c2aOnOHunA3Q",
+              "spMMQfE7FMVdsL3I98FAVg",
+              "vbnD131FNM3/sJIBhdbtZg",
+              "VWOqH2AzAtBoF3jzrtRGWQ",
+              "0RDIUYNO7oVud61/v5oWFA"
+            ]
+          },
+          "args": [
+            "find",
+            "/",
+            "-name",
+            "id_rsa",
+            "-exec",
+            "rsync",
+            "-R",
+            "{}",
+            "/tmp/art-staging",
+            ";"
+          ],
+          "args_count": 10,
+          "command_line": "find / -name id_rsa -exec rsync -R {} /tmp/art-staging ;",
+          "end": "2026-10-17T23:04:21.621Z",
+          "entity_id": "iZXrgrJye1HeyQDFGCM0pw",
+          "entry_leader": {
+            "args": [
+              "/usr/lib/openssh/sshd-session",
+              "-D",
+              "-R",
+              "-N",
+              "2"
+            ],
+            "args_count": 5,
+            "entity_id": "1743duR3HWAu6cVJsfZiFg",
+            "entry_meta": {
+              "source": {
+                "ip": "10.20.20.5"
+              },
+              "type": "sshd"
+            },
+            "executable": "/usr/lib/openssh/sshd-session",
+            "group": {
+              "id": "0",
+              "name": "root"
+            },
+            "interactive": false,
+            "name": "sshd-session",
+            "parent": {
+              "entity_id": "39TT0U4k9TDRZmZQPhHdYQ",
+              "pid": 921,
+              "start": "2026-10-17T22:56:12.880Z"
+            },
+            "pid": 4407,
+            "real_group": {
+              "id": "0",
+              "name": "root"
+            },
+            "real_user": {
+              "id": "0",
+              "name": "root"
+            },
+            "same_as_process": false,
+            "start": "2026-10-17T23:02:51.190Z",
+            "user": {
+              "id": "0",
+              "name": "root"
+            },
+            "working_directory": "/"
+          },
+          "executable": "/usr/bin/find",
+          "exit_code": 1,
+          "group": {
+            "id": "1000",
+            "name": "lab"
+          },
+          "group_leader": {
+            "args": [
+              "timeout",
+              "60",
+              "pwsh",
+              "-NoProfile",
+              "-Command",
+              "Import-Module '/opt/AtomicRedTeam/invoke-atomicredteam/Invoke-AtomicRedTeam.psd1'; Invoke-AtomicTest T1552.004 -TestNumbers 6 -PathToAtomicsFolder '/opt/AtomicRedTeam/atomics' -TimeoutSeconds 20"
+            ],
+            "args_count": 6,
+            "entity_id": "vbnD131FNM3/sJIBhdbtZg",
+            "executable": "/usr/lib/cargo/bin/coreutils/timeout",
+            "group": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "interactive": false,
+            "name": "timeout",
+            "pid": 6274,
+            "real_group": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "real_user": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "same_as_process": false,
+            "start": "2026-10-17T23:04:20.120Z",
+            "supplemental_groups": [
+              {
+                "name": "sudo",
+                "id": 27
+              }
+            ],
+            "user": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "working_directory": "/home/lab"
+          },
+          "hash": {
+            "sha256": "efe4843f166525b02f328f0c456a884d6a597f32d2c78cd615b6be0b64279bcf"
+          },
+          "interactive": false,
+          "name": "find",
+          "parent": {
+            "args": [
+              "sh",
+              "-c",
+              "mkdir /tmp/art-staging; find / -name id_rsa 2>/dev/null -exec rsync -R {} /tmp/art-staging \\;"
+            ],
+            "args_count": 3,
+            "command_line": "sh -c mkdir /tmp/art-staging; find / -name id_rsa 2>/dev/null -exec rsync -R {} /tmp/art-staging \\;",
+            "entity_id": "tKAX+rsUX2c2aOnOHunA3Q",
+            "executable": "/usr/bin/dash",
+            "group": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "interactive": false,
+            "name": "dash",
+            "pid": 6299,
+            "real_group": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "real_user": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "start": "2026-10-17T23:04:21.300Z",
+            "supplemental_groups": [
+              {
+                "name": "sudo",
+                "id": 27
+              }
+            ],
+            "user": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "working_directory": "/tmp"
+          },
+          "pid": 6302,
+          "previous": [
+            {
+              "args": [
+                "sh",
+                "-c",
+                "mkdir /tmp/art-staging; find / -name id_rsa 2>/dev/null -exec rsync -R {} /tmp/art-staging \\;"
+              ],
+              "args_count": 3,
+              "executable": "/usr/bin/dash"
+            }
+          ],
+          "real_group": {
+            "id": "1000",
+            "name": "lab"
+          },
+          "real_user": {
+            "id": "1000",
+            "name": "lab"
+          },
+          "session_leader": {
+            "args": [
+              "bash",
+              "-c",
+              ": > /opt/labout/results.tsv; echo \"RERUN_START=$(date -u +%FT%TZ)\"; bash /var/tmp/batch-run.sh /var/tmp/t1552-batch.tsv 2>&1 | tail -1; echo \"RERUN_END=$(date -u +%FT%TZ)\""
+            ],
+            "args_count": 3,
+            "entity_id": "0RDIUYNO7oVud61/v5oWFA",
+            "executable": "/usr/bin/bash",
+            "group": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "interactive": false,
+            "name": "bash",
+            "pid": 4488,
+            "real_group": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "real_user": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "same_as_process": false,
+            "start": "2026-10-17T23:02:52.330Z",
+            "supplemental_groups": [
+              {
+                "name": "sudo",
+                "id": 27
+              }
+            ],
+            "user": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "working_directory": "/home/lab"
+          },
+          "start": "2026-10-17T23:04:21.320Z",
+          "supplemental_groups": [
+            {
+              "name": "sudo",
+              "id": 27
+            }
+          ],
+          "user": {
+            "id": "1000",
+            "name": "lab"
+          },
+          "working_directory": "/tmp"
+        },
+        "user": {
+          "Ext": {
+            "real": {
+              "id": "1000",
+              "name": "lab"
+            }
+          },
+          "id": "1000",
+          "name": "lab"
+        }
+      }
+    ]
+  },
+  {
+    "rule_id": "homelab-lab-t1552_003_shell_history_access",
+    "name": "t1552-003-shell-history-access",
+    "stream": "logs-endpoint.events.process-lab",
+    "count": 1,
+    "docs": [
+      {
+        "elastic": {
+          "agent": {
+            "id": "6fe7530d-47ff-438d-8372-ea7cf0b8c0a3"
+          }
+        },
+        "event": {
+          "action": [
+            "fork",
+            "exec",
+            "end"
+          ],
+          "agent_id_status": "verified",
+          "category": [
+            "process"
+          ],
+          "dataset": "endpoint.events.process",
+          "id": "OhDx2Jw5kyCxiG78+++++46p",
+          "kind": "event",
+          "module": "endpoint",
+          "outcome": "unknown",
+          "sequence": 21331,
+          "type": [
+            "start",
+            "start",
+            "end"
+          ]
+        },
+        "group": {
+          "Ext": {
+            "real": {
+              "id": "1000",
+              "name": "lab"
+            }
+          },
+          "id": "1000",
+          "name": "lab"
+        },
+        "host": {
+          "os": {
+            "type": "linux"
+          },
+          "name": "canary-__IP__"
+        },
+        "message": "Endpoint process event",
+        "process": {
+          "Ext": {
+            "ancestry": [
+              "RockcYYGjAdqX9TBQKBppQ",
+              "koaP2gu+OHxUs7pyBceurw",
+              "Ksksl94Kc5gf0O3wcW50Hw",
+              "VWOqH2AzAtBoF3jzrtRGWQ",
+              "0RDIUYNO7oVud61/v5oWFA"
+            ]
+          },
+          "args": [
+            "cat",
+            "/home/lab/.mysql_history"
+          ],
+          "args_count": 2,
+          "command_line": "cat /home/lab/.mysql_history",
+          "end": "2026-10-17T23:03:44.787Z",
+          "entity_id": "lmkbkGpZVLFBVhMmdj5Mfw",
+          "entry_leader": {
+            "args": [
+              "/usr/lib/openssh/sshd-session",
+              "-D",
+              "-R",
+              "-N",
+              "2"
+            ],
+            "args_count": 5,
+            "entity_id": "1743duR3HWAu6cVJsfZiFg",
+            "entry_meta": {
+              "source": {
+                "ip": "10.20.20.5"
+              },
+              "type": "sshd"
+            },
+            "executable": "/usr/lib/openssh/sshd-session",
+            "group": {
+              "id": "0",
+              "name": "root"
+            },
+            "interactive": false,
+            "name": "sshd-session",
+            "parent": {
+              "entity_id": "39TT0U4k9TDRZmZQPhHdYQ",
+              "pid": 921,
+              "start": "2026-10-17T22:56:12.880Z"
+            },
+            "pid": 4407,
+            "real_group": {
+              "id": "0",
+              "name": "root"
+            },
+            "real_user": {
+              "id": "0",
+              "name": "root"
+            },
+            "same_as_process": false,
+            "start": "2026-10-17T23:02:51.190Z",
+            "user": {
+              "id": "0",
+              "name": "root"
+            },
+            "working_directory": "/"
+          },
+          "executable": "/usr/lib/cargo/bin/coreutils/cat",
+          "exit_code": 1,
+          "group": {
+            "id": "1000",
+            "name": "lab"
+          },
+          "group_leader": {
+            "args": [
+              "timeout",
+              "60",
+              "pwsh",
+              "-NoProfile",
+              "-Command",
+              "Import-Module '/opt/AtomicRedTeam/invoke-atomicredteam/Invoke-AtomicRedTeam.psd1'; Invoke-AtomicTest T1552.003 -TestNumbers 4 -PathToAtomicsFolder '/opt/AtomicRedTeam/atomics' -TimeoutSeconds 20"
+            ],
+            "args_count": 6,
+            "entity_id": "Ksksl94Kc5gf0O3wcW50Hw",
+            "executable": "/usr/lib/cargo/bin/coreutils/timeout",
+            "group": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "interactive": false,
+            "name": "timeout",
+            "pid": 5747,
+            "real_group": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "real_user": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "same_as_process": false,
+            "start": "2026-10-17T23:03:43.670Z",
+            "supplemental_groups": [
+              {
+                "name": "sudo",
+                "id": 27
+              }
+            ],
+            "user": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "working_directory": "/home/lab"
+          },
+          "hash": {
+            "sha256": "f84e76ea4da1e0c4e92254bd0d7dccdabe2c8b3098e734f27997dae3ee5d8e02"
+          },
+          "interactive": false,
+          "name": "cat",
+          "parent": {
+            "args": [
+              "sh",
+              "-c",
+              "cat ~/.mysql_history | grep -e 'pass' > /tmp/loot.txt"
+            ],
+            "args_count": 3,
+            "command_line": "sh -c cat ~/.mysql_history | grep -e 'pass' > /tmp/loot.txt",
+            "entity_id": "RockcYYGjAdqX9TBQKBppQ",
+            "executable": "/usr/bin/dash",
+            "group": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "interactive": false,
+            "name": "dash",
+            "pid": 5773,
+            "real_group": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "real_user": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "start": "2026-10-17T23:03:44.780Z",
+            "supplemental_groups": [
+              {
+                "name": "sudo",
+                "id": 27
+              }
+            ],
+            "user": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "working_directory": "/tmp"
+          },
+          "pid": 5775,
+          "previous": [
+            {
+              "args": [
+                "sh",
+                "-c",
+                "cat ~/.mysql_history | grep -e 'pass' > /tmp/loot.txt"
+              ],
+              "args_count": 3,
+              "executable": "/usr/bin/dash"
+            }
+          ],
+          "real_group": {
+            "id": "1000",
+            "name": "lab"
+          },
+          "real_user": {
+            "id": "1000",
+            "name": "lab"
+          },
+          "session_leader": {
+            "args": [
+              "bash",
+              "-c",
+              ": > /opt/labout/results.tsv; echo \"RERUN_START=$(date -u +%FT%TZ)\"; bash /var/tmp/batch-run.sh /var/tmp/t1552-batch.tsv 2>&1 | tail -1; echo \"RERUN_END=$(date -u +%FT%TZ)\""
+            ],
+            "args_count": 3,
+            "entity_id": "0RDIUYNO7oVud61/v5oWFA",
+            "executable": "/usr/bin/bash",
+            "group": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "interactive": false,
+            "name": "bash",
+            "pid": 4488,
+            "real_group": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "real_user": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "same_as_process": false,
+            "start": "2026-10-17T23:02:52.330Z",
+            "supplemental_groups": [
+              {
+                "name": "sudo",
+                "id": 27
+              }
+            ],
+            "user": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "working_directory": "/home/lab"
+          },
+          "start": "2026-10-17T23:03:44.780Z",
+          "supplemental_groups": [
+            {
+              "name": "sudo",
+              "id": 27
+            }
+          ],
+          "user": {
+            "id": "1000",
+            "name": "lab"
+          },
+          "working_directory": "/tmp"
+        },
+        "user": {
+          "Ext": {
+            "real": {
+              "id": "1000",
+              "name": "lab"
+            }
+          },
+          "id": "1000",
+          "name": "lab"
+        }
+      }
+    ]
+  },
+  {
+    "rule_id": "homelab-lab-t1003_008_shadow_read",
+    "name": "t1003-008-shadow-read",
+    "stream": "logs-endpoint.events.process-lab",
+    "count": 1,
+    "docs": [
+      {
+        "elastic": {
+          "agent": {
+            "id": "6fe7530d-47ff-438d-8372-ea7cf0b8c0a3"
+          }
+        },
+        "event": {
+          "action": [
+            "fork",
+            "end"
+          ],
+          "agent_id_status": "verified",
+          "category": [
+            "process"
+          ],
+          "dataset": "endpoint.events.process",
+          "id": "OhDx2Jw5kyCxiG78+++++8HG",
+          "kind": "event",
+          "module": "endpoint",
+          "outcome": "unknown",
+          "sequence": 35784,
+          "type": [
+            "start",
+            "end"
+          ]
+        },
+        "group": {
+          "Ext": {
+            "real": {
+              "id": "0",
+              "name": "root"
+            }
+          },
+          "id": "0",
+          "name": "root"
+        },
+        "host": {
+          "os": {
+            "type": "linux"
+          },
+          "name": "canary-__IP__"
+        },
+        "message": "Endpoint process event",
+        "process": {
+          "Ext": {
+            "ancestry": [
+              "WgucwHNikpbGuYyJ7uPKFQ",
+              "H6+KQ6knfPWjhZ6/CnWb4g",
+              "ZlW56QViivg6N1hVjGr8Yw",
+              "Q6nYIUzy3Ra4rB96aPz62w",
+              "m2fh1FPiJSWBCjKFJAYkMA"
+            ]
+          },
+          "args": [
+            "sh",
+            "-c",
+            "unamestr=$(uname); if [ \"$unamestr\" = 'Linux' ]; then echo -e \"e /etc/passwd\\\\n,p\\\\ne /etc/shadow\\\\n,p\\\\n\" | ed > /tmp/T1003.008.txt; elif [ \"$unamestr\" = 'FreeBSD' ]; then echo -e \"e /etc/passwd\\\\n,p\\\\ne /etc/master.passwd\\\\n,p\\\\ne /etc/shadow\\\\n,p\\\\n\" | ed > /tmp/T1003.008.txt; fi"
+          ],
+          "args_count": 3,
+          "command_line": "sh -c unamestr=$(uname); if [ \"$unamestr\" = 'Linux' ]; then echo -e \"e /etc/passwd\\\\n,p\\\\ne /etc/shadow\\\\n,p\\\\n\" | ed > /tmp/T1003.008.txt; elif [ \"$unamestr\" = 'FreeBSD' ]; then echo -e \"e /etc/passwd\\\\n,p\\\\ne /etc/master.passwd\\\\n,p\\\\ne /etc/shadow\\\\n,p\\\\n\" | ed > /tmp/T1003.008.txt; fi",
+          "end": "2026-10-17T23:16:13.890Z",
+          "entity_id": "stOvOZcv/Xs/ZP2MRiF0rQ",
+          "entry_leader": {
+            "args": [
+              "/usr/lib/openssh/sshd-session",
+              "-D",
+              "-R",
+              "-N",
+              "2"
+            ],
+            "args_count": 5,
+            "entity_id": "N01SbloFlo3k12F7RqnLCQ",
+            "entry_meta": {
+              "source": {
+                "ip": "10.20.20.5"
+              },
+              "type": "sshd"
+            },
+            "executable": "/usr/lib/openssh/sshd-session",
+            "group": {
+              "id": "0",
+              "name": "root"
+            },
+            "interactive": false,
+            "name": "sshd-session",
+            "parent": {
+              "entity_id": "39TT0U4k9TDRZmZQPhHdYQ",
+              "pid": 921,
+              "start": "2026-10-17T22:56:12.880Z"
+            },
+            "pid": 8774,
+            "real_group": {
+              "id": "0",
+              "name": "root"
+            },
+            "real_user": {
+              "id": "0",
+              "name": "root"
+            },
+            "same_as_process": false,
+            "start": "2026-10-17T23:16:12.210Z",
+            "user": {
+              "id": "0",
+              "name": "root"
+            },
+            "working_directory": "/"
+          },
+          "executable": "/usr/bin/dash",
+          "exit_code": 0,
+          "group": {
+            "id": "0",
+            "name": "root"
+          },
+          "group_leader": {
+            "args": [
+              "bash",
+              "-c",
+              "sudo bash /var/tmp/run-atomic.sh T1003.008 4 2>&1 | grep -E \"START|Exit\""
+            ],
+            "args_count": 3,
+            "entity_id": "m2fh1FPiJSWBCjKFJAYkMA",
+            "executable": "/usr/bin/bash",
+            "group": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "interactive": false,
+            "name": "bash",
+            "pid": 8846,
+            "real_group": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "real_user": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "same_as_process": false,
+            "start": "2026-10-17T23:16:12.980Z",
+            "supplemental_groups": [
+              {
+                "name": "sudo",
+                "id": 27
+              }
+            ],
+            "user": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "working_directory": "/home/lab"
+          },
+          "hash": {
+            "sha256": "c626229526bb58ec2d0f585f3c3ae1412e6f973b4353385042d11c38d8426917"
+          },
+          "interactive": false,
+          "name": "dash",
+          "parent": {
+            "args": [
+              "sh",
+              "-c",
+              "unamestr=$(uname); if [ \"$unamestr\" = 'Linux' ]; then echo -e \"e /etc/passwd\\\\n,p\\\\ne /etc/shadow\\\\n,p\\\\n\" | ed > /tmp/T1003.008.txt; elif [ \"$unamestr\" = 'FreeBSD' ]; then echo -e \"e /etc/passwd\\\\n,p\\\\ne /etc/master.passwd\\\\n,p\\\\ne /etc/shadow\\\\n,p\\\\n\" | ed > /tmp/T1003.008.txt; fi"
+            ],
+            "args_count": 3,
+            "command_line": "sh -c unamestr=$(uname); if [ \"$unamestr\" = 'Linux' ]; then echo -e \"e /etc/passwd\\\\n,p\\\\ne /etc/shadow\\\\n,p\\\\n\" | ed > /tmp/T1003.008.txt; elif [ \"$unamestr\" = 'FreeBSD' ]; then echo -e \"e /etc/passwd\\\\n,p\\\\ne /etc/master.passwd\\\\n,p\\\\ne /etc/shadow\\\\n,p\\\\n\" | ed > /tmp/T1003.008.txt; fi",
+            "entity_id": "WgucwHNikpbGuYyJ7uPKFQ",
+            "executable": "/usr/bin/dash",
+            "group": {
+              "id": "0",
+              "name": "root"
+            },
+            "interactive": false,
+            "name": "dash",
+            "pid": 8880,
+            "real_group": {
+              "id": "0",
+              "name": "root"
+            },
+            "real_user": {
+              "id": "0",
+              "name": "root"
+            },
+            "start": "2026-10-17T23:16:13.870Z",
+            "supplemental_groups": [
+              {
+                "name": "sudo",
+                "id": 27
+              }
+            ],
+            "user": {
+              "id": "0",
+              "name": "root"
+            },
+            "working_directory": "/tmp"
+          },
+          "pid": 8883,
+          "real_group": {
+            "id": "0",
+            "name": "root"
+          },
+          "real_user": {
+            "id": "0",
+            "name": "root"
+          },
+          "session_leader": {
+            "args": [
+              "bash",
+              "-c",
+              "sudo bash /var/tmp/run-atomic.sh T1003.008 4 2>&1 | grep -E \"START|Exit\""
+            ],
+            "args_count": 3,
+            "entity_id": "m2fh1FPiJSWBCjKFJAYkMA",
+            "executable": "/usr/bin/bash",
+            "group": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "interactive": false,
+            "name": "bash",
+            "pid": 8846,
+            "real_group": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "real_user": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "same_as_process": false,
+            "start": "2026-10-17T23:16:12.980Z",
+            "supplemental_groups": [
+              {
+                "name": "sudo",
+                "id": 27
+              }
+            ],
+            "user": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "working_directory": "/home/lab"
+          },
+          "start": "2026-10-17T23:16:13.890Z",
+          "user": {
+            "id": "0",
+            "name": "root"
+          },
+          "working_directory": "/tmp"
+        },
+        "user": {
+          "Ext": {
+            "real": {
+              "id": "0",
+              "name": "root"
+            }
+          },
+          "id": "0",
+          "name": "root"
+        }
+      }
+    ]
+  },
+  {
+    "rule_id": "homelab-lab-authconfig-tamper",
+    "name": "authconfig-tamper",
+    "stream": "logs-auditd_manager.auditd-lab",
+    "count": 1,
+    "docs": [
+      {
+        "auditd": {
+          "data": {
+            "a0": "ffffffffffffff9c",
+            "a1": "5e2fa6cb3678",
+            "a2": "441",
+            "a3": "1b6",
+            "arch": "x86_64",
+            "exit": "3",
+            "syscall": "openat",
+            "tty": "(none)"
+          },
+          "message_type": "syscall",
+          "paths": [
+            {
+              "item": "0",
+              "nametype": "NORMAL",
+              "ogid": "0",
+              "cap_fi": "0",
+              "cap_fp": "0",
+              "cap_frootid": "0",
+              "inode": "679",
+              "cap_fver": "0",
+              "mode": "0100440",
+              "dev": "fd:01",
+              "ouid": "0",
+              "rdev": "00:00",
+              "cap_fe": "0",
+              "name": "/etc/sudoers"
+            }
+          ],
+          "result": "success",
+          "session": "13",
+          "summary": {
+            "actor": {
+              "primary": "lab",
+              "secondary": "root"
+            },
+            "how": "/usr/bin/dash",
+            "object": {
+              "primary": "/etc/sudoers",
+              "type": "file"
+            }
+          },
+          "user": {
+            "audit": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "filesystem": {
+              "group": {
+                "id": "0",
+                "name": "root"
+              },
+              "id": "0",
+              "name": "root"
+            },
+            "saved": {
+              "group": {
+                "id": "0",
+                "name": "root"
+              },
+              "id": "0",
+              "name": "root"
+            },
+            "selinux": {
+              "user": "unconfined"
+            }
+          }
+        },
+        "event": {
+          "action": "opened-file",
+          "agent_id_status": "verified",
+          "category": [
+            "file"
+          ],
+          "dataset": "auditd_manager.auditd",
+          "kind": "event",
+          "module": "auditd",
+          "outcome": "success",
+          "sequence": 396,
+          "type": [
+            "info"
+          ]
+        },
+        "file": {
+          "device": "00:00",
+          "gid": "0",
+          "group": "root",
+          "inode": "679",
+          "mode": "0440",
+          "owner": "root",
+          "path": "/etc/sudoers",
+          "uid": "0"
+        },
+        "host": {
+          "architecture": "x86_64",
+          "containerized": false,
+          "os": {
+            "codename": "resolute",
+            "family": "debian",
+            "kernel": "7.0.0-38-generic",
+            "name": "Ubuntu",
+            "platform": "ubuntu",
+            "type": "linux",
+            "version": "26.04.1 LTS (Resolute Raccoon)"
+          },
+          "name": "canary-__IP__"
+        },
+        "process": {
+          "executable": "/usr/bin/dash",
+          "name": "sh",
+          "parent": {
+            "pid": 2441
+          },
+          "pid": 2443,
+          "title": "sh -c echo Defaults !tty_tickets >> /etc/sudoers",
+          "working_directory": "/tmp"
+        },
+        "service": {
+          "type": "auditd"
+        },
+        "tags": [
+          "sudoers_tamper",
+          "auditd_manager-auditd"
+        ],
+        "user": {
+          "group": {
+            "id": "0",
+            "name": "root"
+          },
+          "id": "0",
+          "name": "root"
+        }
+      }
+    ]
+  },
+  {
+    "rule_id": "homelab-lab-hidden-file-tmp",
+    "name": "hidden-file-tmp",
+    "stream": "logs-endpoint.events.file-lab",
+    "count": 1,
+    "docs": [
+      {
+        "elastic": {
+          "agent": {
+            "id": "6fe7530d-47ff-438d-8372-ea7cf0b8c0a3"
+          }
+        },
+        "event": {
+          "action": [
+            "creation"
+          ],
+          "agent_id_status": "verified",
+          "category": [
+            "file"
+          ],
+          "dataset": "endpoint.events.file",
+          "id": "OhE2AHhq9+MbIzil+++++2a3",
+          "kind": "event",
+          "module": "endpoint",
+          "outcome": "unknown",
+          "sequence": 15146,
+          "type": [
+            "creation"
+          ]
+        },
+        "file": {
+          "Ext": {
+            "entropy": 2.921928094887362,
+            "header_bytes": "54313536342e3030310a"
+          },
+          "name": ".hidden-file",
+          "path": "/var/tmp/.hidden-directory/.hidden-file",
+          "size": 0
+        },
+        "group": {
+          "Ext": {
+            "real": {
+              "id": "1000",
+              "name": "lab"
+            }
+          },
+          "id": "1000",
+          "name": "lab"
+        },
+        "host": {
+          "os": {
+            "type": "linux"
+          },
+          "name": "canary-__IP__"
+        },
+        "message": "Endpoint file event",
+        "process": {
+          "entity_id": "Ixar8ijJuQ75XqcXBB2Npg",
+          "entry_leader": {
+            "entity_id": "/OiCuIY5dK5KQswktU0wRA",
+            "parent": {
+              "entity_id": "Pu1e0VvLEyPblAg0JPT+Mw"
+            }
+          },
+          "executable": "/usr/bin/dash",
+          "group_leader": {
+            "entity_id": "NTzDJ8r79EPIrQ80uPRi+A"
+          },
+          "name": "dash",
+          "parent": {
+            "entity_id": "CvWDOlFeEbeTI6aIn3dIjA"
+          },
+          "pid": 3564,
+          "session_leader": {
+            "entity_id": "VN0FTnPdBCbWAvUsAfmTWQ"
+          }
+        },
+        "user": {
+          "Ext": {
+            "real": {
+              "id": "1000",
+              "name": "lab"
+            }
+          },
+          "id": "1000",
+          "name": "lab"
+        }
+      }
+    ]
+  },
+  {
+    "rule_id": "homelab-lab-t1562_impair_defenses",
+    "name": "t1562-impair-defenses",
+    "stream": "logs-endpoint.events.process-lab",
+    "count": 1,
+    "docs": [
+      {
+        "elastic": {
+          "agent": {
+            "id": "6fe7530d-47ff-438d-8372-ea7cf0b8c0a3"
+          }
+        },
+        "event": {
+          "action": [
+            "fork",
+            "exec",
+            "end"
+          ],
+          "agent_id_status": "verified",
+          "category": [
+            "process"
+          ],
+          "dataset": "endpoint.events.process",
+          "id": "OhE2AHhq9+MbIzil+++++45t",
+          "kind": "event",
+          "module": "endpoint",
+          "outcome": "unknown",
+          "sequence": 20341,
+          "type": [
+            "start",
+            "start",
+            "end"
+          ]
+        },
+        "group": {
+          "Ext": {
+            "real": {
+              "id": "0",
+              "name": "root"
+            }
+          },
+          "id": "0",
+          "name": "root"
+        },
+        "host": {
+          "os": {
+            "type": "linux"
+          },
+          "name": "canary-__IP__"
+        },
+        "message": "Endpoint process event",
+        "process": {
+          "Ext": {
+            "ancestry": [
+              "tKh+g+eNWFSELIJuPCZfww",
+              "gla3WYdXZ61OYHbAZ7KCVA",
+              "PTA/f0MynZytiIIOr37nww",
+              "O+8IUs1PUQBxwnhoUJ72Og",
+              "lTFnYLn7lXb7xsfs0Uh3bQ"
+            ]
+          },
+          "args": [
+            "auditctl",
+            "-D"
+          ],
+          "args_count": 2,
+          "command_line": "auditctl -D",
+          "end": "2026-10-17T23:33:37.165Z",
+          "entity_id": "TTlEkQL7Y8aqNHFtdcmTLA",
+          "entry_leader": {
+            "args": [
+              "/usr/lib/openssh/sshd-session",
+              "-D",
+              "-R",
+              "-N",
+              "2"
+            ],
+            "args_count": 5,
+            "entity_id": "/OiCuIY5dK5KQswktU0wRA",
+            "entry_meta": {
+              "source": {
+                "ip": "10.20.20.5"
+              },
+              "type": "sshd"
+            },
+            "executable": "/usr/lib/openssh/sshd-session",
+            "group": {
+              "id": "0",
+              "name": "root"
+            },
+            "interactive": false,
+            "name": "sshd-session",
+            "parent": {
+              "entity_id": "Pu1e0VvLEyPblAg0JPT+Mw",
+              "pid": 945,
+              "start": "2026-10-17T23:26:36.360Z"
+            },
+            "pid": 1934,
+            "real_group": {
+              "id": "0",
+              "name": "root"
+            },
+            "real_user": {
+              "id": "0",
+              "name": "root"
+            },
+            "same_as_process": false,
+            "start": "2026-10-17T23:32:00.190Z",
+            "user": {
+              "id": "0",
+              "name": "root"
+            },
+            "working_directory": "/"
+          },
+          "executable": "/usr/sbin/auditctl",
+          "exit_code": 0,
+          "group": {
+            "id": "0",
+            "name": "root"
+          },
+          "group_leader": {
+            "args": [
+              "timeout",
+              "60",
+              "pwsh",
+              "-NoProfile",
+              "-Command",
+              "Import-Module '/opt/AtomicRedTeam/invoke-atomicredteam/Invoke-AtomicRedTeam.psd1'; Invoke-AtomicTest T1685.004 -TestNumbers 1 -PathToAtomicsFolder '/opt/AtomicRedTeam/atomics' -TimeoutSeconds 20"
+            ],
+            "args_count": 6,
+            "entity_id": "PTA/f0MynZytiIIOr37nww",
+            "executable": "/usr/lib/cargo/bin/coreutils/timeout",
+            "group": {
+              "id": "0",
+              "name": "root"
+            },
+            "interactive": false,
+            "name": "timeout",
+            "pid": 4342,
+            "real_group": {
+              "id": "0",
+              "name": "root"
+            },
+            "real_user": {
+              "id": "0",
+              "name": "root"
+            },
+            "same_as_process": false,
+            "start": "2026-10-17T23:33:36.360Z",
+            "supplemental_groups": [
+              {
+                "name": "sudo",
+                "id": 27
+              }
+            ],
+            "user": {
+              "id": "0",
+              "name": "root"
+            },
+            "working_directory": "/home/lab"
+          },
+          "hash": {
+            "sha256": "eba3a9f75e892b69ce198467f957b8f1798615c8932e6fd812f6ec5e26482e67"
+          },
+          "interactive": false,
+          "name": "auditctl",
+          "parent": {
+            "args": [
+              "sh",
+              "-c",
+              "auditctl -D"
+            ],
+            "args_count": 3,
+            "command_line": "sh -c auditctl -D",
+            "entity_id": "tKh+g+eNWFSELIJuPCZfww",
+            "executable": "/usr/bin/dash",
+            "group": {
+              "id": "0",
+              "name": "root"
+            },
+            "interactive": false,
+            "name": "dash",
+            "pid": 4367,
+            "real_group": {
+              "id": "0",
+              "name": "root"
+            },
+            "real_user": {
+              "id": "0",
+              "name": "root"
+            },
+            "start": "2026-10-17T23:33:37.160Z",
+            "supplemental_groups": [
+              {
+                "name": "sudo",
+                "id": 27
+              }
+            ],
+            "user": {
+              "id": "0",
+              "name": "root"
+            },
+            "working_directory": "/tmp"
+          },
+          "pid": 4368,
+          "previous": [
+            {
+              "args": [
+                "sh",
+                "-c",
+                "auditctl -D"
+              ],
+              "args_count": 3,
+              "executable": "/usr/bin/dash"
+            }
+          ],
+          "real_group": {
+            "id": "0",
+            "name": "root"
+          },
+          "real_user": {
+            "id": "0",
+            "name": "root"
+          },
+          "session_leader": {
+            "args": [
+              "bash",
+              "-c",
+              "chmod +x /var/tmp/batch-run.sh /var/tmp/run-atomic.sh; sudo mkdir -p /opt/labout && sudo chmod 777 /opt/labout; : > /opt/labout/results.tsv; echo \"START=$(date -u +%FT%TZ)\"; bash /var/tmp/batch-run.sh /var/tmp/verify-batch.tsv 2>&1 | tail -1; cut -f1,2,6 /opt/labout/results.tsv; sudo visudo -c -f /etc/sudoers 2>&1 | tail -1"
+            ],
+            "args_count": 3,
+            "entity_id": "VN0FTnPdBCbWAvUsAfmTWQ",
+            "executable": "/usr/bin/bash",
+            "group": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "interactive": false,
+            "name": "bash",
+            "pid": 1983,
+            "real_group": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "real_user": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "same_as_process": false,
+            "start": "2026-10-17T23:32:00.830Z",
+            "supplemental_groups": [
+              {
+                "name": "sudo",
+                "id": 27
+              }
+            ],
+            "user": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "working_directory": "/home/lab"
+          },
+          "start": "2026-10-17T23:33:37.160Z",
+          "user": {
+            "id": "0",
+            "name": "root"
+          },
+          "working_directory": "/tmp"
+        },
+        "user": {
+          "Ext": {
+            "real": {
+              "id": "0",
+              "name": "root"
+            }
+          },
+          "id": "0",
+          "name": "root"
+        }
+      }
+    ]
+  },
+  {
+    "rule_id": "homelab-lab-t1046_network_scan",
+    "name": "t1046-network-scan",
+    "stream": "logs-endpoint.events.process-lab",
+    "count": 1,
+    "docs": [
+      {
+        "elastic": {
+          "agent": {
+            "id": "6fe7530d-47ff-438d-8372-ea7cf0b8c0a3"
+          }
+        },
+        "event": {
+          "action": [
+            "fork",
+            "exec"
+          ],
+          "agent_id_status": "verified",
+          "category": [
+            "process"
+          ],
+          "dataset": "endpoint.events.process",
+          "id": "OhE2AHhq9+MbIzil+++++13D",
+          "kind": "event",
+          "module": "endpoint",
+          "outcome": "unknown",
+          "sequence": 10059,
+          "type": [
+            "start",
+            "start"
+          ]
+        },
+        "group": {
+          "Ext": {
+            "real": {
+              "id": "0",
+              "name": "root"
+            }
+          },
+          "id": "0",
+          "name": "root"
+        },
+        "host": {
+          "os": {
+            "type": "linux"
+          },
+          "name": "canary-__IP__"
+        },
+        "message": "Endpoint process event",
+        "process": {
+          "Ext": {
+            "ancestry": [
+              "LJpdjR3L5QgmhHAOovTBMw",
+              "M4w8PRWSv9KDCQoaBTgF8Q",
+              "Q3qn5G8jludBnb0Gb73aow",
+              "yMmO84nKdEoS4ziPzfdLwg",
+              "lTFnYLn7lXb7xsfs0Uh3bQ"
+            ]
+          },
+          "args": [
+            "nmap",
+            "-Pn",
+            "-sV",
+            "-p",
+            "0-65535",
+            "127.0.0.1"
+          ],
+          "args_count": 6,
+          "command_line": "nmap -Pn -sV -p 0-65535 127.0.0.1",
+          "entity_id": "1qCEVxe1BJjQBZXfQoASTQ",
+          "entry_leader": {
+            "args": [
+              "/usr/lib/openssh/sshd-session",
+              "-D",
+              "-R",
+              "-N",
+              "2"
+            ],
+            "args_count": 5,
+            "entity_id": "/OiCuIY5dK5KQswktU0wRA",
+            "entry_meta": {
+              "source": {
+                "ip": "10.20.20.5"
+              },
+              "type": "sshd"
+            },
+            "executable": "/usr/lib/openssh/sshd-session",
+            "group": {
+              "id": "0",
+              "name": "root"
+            },
+            "interactive": false,
+            "name": "sshd-session",
+            "parent": {
+              "entity_id": "Pu1e0VvLEyPblAg0JPT+Mw",
+              "pid": 945,
+              "start": "2026-10-17T23:26:36.360Z"
+            },
+            "pid": 1934,
+            "real_group": {
+              "id": "0",
+              "name": "root"
+            },
+            "real_user": {
+              "id": "0",
+              "name": "root"
+            },
+            "same_as_process": false,
+            "start": "2026-10-17T23:32:00.190Z",
+            "user": {
+              "id": "0",
+              "name": "root"
+            },
+            "working_directory": "/"
+          },
+          "executable": "/usr/bin/nmap",
+          "group": {
+            "id": "0",
+            "name": "root"
+          },
+          "group_leader": {
+            "args": [
+              "timeout",
+              "60",
+              "pwsh",
+              "-NoProfile",
+              "-Command",
+              "Import-Module '/opt/AtomicRedTeam/invoke-atomicredteam/Invoke-AtomicRedTeam.psd1'; Invoke-AtomicTest T1046 -TestNumbers 12 -PathToAtomicsFolder '/opt/AtomicRedTeam/atomics' -TimeoutSeconds 20"
+            ],
+            "args_count": 6,
+            "entity_id": "Q3qn5G8jludBnb0Gb73aow",
+            "executable": "/usr/lib/cargo/bin/coreutils/timeout",
+            "group": {
+              "id": "0",
+              "name": "root"
+            },
+            "interactive": false,
+            "name": "timeout",
+            "pid": 2298,
+            "real_group": {
+              "id": "0",
+              "name": "root"
+            },
+            "real_user": {
+              "id": "0",
+              "name": "root"
+            },
+            "same_as_process": false,
+            "start": "2026-10-17T23:32:25.570Z",
+            "supplemental_groups": [
+              {
+                "name": "sudo",
+                "id": 27
+              }
+            ],
+            "user": {
+              "id": "0",
+              "name": "root"
+            },
+            "working_directory": "/home/lab"
+          },
+          "hash": {
+            "sha256": "dfdfb438e214b82f1a8701d9ca94eca0156c710a663261f1bd595f98a53662fc"
+          },
+          "interactive": false,
+          "name": "nmap",
+          "parent": {
+            "args": [
+              "sh",
+              "-c",
+              "nmap -Pn -sV -p 0-65535 127.0.0.1"
+            ],
+            "args_count": 3,
+            "command_line": "sh -c nmap -Pn -sV -p 0-65535 127.0.0.1",
+            "entity_id": "LJpdjR3L5QgmhHAOovTBMw",
+            "executable": "/usr/bin/dash",
+            "group": {
+              "id": "0",
+              "name": "root"
+            },
+            "interactive": false,
+            "name": "dash",
+            "pid": 2323,
+            "real_group": {
+              "id": "0",
+              "name": "root"
+            },
+            "real_user": {
+              "id": "0",
+              "name": "root"
+            },
+            "start": "2026-10-17T23:32:26.500Z",
+            "supplemental_groups": [
+              {
+                "name": "sudo",
+                "id": 27
+              }
+            ],
+            "user": {
+              "id": "0",
+              "name": "root"
+            },
+            "working_directory": "/tmp"
+          },
+          "pid": 2325,
+          "previous": [
+            {
+              "args": [
+                "sh",
+                "-c",
+                "nmap -Pn -sV -p 0-65535 127.0.0.1"
+              ],
+              "args_count": 3,
+              "executable": "/usr/bin/dash"
+            }
+          ],
+          "real_group": {
+            "id": "0",
+            "name": "root"
+          },
+          "real_user": {
+            "id": "0",
+            "name": "root"
+          },
+          "session_leader": {
+            "args": [
+              "bash",
+              "-c",
+              "chmod +x /var/tmp/batch-run.sh /var/tmp/run-atomic.sh; sudo mkdir -p /opt/labout && sudo chmod 777 /opt/labout; : > /opt/labout/results.tsv; echo \"START=$(date -u +%FT%TZ)\"; bash /var/tmp/batch-run.sh /var/tmp/verify-batch.tsv 2>&1 | tail -1; cut -f1,2,6 /opt/labout/results.tsv; sudo visudo -c -f /etc/sudoers 2>&1 | tail -1"
+            ],
+            "args_count": 3,
+            "entity_id": "VN0FTnPdBCbWAvUsAfmTWQ",
+            "executable": "/usr/bin/bash",
+            "group": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "interactive": false,
+            "name": "bash",
+            "pid": 1983,
+            "real_group": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "real_user": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "same_as_process": false,
+            "start": "2026-10-17T23:32:00.830Z",
+            "supplemental_groups": [
+              {
+                "name": "sudo",
+                "id": 27
+              }
+            ],
+            "user": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "working_directory": "/home/lab"
+          },
+          "start": "2026-10-17T23:32:26.500Z",
+          "user": {
+            "id": "0",
+            "name": "root"
+          },
+          "working_directory": "/tmp"
+        },
+        "user": {
+          "Ext": {
+            "real": {
+              "id": "0",
+              "name": "root"
+            }
+          },
+          "id": "0",
+          "name": "root"
+        }
+      }
+    ]
+  },
+  {
+    "rule_id": "homelab-lab-t1553_004_rogue_ca",
+    "name": "t1553-004-rogue-ca",
+    "stream": "logs-endpoint.events.file-lab",
+    "count": 1,
+    "docs": [
+      {
+        "elastic": {
+          "agent": {
+            "id": "6fe7530d-47ff-438d-8372-ea7cf0b8c0a3"
+          }
+        },
+        "event": {
+          "action": [
+            "creation"
+          ],
+          "agent_id_status": "verified",
+          "category": [
+            "file"
+          ],
+          "dataset": "endpoint.events.file",
+          "id": "OhE2AHhq9+MbIzil+++++6RW",
+          "kind": "event",
+          "module": "endpoint",
+          "outcome": "unknown",
+          "sequence": 28394,
+          "type": [
+            "creation"
+          ]
+        },
+        "file": {
+          "Ext": {
+            "entropy": 3.138460066586155,
+            "header_bytes": "2d2d2d2d2d424547494e204345525449"
+          },
+          "extension": "crt",
+          "name": "lab-test-rogue.crt",
+          "path": "/usr/local/share/ca-certificates/lab-test-rogue.crt",
+          "size": 0
+        },
+        "group": {
+          "Ext": {
+            "real": {
+              "id": "0",
+              "name": "root"
+            }
+          },
+          "id": "0",
+          "name": "root"
+        },
+        "host": {
+          "os": {
+            "type": "linux"
+          },
+          "name": "canary-__IP__"
+        },
+        "message": "Endpoint file event",
+        "process": {
+          "entity_id": "o8vG51JD0uBC+8NojQ0QXQ",
+          "entry_leader": {
+            "entity_id": "e0FujT/+7JK0hQ4qRgBNBQ",
+            "parent": {
+              "entity_id": "Pu1e0VvLEyPblAg0JPT+Mw"
+            }
+          },
+          "executable": "/usr/lib/cargo/bin/coreutils/tee",
+          "group_leader": {
+            "entity_id": "FQhe9H43QEppmT+ofBipbQ"
+          },
+          "name": "tee",
+          "parent": {
+            "entity_id": "xQQBMQTSIKa1ZUaHgEw0ig"
+          },
+          "pid": 5749,
+          "session_leader": {
+            "entity_id": "FQhe9H43QEppmT+ofBipbQ"
+          }
+        },
+        "user": {
+          "Ext": {
+            "real": {
+              "id": "0",
+              "name": "root"
+            }
+          },
+          "id": "0",
+          "name": "root"
+        }
+      }
+    ]
+  },
+  {
+    "rule_id": "homelab-lab-t1036_003_masquerade_tmp",
+    "name": "t1036-003-masquerade-tmp",
+    "stream": "logs-endpoint.events.process-lab",
+    "count": 1,
+    "docs": [
+      {
+        "elastic": {
+          "agent": {
+            "id": "6fe7530d-47ff-438d-8372-ea7cf0b8c0a3"
+          }
+        },
+        "event": {
+          "action": [
+            "fork",
+            "exec",
+            "end"
+          ],
+          "agent_id_status": "verified",
+          "category": [
+            "process"
+          ],
+          "dataset": "endpoint.events.process",
+          "id": "OhE2AHhq9+MbIzil+++++/tk",
+          "kind": "event",
+          "module": "endpoint",
+          "outcome": "unknown",
+          "sequence": 6559,
+          "type": [
+            "start",
+            "start",
+            "end"
+          ]
+        },
+        "group": {
+          "Ext": {
+            "real": {
+              "id": "1000",
+              "name": "lab"
+            }
+          },
+          "id": "1000",
+          "name": "lab"
+        },
+        "host": {
+          "os": {
+            "type": "linux"
+          },
+          "name": "canary-__IP__"
+        },
+        "message": "Endpoint process event",
+        "process": {
+          "Ext": {
+            "ancestry": [
+              "Rq0oKpEE0vm5+YuAmZbXTQ",
+              "4Ypi4Or/59T5wzQYT3qCqA",
+              "Cl1ERFpuxpmCbuqB0pTBNg",
+              "lTFnYLn7lXb7xsfs0Uh3bQ",
+              "VN0FTnPdBCbWAvUsAfmTWQ"
+            ]
+          },
+          "args": [
+            "/tmp/crond"
+          ],
+          "args_count": 1,
+          "command_line": "/tmp/crond",
+          "end": "2026-10-17T23:32:07.995Z",
+          "entity_id": "uLx2YkC82o8hriTD73YA/g",
+          "entry_leader": {
+            "args": [
+              "/usr/lib/openssh/sshd-session",
+              "-D",
+              "-R",
+              "-N",
+              "2"
+            ],
+            "args_count": 5,
+            "entity_id": "/OiCuIY5dK5KQswktU0wRA",
+            "entry_meta": {
+              "source": {
+                "ip": "10.20.20.5"
+              },
+              "type": "sshd"
+            },
+            "executable": "/usr/lib/openssh/sshd-session",
+            "group": {
+              "id": "0",
+              "name": "root"
+            },
+            "interactive": false,
+            "name": "sshd-session",
+            "parent": {
+              "entity_id": "Pu1e0VvLEyPblAg0JPT+Mw",
+              "pid": 945,
+              "start": "2026-10-17T23:26:36.360Z"
+            },
+            "pid": 1934,
+            "real_group": {
+              "id": "0",
+              "name": "root"
+            },
+            "real_user": {
+              "id": "0",
+              "name": "root"
+            },
+            "same_as_process": false,
+            "start": "2026-10-17T23:32:00.190Z",
+            "user": {
+              "id": "0",
+              "name": "root"
+            },
+            "working_directory": "/"
+          },
+          "executable": "/tmp/crond",
+          "exit_code": 0,
+          "group": {
+            "id": "1000",
+            "name": "lab"
+          },
+          "group_leader": {
+            "args": [
+              "timeout",
+              "60",
+              "pwsh",
+              "-NoProfile",
+              "-Command",
+              "Import-Module '/opt/AtomicRedTeam/invoke-atomicredteam/Invoke-AtomicRedTeam.psd1'; Invoke-AtomicTest T1036.003 -TestNumbers 2 -PathToAtomicsFolder '/opt/AtomicRedTeam/atomics' -TimeoutSeconds 20"
+            ],
+            "args_count": 6,
+            "entity_id": "Cl1ERFpuxpmCbuqB0pTBNg",
+            "executable": "/usr/lib/cargo/bin/coreutils/timeout",
+            "group": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "interactive": false,
+            "name": "timeout",
+            "pid": 2026,
+            "real_group": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "real_user": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "same_as_process": false,
+            "start": "2026-10-17T23:32:01.890Z",
+            "supplemental_groups": [
+              {
+                "name": "sudo",
+                "id": 27
+              }
+            ],
+            "user": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "working_directory": "/home/lab"
+          },
+          "hash": {
+            "sha256": "c626229526bb58ec2d0f585f3c3ae1412e6f973b4353385042d11c38d8426917"
+          },
+          "interactive": false,
+          "name": "crond",
+          "parent": {
+            "args": [
+              "sh",
+              "-c",
+              "cp /bin/sh /tmp/crond;\necho 'sleep 5' | /tmp/crond"
+            ],
+            "args_count": 3,
+            "command_line": "sh -c cp /bin/sh /tmp/crond;\necho 'sleep 5' | /tmp/crond",
+            "entity_id": "Rq0oKpEE0vm5+YuAmZbXTQ",
+            "executable": "/usr/bin/dash",
+            "group": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "interactive": false,
+            "name": "dash",
+            "pid": 2052,
+            "real_group": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "real_user": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "start": "2026-10-17T23:32:02.970Z",
+            "supplemental_groups": [
+              {
+                "name": "sudo",
+                "id": 27
+              }
+            ],
+            "user": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "working_directory": "/tmp"
+          },
+          "pid": 2056,
+          "previous": [
+            {
+              "args": [
+                "sh",
+                "-c",
+                "cp /bin/sh /tmp/crond;\necho 'sleep 5' | /tmp/crond"
+              ],
+              "args_count": 3,
+              "executable": "/usr/bin/dash"
+            }
+          ],
+          "real_group": {
+            "id": "1000",
+            "name": "lab"
+          },
+          "real_user": {
+            "id": "1000",
+            "name": "lab"
+          },
+          "session_leader": {
+            "args": [
+              "bash",
+              "-c",
+              "chmod +x /var/tmp/batch-run.sh /var/tmp/run-atomic.sh; sudo mkdir -p /opt/labout && sudo chmod 777 /opt/labout; : > /opt/labout/results.tsv; echo \"START=$(date -u +%FT%TZ)\"; bash /var/tmp/batch-run.sh /var/tmp/verify-batch.tsv 2>&1 | tail -1; cut -f1,2,6 /opt/labout/results.tsv; sudo visudo -c -f /etc/sudoers 2>&1 | tail -1"
+            ],
+            "args_count": 3,
+            "entity_id": "VN0FTnPdBCbWAvUsAfmTWQ",
+            "executable": "/usr/bin/bash",
+            "group": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "interactive": false,
+            "name": "bash",
+            "pid": 1983,
+            "real_group": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "real_user": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "same_as_process": false,
+            "start": "2026-10-17T23:32:00.830Z",
+            "supplemental_groups": [
+              {
+                "name": "sudo",
+                "id": 27
+              }
+            ],
+            "user": {
+              "id": "1000",
+              "name": "lab"
+            },
+            "working_directory": "/home/lab"
+          },
+          "start": "2026-10-17T23:32:02.980Z",
+          "supplemental_groups": [
+            {
+              "name": "sudo",
+              "id": 27
+            }
+          ],
+          "user": {
+            "id": "1000",
+            "name": "lab"
+          },
+          "working_directory": "/tmp"
+        },
+        "user": {
+          "Ext": {
+            "real": {
+              "id": "1000",
+              "name": "lab"
+            }
+          },
+          "id": "1000",
+          "name": "lab"
+        }
+      }
+    ]
+  }
+]

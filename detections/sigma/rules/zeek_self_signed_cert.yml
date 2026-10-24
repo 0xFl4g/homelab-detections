@@ -1,0 +1,43 @@
+title: External TLS connection with self-signed / odd-issuer certificate
+id: d0e9f7a1-9c3d-4e5f-a7b8-8c9d0e1f2a3b
+status: experimental
+description: |
+  Zeek x509.log shows an external TLS server presenting a self-signed CA
+  certificate. Common pattern for malware C2 with quickly-spun cert
+  infrastructure or for misconfigured legitimate services. Mirror of Wazuh
+  rule 100604.
+references:
+  - https://docs.zeek.org/en/master/scripts/base/protocols/ssl/main.zeek.html
+  - https://attack.mitre.org/techniques/T1573/002/
+author: 0xFl4g
+date: 2026/05/01
+tags:
+  - attack.command-and-control
+  - attack.t1573.002
+logsource:
+  product: zeek
+  service: x509
+detection:
+  selection:
+    basic_constraints.ca: true
+    certificate.subject|contains: 'CN='
+  filter_well_known_ca:
+    certificate.issuer|contains:
+      - "Let's Encrypt"
+      - "DigiCert"
+      - "GlobalSign"
+      - "Sectigo"
+      - "Amazon"
+      - "Google Trust Services"
+      - "ZeroSSL"
+      - "GoDaddy"
+      - "Cloudflare"
+      - "Microsoft"
+      - "ISRG"
+      - "Apple"
+  condition: selection and not filter_well_known_ca
+falsepositives:
+  - Internal CA / homelab self-signed certs (filter by SAN containing your
+    internal domain)
+  - IoT devices with self-signed certs (smart home etc.)
+level: medium

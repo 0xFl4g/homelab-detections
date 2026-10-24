@@ -1,0 +1,604 @@
+{
+ "_note_homelab-100057": "IOC match (abuse.ch hash); not tied to one technique",
+ "_note_homelab-100059": "IOC match (abuse.ch domain); not tied to one technique",
+ "_note_homelab-100136": "admin-panel access audit; visibility, not a technique",
+ "_note_homelab-100303": "DNS REFUSED volume; hygiene signal",
+ "_note_homelab-100507": "container restart loop; availability, not adversary behaviour",
+ "_note_homelab-100910": "container crash loop; availability",
+ "_note_homelab-5108": "kernel OOM kill; availability",
+ "_note_homelab-5138": "SATA/disk error; hardware",
+ "homelab-100001": [
+  {
+   "tactic": "TA0001",
+   "technique": "T1190"
+  }
+ ],
+ "homelab-100004": [
+  {
+   "tactic": "TA0004",
+   "technique": "T1611"
+  },
+  {
+   "tactic": "TA0002",
+   "technique": "T1610"
+  }
+ ],
+ "homelab-100005": [
+  {
+   "tactic": "TA0112",
+   "technique": "T1686"
+  }
+ ],
+ "homelab-100005-unaudited": [
+  {
+   "tactic": "TA0112",
+   "technique": "T1686"
+  }
+ ],
+ "homelab-100020": [
+  {
+   "tactic": "TA0003",
+   "technique": "T1136",
+   "subtechnique": "T1136.001"
+  },
+  {
+   "tactic": "TA0003",
+   "technique": "T1098"
+  }
+ ],
+ "homelab-100021": [
+  {
+   "tactic": "TA0004",
+   "technique": "T1548",
+   "subtechnique": "T1548.003"
+  }
+ ],
+ "homelab-100022": [
+  {
+   "tactic": "TA0003",
+   "technique": "T1543",
+   "subtechnique": "T1543.002"
+  }
+ ],
+ "homelab-100023": [
+  {
+   "tactic": "TA0003",
+   "technique": "T1098",
+   "subtechnique": "T1098.004"
+  }
+ ],
+ "homelab-100024": [
+  {
+   "tactic": "TA0005",
+   "technique": "T1070",
+   "subtechnique": "T1070.003"
+  }
+ ],
+ "homelab-100025": [
+  {
+   "tactic": "TA0003",
+   "technique": "T1543",
+   "subtechnique": "T1543.005"
+  }
+ ],
+ "homelab-100026": [
+  {
+   "tactic": "TA0005",
+   "technique": "T1564",
+   "subtechnique": "T1564.001"
+  }
+ ],
+ "homelab-100041": [
+  {
+   "tactic": "TA0006",
+   "technique": "T1110",
+   "subtechnique": "T1110.001"
+  }
+ ],
+ "homelab-100042": [
+  {
+   "tactic": "TA0003",
+   "technique": "T1136",
+   "subtechnique": "T1136.001"
+  },
+  {
+   "tactic": "TA0004",
+   "technique": "T1548",
+   "subtechnique": "T1548.003"
+  }
+ ],
+ "homelab-100042-rev": [
+  {
+   "tactic": "TA0003",
+   "technique": "T1136",
+   "subtechnique": "T1136.001"
+  },
+  {
+   "tactic": "TA0004",
+   "technique": "T1548",
+   "subtechnique": "T1548.003"
+  }
+ ],
+ "homelab-100043": [
+  {
+   "tactic": "TA0003",
+   "technique": "T1543",
+   "subtechnique": "T1543.002"
+  },
+  {
+   "tactic": "TA0003",
+   "technique": "T1098",
+   "subtechnique": "T1098.004"
+  }
+ ],
+ "homelab-100043-rev": [
+  {
+   "tactic": "TA0003",
+   "technique": "T1098",
+   "subtechnique": "T1098.004"
+  },
+  {
+   "tactic": "TA0003",
+   "technique": "T1543",
+   "subtechnique": "T1543.002"
+  }
+ ],
+ "homelab-100047": [
+  {
+   "tactic": "TA0011",
+   "technique": "T1071"
+  }
+ ],
+ "homelab-100048": [
+  {
+   "tactic": "TA0011",
+   "technique": "T1071"
+  }
+ ],
+ "homelab-100049": [
+  {
+   "tactic": "TA0040",
+   "technique": "T1496",
+   "subtechnique": "T1496.001"
+  }
+ ],
+ "homelab-100049-dns": [
+  {
+   "tactic": "TA0040",
+   "technique": "T1496",
+   "subtechnique": "T1496.001"
+  }
+ ],
+ "homelab-100057": [],
+ "homelab-100059": [],
+ "homelab-100082": [
+  {
+   "tactic": "TA0006",
+   "technique": "T1110",
+   "subtechnique": "T1110.001"
+  }
+ ],
+ "homelab-100085": [
+  {
+   "tactic": "TA0003",
+   "technique": "T1098"
+  }
+ ],
+ "homelab-100100": [
+  {
+   "tactic": "TA0040",
+   "technique": "T1486"
+  }
+ ],
+ "homelab-100101": [
+  {
+   "tactic": "TA0003",
+   "technique": "T1053",
+   "subtechnique": "T1053.003"
+  }
+ ],
+ "homelab-100102": [
+  {
+   "tactic": "TA0001",
+   "technique": "T1133"
+  },
+  {
+   "tactic": "TA0008",
+   "technique": "T1021",
+   "subtechnique": "T1021.004"
+  }
+ ],
+ "homelab-100103": [
+  {
+   "tactic": "TA0040",
+   "technique": "T1496",
+   "subtechnique": "T1496.001"
+  }
+ ],
+ "homelab-100104": [
+  {
+   "tactic": "TA0040",
+   "technique": "T1490"
+  }
+ ],
+ "homelab-100105": [
+  {
+   "tactic": "TA0040",
+   "technique": "T1485"
+  }
+ ],
+ "homelab-100106": [
+  {
+   "tactic": "TA0112",
+   "technique": "T1686"
+  }
+ ],
+ "homelab-100107": [
+  {
+   "tactic": "TA0112",
+   "technique": "T1685",
+   "subtechnique": "T1685.006"
+  }
+ ],
+ "homelab-100126": [
+  {
+   "tactic": "TA0043",
+   "technique": "T1595"
+  }
+ ],
+ "homelab-100132": [
+  {
+   "tactic": "TA0006",
+   "technique": "T1110",
+   "subtechnique": "T1110.001"
+  }
+ ],
+ "homelab-100136": [],
+ "homelab-100201": [
+  {
+   "tactic": "TA0006",
+   "technique": "T1110",
+   "subtechnique": "T1110.001"
+  }
+ ],
+ "homelab-100211": [
+  {
+   "tactic": "TA0006",
+   "technique": "T1110",
+   "subtechnique": "T1110.001"
+  }
+ ],
+ "homelab-100221": [
+  {
+   "tactic": "TA0006",
+   "technique": "T1110",
+   "subtechnique": "T1110.001"
+  }
+ ],
+ "homelab-100231": [
+  {
+   "tactic": "TA0006",
+   "technique": "T1110",
+   "subtechnique": "T1110.001"
+  }
+ ],
+ "homelab-100250": [
+  {
+   "tactic": "TA0011",
+   "technique": "T1071"
+  }
+ ],
+ "homelab-100251": [
+  {
+   "tactic": "TA0011",
+   "technique": "T1071"
+  }
+ ],
+ "homelab-100303": [],
+ "homelab-100304": [
+  {
+   "tactic": "TA0011",
+   "technique": "T1071",
+   "subtechnique": "T1071.004"
+  }
+ ],
+ "homelab-100305": [
+  {
+   "tactic": "TA0011",
+   "technique": "T1568",
+   "subtechnique": "T1568.002"
+  }
+ ],
+ "homelab-100306": [
+  {
+   "tactic": "TA0011",
+   "technique": "T1071",
+   "subtechnique": "T1071.004"
+  },
+  {
+   "tactic": "TA0010",
+   "technique": "T1048"
+  }
+ ],
+ "homelab-100307": [
+  {
+   "tactic": "TA0011",
+   "technique": "T1090",
+   "subtechnique": "T1090.003"
+  }
+ ],
+ "homelab-100311": [
+  {
+   "tactic": "TA0011",
+   "technique": "T1071",
+   "subtechnique": "T1071.004"
+  }
+ ],
+ "homelab-100312": [
+  {
+   "tactic": "TA0011",
+   "technique": "T1071",
+   "subtechnique": "T1071.004"
+  },
+  {
+   "tactic": "TA0011",
+   "technique": "T1132",
+   "subtechnique": "T1132.001"
+  },
+  {
+   "tactic": "TA0010",
+   "technique": "T1048"
+  }
+ ],
+ "homelab-100313": [
+  {
+   "tactic": "TA0011",
+   "technique": "T1071",
+   "subtechnique": "T1071.004"
+  },
+  {
+   "tactic": "TA0011",
+   "technique": "T1132",
+   "subtechnique": "T1132.001"
+  },
+  {
+   "tactic": "TA0010",
+   "technique": "T1048"
+  }
+ ],
+ "homelab-100321": [
+  {
+   "tactic": "TA0040",
+   "technique": "T1529"
+  }
+ ],
+ "homelab-100322": [
+  {
+   "tactic": "TA0001",
+   "technique": "T1200"
+  }
+ ],
+ "homelab-100323": [
+  {
+   "tactic": "TA0001",
+   "technique": "T1200"
+  }
+ ],
+ "homelab-100324": [
+  {
+   "tactic": "TA0001",
+   "technique": "T1200"
+  }
+ ],
+ "homelab-100327": [
+  {
+   "tactic": "TA0006",
+   "technique": "T1110"
+  }
+ ],
+ "homelab-100328": [
+  {
+   "tactic": "TA0006",
+   "technique": "T1110",
+   "subtechnique": "T1110.001"
+  }
+ ],
+ "homelab-100400": [
+  {
+   "tactic": "TA0004",
+   "technique": "T1548",
+   "subtechnique": "T1548.001"
+  }
+ ],
+ "homelab-100401": [
+  {
+   "tactic": "TA0003",
+   "technique": "T1547",
+   "subtechnique": "T1547.006"
+  },
+  {
+   "tactic": "TA0005",
+   "technique": "T1014"
+  }
+ ],
+ "homelab-100505": [
+  {
+   "tactic": "TA0040",
+   "technique": "T1489"
+  }
+ ],
+ "homelab-100507": [],
+ "homelab-100509": [
+  {
+   "tactic": "TA0040",
+   "technique": "T1489"
+  }
+ ],
+ "homelab-100702": [
+  {
+   "tactic": "TA0007",
+   "technique": "T1046"
+  }
+ ],
+ "homelab-100801": [
+  {
+   "tactic": "TA0002",
+   "technique": "T1204",
+   "subtechnique": "T1204.002"
+  }
+ ],
+ "homelab-100901": [
+  {
+   "tactic": "TA0011",
+   "technique": "T1571"
+  }
+ ],
+ "homelab-100910": [],
+ "homelab-5108": [],
+ "homelab-5138": [],
+ "homelab-5404": [
+  {
+   "tactic": "TA0006",
+   "technique": "T1110",
+   "subtechnique": "T1110.001"
+  }
+ ],
+ "homelab-553": [
+  {
+   "tactic": "TA0005",
+   "technique": "T1070",
+   "subtechnique": "T1070.004"
+  }
+ ],
+ "homelab-lab-authconfig-tamper": [
+  {
+   "tactic": "TA0004",
+   "technique": "T1548",
+   "subtechnique": "T1548.003"
+  },
+  {
+   "tactic": "TA0003",
+   "technique": "T1556",
+   "subtechnique": "T1556.003"
+  }
+ ],
+ "homelab-lab-hidden-file-tmp": [
+  {
+   "tactic": "TA0005",
+   "technique": "T1564",
+   "subtechnique": "T1564.001"
+  }
+ ],
+ "homelab-lab-t1003_008_shadow_read": [
+  {
+   "tactic": "TA0006",
+   "technique": "T1003",
+   "subtechnique": "T1003.008"
+  }
+ ],
+ "homelab-lab-t1036_003_masquerade_tmp": [
+  {
+   "tactic": "TA0005",
+   "technique": "T1036",
+   "subtechnique": "T1036.003"
+  }
+ ],
+ "homelab-lab-t1040_packet_capture": [
+  {
+   "tactic": "TA0006",
+   "technique": "T1040"
+  }
+ ],
+ "homelab-lab-t1046_network_scan": [
+  {
+   "tactic": "TA0007",
+   "technique": "T1046"
+  }
+ ],
+ "homelab-lab-t1098-004-authkeys": [
+  {
+   "tactic": "TA0003",
+   "technique": "T1098",
+   "subtechnique": "T1098.004"
+  }
+ ],
+ "homelab-lab-t1552_001_credential_file_search": [
+  {
+   "tactic": "TA0006",
+   "technique": "T1552",
+   "subtechnique": "T1552.001"
+  }
+ ],
+ "homelab-lab-t1552_003_shell_history_access": [
+  {
+   "tactic": "TA0006",
+   "technique": "T1552",
+   "subtechnique": "T1552.003"
+  }
+ ],
+ "homelab-lab-t1552_004_private_key_search": [
+  {
+   "tactic": "TA0006",
+   "technique": "T1552",
+   "subtechnique": "T1552.004"
+  }
+ ],
+ "homelab-lab-t1553_004_rogue_ca": [
+  {
+   "tactic": "TA0112",
+   "technique": "T1553",
+   "subtechnique": "T1553.004"
+  }
+ ],
+ "homelab-lab-t1562_impair_defenses": [
+  {
+   "tactic": "TA0112",
+   "technique": "T1685"
+  },
+  {
+   "tactic": "TA0112",
+   "technique": "T1685",
+   "subtechnique": "T1685.004"
+  },
+  {
+   "tactic": "TA0112",
+   "technique": "T1686"
+  }
+ ],
+ "homelab-net-new-device": [
+  {
+   "tactic": "TA0001",
+   "technique": "T1200"
+  }
+ ],
+ "homelab-pikvm-credentials": [
+  {
+   "tactic": "TA0003",
+   "technique": "T1098"
+  }
+ ],
+ "homelab-ti-auth-src": [
+  {
+   "tactic": "TA0006",
+   "technique": "T1110"
+  }
+ ],
+ "homelab-ti-suricata-dst": [
+  {
+   "tactic": "TA0011",
+   "technique": "T1071"
+  }
+ ],
+ "homelab-ti-suricata-sni": [
+  {
+   "tactic": "TA0011",
+   "technique": "T1071"
+  }
+ ],
+ "homelab-ti-suricata-src": [
+  {
+   "tactic": "TA0011",
+   "technique": "T1071"
+  }
+ ]
+}

@@ -1,0 +1,27 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-100136",
+  "name": "Forgejo admin panel access",
+  "description": "Port of Wazuh 100136 (Kibana only; Traefik access log).",
+  "type": "query",
+  "index": [
+    "logs-docker.vector-*"
+  ],
+  "language": "kuery",
+  "query": "labels.traefik_router:forgejo* and url.original:/-/admin/*",
+  "severity": "medium",
+  "risk_score": 47,
+  "tags": [
+    "homelab",
+    "wazuh:100136"
+  ],
+  "threat": []
+}

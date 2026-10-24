@@ -1,0 +1,54 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-100103",
+  "name": "Cryptominer execution",
+  "description": "Port of Wazuh 100103: miner names in host syslog/auth lines (Wazuh negate list kept) or in an osquery running_processes command line.",
+  "type": "query",
+  "index": [
+    "logs-system.syslog-*",
+    "logs-system.auth-*",
+    "logs-osquery.result-*"
+  ],
+  "language": "kuery",
+  "query": "(message:(xmrig or monero or cpuminer or nbminer or \"t-rex\" or ethminer or phoenixminer or lolminer or teamredminer or nicehash or minexmr or \"stratum+tcp\") and not message:(unbound or monerod or mullvad or protonvpn or nordvpn)) or (osquery.name:running_processes and osquery.action:added and osquery.columns.cmdline:(*xmrig* or *cpuminer* or *nbminer* or *ethminer* or *phoenixminer* or *lolminer* or *teamredminer* or *nicehash* or *stratum+tcp*))",
+  "severity": "high",
+  "risk_score": 73,
+  "tags": [
+    "homelab",
+    "notify",
+    "wazuh:100103",
+    "cryptomining"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0040",
+        "name": "Impact",
+        "reference": "https://attack.mitre.org/tactics/TA0040/"
+      },
+      "technique": [
+        {
+          "id": "T1496",
+          "name": "Resource Hijacking",
+          "reference": "https://attack.mitre.org/techniques/T1496/",
+          "subtechnique": [
+            {
+              "id": "T1496.001",
+              "name": "Compute Hijacking",
+              "reference": "https://attack.mitre.org/techniques/T1496/001/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

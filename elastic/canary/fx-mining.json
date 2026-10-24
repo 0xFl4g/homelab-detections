@@ -1,0 +1,4 @@
+[
+{"rule_id":"homelab-100049-dns","name":"100049-dns-pool","stream":"logs-pfsense.log-default","pipeline":"logs-pfsense.log@custom","count":1,"doc":{"message":"[1:1] info: __IP__ canary.supportxmr.com. A IN","dns":{"question":{"name":"canary.supportxmr.com","type":"A"}},"source":{"ip":"__IP__"}}},
+{"rule_id":"homelab-100049-dns","expect":"none","name":"100049-dns-ntp-pool-ignored","stream":"logs-pfsense.log-default","pipeline":"logs-pfsense.log@custom","count":1,"doc":{"message":"[1:1] info: __IP__ 2.pool.ntp.org. A IN","dns":{"question":{"name":"2.pool.ntp.org","type":"A"}},"source":{"ip":"__IP__"}}}
+]

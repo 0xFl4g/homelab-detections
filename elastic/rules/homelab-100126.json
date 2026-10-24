@@ -1,0 +1,52 @@
+{
+  "rule_id": "homelab-100126",
+  "name": "Web brute force / scan: 5+ 4xx in 5m",
+  "description": "Port of Wazuh 100126. container.name:(traefik or immich-public-proxy) and http.response.status_code >= 400 and http.response.status_code < 500 \u2014 5+ per source.ip in 5m.",
+  "type": "threshold",
+  "index": [
+    "logs-docker.vector-*"
+  ],
+  "language": "kuery",
+  "query": "container.name:(traefik or immich-public-proxy) and http.response.status_code >= 400 and http.response.status_code < 500 and not source.ip:(\"10.0.0.0/8\" or \"172.16.0.0/12\" or \"192.168.0.0/16\" or \"127.0.0.0/8\")",
+  "from": "now-6m",
+  "interval": "5m",
+  "severity": "high",
+  "risk_score": 73,
+  "tags": [
+    "homelab",
+    "wazuh:100126",
+    "brute_force",
+    "web_scan",
+    "autoblock"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0043",
+        "name": "Reconnaissance",
+        "reference": "https://attack.mitre.org/tactics/TA0043/"
+      },
+      "technique": [
+        {
+          "id": "T1595",
+          "name": "Active Scanning",
+          "reference": "https://attack.mitre.org/techniques/T1595/"
+        }
+      ]
+    }
+  ],
+  "enabled": true,
+  "actions": [],
+  "version": 3,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "threshold": {
+    "field": [
+      "source.ip"
+    ],
+    "value": 5
+  }
+}

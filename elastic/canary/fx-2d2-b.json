@@ -1,0 +1,6 @@
+[
+ {"rule_id":"homelab-553","name":"553-snapshot-removed","stream":"logs-host.snapshot-default","count":1,"doc":{"event":{"action":"removed"},"labels":{"snapshot_item":"/etc/cron.d/canary"},"host":{"name":"canary-__IP__"},"message":"canary"}},
+ {"rule_id":"homelab-553","name":"553-osquery-single-delete","stream":"logs-osquery.result-default","count":1,"doc":{"osquery":{"name":"boot_config_paths","action":"removed","counter":9,"columns":{"path":"/boot/config/compose/canary/f"}},"host":{"name":"canary-__IP__"},"message":"canary"}},
+ {"rule_id":"homelab-553","name":"553-hash-edit-ignored","expect":"none","stream":"logs-osquery.result-default","count":1,"doc":{"osquery":{"name":"boot_config_hashes","action":"removed","counter":9,"columns":{"path":"/boot/config/compose/canary/f"}},"host":{"name":"canary-__IP__"},"message":"canary"}},
+ {"rule_id":"homelab-100101","name":"100101-new-cron-file","stream":"logs-host.snapshot-default","count":1,"doc":{"event":{"action":"added"},"labels":{"snapshot_item":"/etc/cron.d/canary"},"host":{"name":"canary-__IP__"},"message":"canary"}}
+]

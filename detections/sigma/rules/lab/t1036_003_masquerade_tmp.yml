@@ -1,0 +1,18 @@
+title: System-process name masquerade executing from temp (Linux)
+id: 5a2c9e14-7b63-4f08-a1d9-3e6c8b2f4a91
+status: experimental
+description: A binary with a common daemon name executing from a world-writable path (T1036.003, e.g. cp /bin/sh /tmp/crond; /tmp/crond).
+references: [https://attack.mitre.org/techniques/T1036/003/]
+author: 0xFl4g
+date: 2026-10-17
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  sel:
+    Image|startswith: ['/tmp/', '/var/tmp/', '/dev/shm/']
+    Image|endswith: [/crond, /cron, /sshd, /systemd, /init, /rsyslogd, /nginx, /apache2, /kthreadd, /kworker]
+  condition: sel
+falsepositives: [Rare - software run from a temp build directory]
+level: high
+tags: [attack.stealth, attack.t1036.003]

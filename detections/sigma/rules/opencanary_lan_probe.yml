@@ -1,0 +1,29 @@
+title: OpenCanary internal LAN probe — high-fidelity lateral movement
+id: b2c1d5e9-7a1b-4c3d-e5f6-6a7b8c9d0e1f
+status: stable
+description: |
+  Connection to the LAN canary at 10.20.20.99. Nothing legitimate ever talks to
+  this host — every event is a high-fidelity lateral-movement signal. Mirror of
+  Wazuh rule 100702.
+references:
+  - https://github.com/thinkst/opencanary
+  - https://attack.mitre.org/techniques/T1046/
+author: 0xFl4g
+date: 2026/05/01
+tags:
+  - attack.discovery
+  - attack.t1046
+  - attack.lateral-movement
+  - attack.t1078
+logsource:
+  product: opencanary
+detection:
+  selection:
+    node_id|startswith: 'canary-'
+  filter_self:
+    src_host: ''
+  condition: selection and not filter_self
+falsepositives:
+  - Vulnerability scanner from your security team that you forgot to whitelist
+  - Network-discovery script (ARP/ping sweep) from a sysadmin (still worth investigating)
+level: critical

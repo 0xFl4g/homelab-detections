@@ -1,0 +1,54 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-100400",
+  "name": "SUID binary set changed",
+  "description": "Port of Wazuh 100400/100902: host-snapshot cmd:suid change or osquery suid_binaries added (Unraid).",
+  "type": "query",
+  "index": [
+    "logs-host.snapshot-*",
+    "logs-osquery.result-*"
+  ],
+  "language": "kuery",
+  "query": "(event.action:modified and labels.snapshot_item:\"cmd:suid\") or (osquery.name:suid_binaries and osquery.action:added and osquery.counter > 0)",
+  "severity": "critical",
+  "risk_score": 99,
+  "tags": [
+    "homelab",
+    "notify",
+    "wazuh:100400",
+    "wazuh:100902",
+    "privilege_escalation"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0004",
+        "name": "Privilege Escalation",
+        "reference": "https://attack.mitre.org/tactics/TA0004/"
+      },
+      "technique": [
+        {
+          "id": "T1548",
+          "name": "Abuse Elevation Control Mechanism",
+          "reference": "https://attack.mitre.org/techniques/T1548/",
+          "subtechnique": [
+            {
+              "id": "T1548.001",
+              "name": "Setuid and Setgid",
+              "reference": "https://attack.mitre.org/techniques/T1548/001/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-553",
+  "name": "File deleted (host-snapshot / osquery)",
+  "description": "Port of Wazuh 553: watched file removed. Threshold per host (one alert per 5-min run); per-file detail in Kibana.",
+  "type": "threshold",
+  "language": "kuery",
+  "index": [
+    "logs-host.snapshot-*",
+    "logs-osquery.result-*"
+  ],
+  "query": "event.action:removed or (osquery.name:boot_config_paths and osquery.action:removed and osquery.counter > 0)",
+  "threshold": {
+    "field": [
+      "host.name"
+    ],
+    "value": 1
+  },
+  "severity": "medium",
+  "risk_score": 47,
+  "tags": [
+    "homelab",
+    "notify",
+    "wazuh:553",
+    "impact"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0005",
+        "name": "Stealth",
+        "reference": "https://attack.mitre.org/tactics/TA0005/"
+      },
+      "technique": [
+        {
+          "id": "T1070",
+          "name": "Indicator Removal",
+          "reference": "https://attack.mitre.org/techniques/T1070/",
+          "subtechnique": [
+            {
+              "id": "T1070.004",
+              "name": "File Deletion",
+              "reference": "https://attack.mitre.org/techniques/T1070/004/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

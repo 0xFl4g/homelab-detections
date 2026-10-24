@@ -1,0 +1,64 @@
+{
+  "rule_id": "homelab-ti-suricata-dst",
+  "name": "Suricata: outbound to threat-intel IP (possible C2)",
+  "description": "Port of Wazuh 100055, 100056. Suricata non-scan alert whose destination.ip is in homelab-ti.",
+  "type": "threat_match",
+  "index": [
+    "logs-suricata.eve-*"
+  ],
+  "language": "lucene",
+  "query": "suricata.eve.event_type:alert AND NOT rule.name:(ET\\ SCAN* OR ET\\ POLICY* OR *Zmap* OR *zgrab* OR *masscan* OR *Detection\\ of\\ a\\ Network\\ Scan*) AND NOT suricata.eve.alert.signature_severity:Informational",
+  "from": "now-6m",
+  "interval": "5m",
+  "severity": "critical",
+  "risk_score": 99,
+  "tags": [
+    "homelab",
+    "wazuh:100055",
+    "wazuh:100056",
+    "threat_intel",
+    "outbound",
+    "autoblock"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0011",
+        "name": "Command and Control",
+        "reference": "https://attack.mitre.org/tactics/TA0011/"
+      },
+      "technique": [
+        {
+          "id": "T1071",
+          "name": "Application Layer Protocol",
+          "reference": "https://attack.mitre.org/techniques/T1071/"
+        }
+      ]
+    }
+  ],
+  "enabled": true,
+  "actions": [],
+  "version": 3,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "threat_index": [
+    "homelab-ti"
+  ],
+  "threat_query": "threat.feed.name:*",
+  "threat_language": "kuery",
+  "threat_mapping": [
+    {
+      "entries": [
+        {
+          "field": "destination.ip",
+          "type": "mapping",
+          "value": "threat.indicator.ip"
+        }
+      ]
+    }
+  ],
+  "threat_indicator_path": "threat"
+}

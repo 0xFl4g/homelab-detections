@@ -1,0 +1,59 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-100305",
+  "name": "DNS: client got 20+ SERVFAIL",
+  "description": "Port of Wazuh 100305 (20 per source.ip in the 6-min lookback; .local/.lan/.internal/.home/.arpa excluded). Fired 125x/30d in Wazuh: tune in the first week.",
+  "type": "threshold",
+  "index": [
+    "logs-pfsense.log-*"
+  ],
+  "language": "kuery",
+  "query": "dns.response_code:SERVFAIL and not dns.question.name:(*.local or *.lan or *.internal or *.home or *.arpa)",
+  "threshold": {
+    "field": [
+      "source.ip"
+    ],
+    "value": 20
+  },
+  "severity": "high",
+  "risk_score": 73,
+  "tags": [
+    "homelab",
+    "notify",
+    "wazuh:100305",
+    "dns",
+    "dga"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0011",
+        "name": "Command and Control",
+        "reference": "https://attack.mitre.org/tactics/TA0011/"
+      },
+      "technique": [
+        {
+          "id": "T1568",
+          "name": "Dynamic Resolution",
+          "reference": "https://attack.mitre.org/techniques/T1568/",
+          "subtechnique": [
+            {
+              "id": "T1568.002",
+              "name": "Domain Generation Algorithms",
+              "reference": "https://attack.mitre.org/techniques/T1568/002/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

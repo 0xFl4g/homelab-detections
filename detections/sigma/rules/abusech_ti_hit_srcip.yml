@@ -1,0 +1,26 @@
+title: abuse.ch-known malicious IP (C2/botnet) observed
+id: b8c4d2e3-1a5f-4e7d-8b9c-0d1e2f3a4b5c
+status: stable
+description: |
+  Source IP appears in abuse.ch ThreatFox / Feodo / SSLBL feeds. Mirror of Wazuh
+  rule 100045 + 100251.
+references:
+  - https://feodotracker.abuse.ch/
+  - https://threatfox.abuse.ch/
+  - https://attack.mitre.org/techniques/T1071/
+author: 0xFl4g
+date: 2026/05/01
+tags:
+  - attack.command-and-control
+  - attack.t1071
+logsource:
+  category: network
+detection:
+  selection:
+    threat_intel.abusech|exists: true
+  filter_empty:
+    threat_intel.abusech: ''
+  condition: selection and not filter_empty
+falsepositives:
+  - Stale IoC after botnet takedown / C2 infrastructure migration
+level: high

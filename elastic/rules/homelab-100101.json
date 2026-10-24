@@ -1,0 +1,53 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 4,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-100101",
+  "name": "Cron configuration changed",
+  "description": "Port of Wazuh 100101 (host-snapshot /etc/crontab, /var/cron/tabs/*). Unraid leg: dynamix *.cron and user.scripts via osquery (2c-2 review). /etc/cron.d/* added after the first parity run (OPNsense /etc/cron.d/at, 2026-09-29).",
+  "type": "query",
+  "index": [
+    "logs-host.snapshot-*",
+    "logs-osquery.result-*"
+  ],
+  "language": "kuery",
+  "query": "(event.action:(modified or added) and labels.snapshot_item:(\"/etc/crontab\" or /etc/cron.d/* or /var/cron/tabs/*)) or (osquery.name:(boot_config_hashes or boot_config_hashes_ext) and osquery.action:added and osquery.counter > 0 and file.path:(/boot/config/plugins/dynamix/*.cron or /boot/config/plugins/user.scripts/*))",
+  "severity": "high",
+  "risk_score": 73,
+  "tags": [
+    "homelab",
+    "notify",
+    "wazuh:100101",
+    "persistence"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0003",
+        "name": "Persistence",
+        "reference": "https://attack.mitre.org/tactics/TA0003/"
+      },
+      "technique": [
+        {
+          "id": "T1053",
+          "name": "Scheduled Task/Job",
+          "reference": "https://attack.mitre.org/techniques/T1053/",
+          "subtechnique": [
+            {
+              "id": "T1053.003",
+              "name": "Cron",
+              "reference": "https://attack.mitre.org/techniques/T1053/003/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "description": "homelab 2c-2: Unbound rcode + DNSBL / tunnel labels (Wazuh 100300-100313 parity). Called by the pfSense integration pipeline.",
+  "processors": [
+    {
+      "script": {
+        "if": "ctx.dns?.question?.name != null && ctx.message != null",
+        "lang": "painless",
+        "ignore_failure": true,
+        "source": "String name = ctx.dns.question.name; def m = /IN (NOERROR|NXDOMAIN|SERVFAIL|REFUSED|FORMERR|NOTIMPL|YXDOMAIN|NOTAUTH|NOTZONE) ([0-9]+\\.[0-9]+) ([0-9]+) [0-9]+$/.matcher(ctx.message); if (ctx.labels == null) { ctx.labels = new HashMap(); } if (m.find()) { ctx.dns.response_code = m.group(1); String t = ctx.dns.question.type; if (m.group(1) == 'NOERROR' && m.group(2) == '0.000000' && m.group(3) == '0' && (t == 'A' || t == 'AAAA')) { ctx.labels.dns_answered_locally = 'true'; } } else { if (/[A-Za-z0-9_-]{40,}/.matcher(name).find() && !name.endsWith('.malware.hash.cymru.com') && !name.endsWith('.hashlookup.circl.lu')) { ctx.labels.dns_long_label = 'true'; } if (/[A-Z2-7]{24,}={0,6}/.matcher(name).find()) { ctx.labels.dns_base32 = 'true'; } if (/(?=[^.]*[a-z])(?=[^.]*[A-Z])[A-Za-z0-9+\\/]{24,}={0,2}/.matcher(name).find()) { ctx.labels.dns_base64 = 'true'; } } if (ctx.labels.isEmpty()) { ctx.remove('labels'); }"
+      }
+    }
+  ]
+}

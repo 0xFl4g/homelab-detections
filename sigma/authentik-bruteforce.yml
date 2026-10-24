@@ -1,0 +1,31 @@
+title: Authentik authentication failures burst
+id: 5a7c9b1d-4e2f-3a8d-6c5b-9f1a2e3d4c5b
+status: experimental
+description: |
+  Multiple Authentik login failures for the same source IP within 5 minutes.
+  Captures both classic password spray and targeted brute force across the
+  4-tier forward-auth + native OIDC services.
+references:
+  - wiki/concepts/domain-and-tls.md (Authentik 4-tier setup)
+author: 0xFl4g
+date: 2026-05-13
+tags:
+  - attack.credential_access.t1110.001   # Password Guessing
+  - attack.credential_access.t1110.003   # Password Spraying
+logsource:
+  product: authentik
+  service: event
+detection:
+  selection_fail:
+    event_action:
+      - 'login_failed'
+      - 'password_set_failed'
+      - 'invalid_credentials'
+  timeframe: 5m
+  count: '>= 5'
+  group_by: client_ip
+  condition: selection_fail
+falsepositives:
+  - Real user mistyped password 5+ times then succeeded (correlate with subsequent login success)
+  - Service account misconfigured with old password (look for repeating pattern from same source over hours)
+level: high

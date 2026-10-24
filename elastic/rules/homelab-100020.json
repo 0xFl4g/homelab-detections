@@ -1,0 +1,59 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 3,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-100020",
+  "name": "Local account database changed",
+  "description": "Port of Wazuh 100020/100403: host-snapshot /etc/passwd|master.passwd|group hash change (OPNsense, PiKVM) or osquery users diff (Unraid). /etc/shadow added after the 2c-2 review (PiKVM root password changes lost Wazuh 550 coverage at hand-off).",
+  "type": "query",
+  "index": [
+    "logs-host.snapshot-*",
+    "logs-osquery.result-*"
+  ],
+  "language": "kuery",
+  "query": "(event.action:(modified or added) and labels.snapshot_item:(\"/etc/passwd\" or \"/etc/master.passwd\" or \"/etc/group\" or \"/etc/shadow\")) or (osquery.name:users and osquery.counter > 0)",
+  "severity": "high",
+  "risk_score": 73,
+  "tags": [
+    "homelab",
+    "notify",
+    "wazuh:100020",
+    "wazuh:100403",
+    "persistence"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0003",
+        "name": "Persistence",
+        "reference": "https://attack.mitre.org/tactics/TA0003/"
+      },
+      "technique": [
+        {
+          "id": "T1136",
+          "name": "Create Account",
+          "reference": "https://attack.mitre.org/techniques/T1136/",
+          "subtechnique": [
+            {
+              "id": "T1136.001",
+              "name": "Local Account",
+              "reference": "https://attack.mitre.org/techniques/T1136/001/"
+            }
+          ]
+        },
+        {
+          "id": "T1098",
+          "name": "Account Manipulation",
+          "reference": "https://attack.mitre.org/techniques/T1098/"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-11m",
+  "rule_id": "homelab-100910",
+  "name": "Docker: container crash-looping (5+ deaths)",
+  "description": "Port of Wazuh 100910 (L9, Discord kept by operator flag): 5+ die events of one container in the 11-min lookback — likely a broken entrypoint after an auto-update.",
+  "type": "threshold",
+  "index": [
+    "logs-docker.vector-*"
+  ],
+  "language": "kuery",
+  "query": "container.name:docker-events-tailer and event.action:die",
+  "threshold": {
+    "field": [
+      "labels.docker_container"
+    ],
+    "value": 5
+  },
+  "severity": "medium",
+  "risk_score": 47,
+  "tags": [
+    "homelab",
+    "notify",
+    "wazuh:100910",
+    "docker"
+  ],
+  "threat": []
+}

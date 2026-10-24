@@ -1,0 +1,32 @@
+title: Shadow file read via command line (Linux)
+id: 4d8e2b16-7c93-4a05-9f1e-6b2d8c3a5e71
+status: experimental
+description: A process command line referencing /etc/shadow or /etc/gshadow by something other than the standard account tools - catches readers the prebuilt rule misses (e.g. echo piped to ed, T1003.008/4).
+references: [https://attack.mitre.org/techniques/T1003/008/]
+author: 0xFl4g
+date: 2026-10-17
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  sel:
+    CommandLine|contains:
+      - /etc/shadow
+      - /etc/gshadow
+  filt:
+    Image|endswith:
+      - /unix_chkpwd
+      - /passwd
+      - /chage
+      - /usermod
+      - /useradd
+      - /userdel
+      - /vipw
+      - /newusers
+      - /systemd
+      - /sshd
+      - /chpasswd
+  condition: sel and not filt
+falsepositives: [Backup of /etc; administrator inspecting account files]
+level: medium
+tags: [attack.credential-access, attack.t1003.008]

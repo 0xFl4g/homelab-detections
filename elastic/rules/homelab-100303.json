@@ -1,0 +1,28 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-100303",
+  "name": "DNS REFUSED",
+  "description": "Port of Wazuh 100303 (Kibana only).",
+  "type": "query",
+  "index": [
+    "logs-pfsense.log-*"
+  ],
+  "language": "kuery",
+  "query": "dns.response_code:REFUSED",
+  "severity": "medium",
+  "risk_score": 47,
+  "tags": [
+    "homelab",
+    "wazuh:100303",
+    "dns"
+  ],
+  "threat": []
+}

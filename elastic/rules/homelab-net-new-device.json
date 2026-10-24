@@ -1,0 +1,49 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-net-new-device",
+  "name": "Network: new device on the LAN",
+  "description": "A MAC address in the OPNsense LAN ARP table that was not seen during the previous 30 days. Source: scripts/net-inventory.sh via the homelab snapshot action. Phones use a per-network private MAC, so each alerts once.",
+  "type": "new_terms",
+  "index": [
+    "logs-network.inventory-*"
+  ],
+  "language": "kuery",
+  "query": "client.mac:*",
+  "new_terms_fields": [
+    "client.mac"
+  ],
+  "history_window_start": "now-30d",
+  "severity": "medium",
+  "risk_score": 47,
+  "tags": [
+    "homelab",
+    "notify",
+    "network",
+    "inventory"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0001",
+        "name": "Initial Access",
+        "reference": "https://attack.mitre.org/tactics/TA0001/"
+      },
+      "technique": [
+        {
+          "id": "T1200",
+          "name": "Hardware Additions",
+          "reference": "https://attack.mitre.org/techniques/T1200/"
+        }
+      ]
+    }
+  ]
+}

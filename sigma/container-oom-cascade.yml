@@ -1,0 +1,36 @@
+title: Container OOM cascade — unrelated process killed by kernel
+id: 2f3b5d6e-8c1a-4e2f-9d7b-3c8e5f9a1b2c
+status: experimental
+description: |
+  Kernel OOM-killer selects a process that does NOT belong to the cgroup that
+  caused the memory pressure. Indicates one or more containers without mem_limit
+  consumed host RAM, and the kernel picked a "wrong" victim (highest oom_score).
+  Pattern observed 2026-05-11: hathor-headless-shell + hathor-microsoft-edge
+  (both unlimited) consumed memory; Prometheus (containerized) was OOM-killed
+  at 11.7 GB RSS as the victim.
+references:
+  - feedback_docker_orphan_container.md (related: container memory accounting)
+author: 0xFl4g
+date: 2026-05-13
+tags:
+  - attack.impact.t1499  # Endpoint Denial of Service
+  - homelab.operational
+logsource:
+  product: linux
+  service: kernel
+detection:
+  selection_oom:
+    full_log|contains: 'Out of memory: Killed process'
+  selection_critical_target:
+    full_log|contains:
+      - 'prometheus'
+      - 'wazuh'
+      - 'authentik'
+      - 'traefik'
+      - 'opensearch'
+      - 'authentik-postgresql'
+      - 'immich-postgres'
+  condition: selection_oom and selection_critical_target
+falsepositives:
+  - Critical service legitimately exceeding its own mem_limit (then the kill is correct, not a cascade)
+level: high

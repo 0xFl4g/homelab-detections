@@ -1,0 +1,46 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-100104",
+  "name": "Backup / snapshot deletion attempt",
+  "description": "Port of Wazuh 100104 (syslog/auth message patterns).",
+  "type": "query",
+  "index": [
+    "logs-system.syslog-*",
+    "logs-system.auth-*"
+  ],
+  "language": "kuery",
+  "query": "message:(\"vssadmin delete\" or \"wbadmin delete\") or (message:\"btrfs subvolume delete\" and message:snapshot) or (message:\"zfs destroy\" and message:snapshot)",
+  "severity": "critical",
+  "risk_score": 99,
+  "tags": [
+    "homelab",
+    "notify",
+    "wazuh:100104",
+    "impact"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0040",
+        "name": "Impact",
+        "reference": "https://attack.mitre.org/tactics/TA0040/"
+      },
+      "technique": [
+        {
+          "id": "T1490",
+          "name": "Inhibit System Recovery",
+          "reference": "https://attack.mitre.org/techniques/T1490/"
+        }
+      ]
+    }
+  ]
+}

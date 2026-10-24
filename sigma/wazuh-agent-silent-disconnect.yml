@@ -1,0 +1,28 @@
+title: Wazuh agent silent disconnect (state file lies)
+id: c9e1a3f0-1a4f-4b3d-9e5c-7b7a9e6c1d2a
+status: experimental
+description: |
+  Detects when a Wazuh agent's last_keepalive timestamp is older than 180 seconds
+  while its state file still claims status='connected'. This is the signature of
+  an internal Unix-socket deadlock (e.g., the SCA-induced hang seen on container-heavy
+  Linux hosts running Wazuh 4.14.5).
+references:
+  - https://github.com/wazuh/wazuh/issues  # link to filed issue when available
+  - wiki/sources/2026-09-29_wazuh-siem-archive.md, section feedback_wazuh_agent_silent_hang (internal)
+author: 0xFl4g
+date: 2026-05-13
+tags:
+  - attack.defense_evasion
+  - attack.t1562.006   # Impair Defenses: Indicator Blocking
+logsource:
+  product: wazuh
+  service: agent
+detection:
+  selection_state_lie:
+    state_status: 'connected'
+    keepalive_age_seconds: '>180'
+  condition: selection_state_lie
+falsepositives:
+  - Agent restart in progress (state file briefly absent or stale by <30s)
+  - Network blip causing one missed keepalive cycle (single occurrence, self-recovers)
+level: high

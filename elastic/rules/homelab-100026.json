@@ -1,0 +1,52 @@
+{
+  "enabled": true,
+  "actions": [],
+  "version": 1,
+  "author": [
+    "homelab"
+  ],
+  "license": "internal",
+  "interval": "5m",
+  "from": "now-6m",
+  "rule_id": "homelab-100026",
+  "name": "Hidden file created under /boot/config",
+  "description": "Port of Wazuh 100026: osquery boot_config_paths reports a new dot-file.",
+  "type": "query",
+  "language": "kuery",
+  "index": [
+    "logs-osquery.result-*"
+  ],
+  "query": "osquery.name:boot_config_paths and osquery.action:added and osquery.counter > 0 and osquery.columns.path:*/.*",
+  "severity": "medium",
+  "risk_score": 47,
+  "tags": [
+    "homelab",
+    "notify",
+    "wazuh:100026",
+    "defense_evasion"
+  ],
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "tactic": {
+        "id": "TA0005",
+        "name": "Stealth",
+        "reference": "https://attack.mitre.org/tactics/TA0005/"
+      },
+      "technique": [
+        {
+          "id": "T1564",
+          "name": "Hide Artifacts",
+          "reference": "https://attack.mitre.org/techniques/T1564/",
+          "subtechnique": [
+            {
+              "id": "T1564.001",
+              "name": "Hidden Files and Directories",
+              "reference": "https://attack.mitre.org/techniques/T1564/001/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
