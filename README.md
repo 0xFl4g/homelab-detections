@@ -38,9 +38,13 @@ alert on that network every day, and a canary proves each one still fires.
 
 ## Incident write-ups
 
-Blameless postmortems of real incidents in this lab.
+Incident postmortems and engineering notes from this lab.
 
+- [The update job that could never finish: a read-only device left writable for 20 days](writeups/2026-10-24-pikvm-readonly-root-left-writable.md) (2026-10-24)
+- [No swap, two OOM kills, and choosing what the kernel kills](writeups/2026-10-22-host-oom-choosing-the-victim.md) (2026-10-22)
+- [Attacking my own lab: what Atomic Red Team found in my Linux detections](writeups/2026-10-18-atomic-red-team-linux-coverage.md) (2026-10-18)
 - [My SIEM was storing its own passwords: credentials in Docker exec command lines](writeups/2026-09-28-docker-exec-credential-leak.md) (2026-09-28)
+- [Three ways in: making remote access to the homelab survive one router failing](writeups/2026-09-26-tailscale-subnet-router-ha.md) (2026-09-26)
 
 ## ATT&CK coverage
 
